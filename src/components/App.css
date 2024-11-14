@@ -1,0 +1,105 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  
+  /* width: 100vw;
+  display: grid;
+  grid-template-columns: 1fr 3fr */
+}
+
+.App {
+  display: grid;
+  grid-template-rows: min-content auto;
+  grid-template-columns: minmax(100px, 1fr)  3.5fr;
+  height: 100vh;
+  overflow: scroll;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  background-image: url("360_F_436795852_bU2LtHbIRwMfKial8U58WkKPTFQIJn3k.jpg");
+  color: white;
+  font-weight: bold;
+  text-shadow: 
+  1px 1px 0 black,  /* Right shadow */
+ -1px 1px 0 black,  /* Left shadow */
+  1px -1px 0 black, /* Top shadow */
+ -1px -1px 0 black; /* Bottom shadow */
+  grid-column: 1 / span 2;
+  padding: 10px 5px;
+  height: flex;
+}
+
+form {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+form input,
+form textarea {
+  margin-bottom: 10px;
+  width: 300px;
+}
+
+nav,
+article {
+  height: 100%;
+  padding: 10px;
+  /* size: 100vh, 100vw; */
+}
+
+article{
+  /*
+  ERRORS:
+  the background image doesn't load on the firebase servers
+  the nav and article do not cover the whole screen
+  the nav and article do not split the screen on a 1 to 3 ratio
+  */
+  background-image: url("crystal-clear-sea-water-topdown-shot-free-video.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  color: rgb(233, 201, 71);
+  font-size: larger;
+  text-shadow: 
+        1px 1px 0 black,  /* Right shadow */
+       -1px 1px 0 black,  /* Left shadow */
+        1px -1px 0 black, /* Top shadow */
+       -1px -1px 0 black; /* Bottom shadow */
+}
+
+nav {
+  background-image: url("sand-background-top-view-desert-or-beach-texture-free-vector.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: rgb(110, 207, 207);
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 
+  1px 1px 0 black,  /* Right shadow */
+ -1px 1px 0 black,  /* Left shadow */
+  1px -1px 0 black, /* Top shadow */
+ -1px -1px 0 black; /* Bottom shadow */
+}
+
+nav p:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+article .date {
+  font-style: italic;
+}
+
+article .body {
+  white-space: break-spaces;
+}
+
+.error {
+  background-color: red;
+  color: gold;
+  padding: 5px;
+}
