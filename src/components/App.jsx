@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import Nav from "./Nav"
-import Article from "./Article"
+import Article, { Snapshot } from "./Article"
 import ArticleEntry from "./ArticleEntry"
 import { SignIn, SignOut } from "./Auth"
 import { useAuthentication } from "../services/authService"
-import { fetchArticles, createArticle } from "../services/articleService"
+import { fetchArticles, createArticle, fetchSnapshot, createSnapshot } from "../services/articleService"
 import "./App.css"
 
 import zeroPercent from "../images/0 percent.jpeg"
@@ -23,6 +23,10 @@ export default function App() {
   const [articles, setArticles] = useState([])
   const [article, setArticle] = useState(null)
   const [writing, setWriting] = useState(false)
+
+  const [snapshots, setSnapshots] = useState([])
+  const [snapshot, setSnapshot] = useState(null)
+
   const user = useAuthentication()
 
   const[seeResult, setSeeResult] = useState(false)
@@ -71,9 +75,28 @@ export default function App() {
     })
   }
 
-  function takeSnapshot({ title, date, n1, n2, r1, r2, p1, p2, t1, t2, c1, c2 }){}
+  function addSnapshot({ title, date}) {
+    createSnapshot({ title, date, n1, n2, r1, r2, p1, p2, t1, t2, c1, c2 }).then((snapshot) => {
+      setSnapshot(snapshot)
+      setSnapshots([snapshot, ...snapshots])
+      setWriting(false)
+    })
+  }
 
   const seeToggle = () => {setSeeResult(prevState => !prevState);};
+
+  function reset(){
+    setN1(1)
+    setN2(1)
+    setR1(0.5)
+    setR2(0.5)
+    setP1(0.5)
+    setP2(0.5)
+    setT1(0.5)
+    setT2(0.5)
+    setC1(0.5)
+    setC2(0.5)
+  }
 
   function zerotoOne(x){return Math.min(Math.max(x,0),1)}
 
@@ -113,8 +136,6 @@ export default function App() {
     if (percentage < 0 || percentage > 100) {
       return 'Out of range';
     }
-  
-    // Map the value to a range category
     const range = Math.floor(percentage / 10);
     
     const array = [zeroPercent,
@@ -130,31 +151,6 @@ export default function App() {
       hundredPercent
     ]
     return array[range]
-    // // Use a switch statement for the ranges
-    // switch (range) {
-    //   case 0:
-    //     return '../images/0 percent.jpeg';
-    //   case 10:
-    //     return '../images/10 percent.jpeg';
-    //   case 20:
-    //     return '../images/20 percent.jpeg';
-    //   case 30:
-    //     return '../images/30 percent.jpeg';
-    //   case 40:
-    //     return '../images/40 percent.jpeg';
-    //   case 50:
-    //     return '../images/50 percent.jpeg';
-    //   case 60:
-    //     return '../images/60 percent.jpeg';
-    //   case 70:
-    //     return '../images/70 percent.jpeg';
-    //   case 80:
-    //     return '../images/80 percent.jpeg';
-    //   case 90:
-    //     return '../images/90 percent.jpeg';
-    //   default:
-    //     return '../images/100 percent.jpeg';
-    // }
   }
 
   return (
@@ -222,6 +218,7 @@ export default function App() {
           </div>
 
           <div className="Results">
+            <button onClick={reset}>Reset Values</button>
             <button onClick={seeToggle}>{seeResult ? 'Hide Results' : 'See Results'}</button>
             {seeResult && (
             <div>
@@ -247,6 +244,13 @@ export default function App() {
             <ArticleEntry addArticle={addArticle} setWriting={setWriting} />
           ) : (
             <Article article={article} />
+          )}
+          {!user ? (
+            ""
+          ) : writing ? (
+            <ArticleEntry addSnapshot={addSnapshot} setWriting={setWriting} />
+          ) : (
+            <Snapshot snapshot={snapshot} />
           )}
         </div>
 
