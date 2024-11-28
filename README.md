@@ -1,5 +1,5 @@
-Yarrr! This be the Captain's Blog *parrot emoji* *ship emoji* *skull emoji*!
+This is a web App designed to calculate intergroup conflict by using various variables.
 
-Ye can access it here: https://captain-s-blog.web.app/
+Here is the Github repo:
 
-Here be me Firebase! https://console.firebase.google.com/u/0/project/captain-s-blog/overview 
+Here is the Firebase deploy:
