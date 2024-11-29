@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function ArticleEntry({ addArticle, setWriting }) {
+export function ArticleEntry({ addArticle, setWriting }) {
   const [title, setTitle] = useState("")
   const [body, setBody] = useState("")
   const [date, setDate] = useState("")
@@ -37,6 +37,43 @@ export default function ArticleEntry({ addArticle, setWriting }) {
           value={body}
           onChange={(e) => setBody(e.target.value)}
         ></textarea>
+        <p> 
+          <button type="submit">Create</button>
+          &nbsp;
+          <button onClick={cancel}>Cancel</button>
+        </p>
+      </form>
+    </article>
+  )
+}
+
+export function SnapshotEntry({ addSnapshot, setWriting }) {
+
+  const [title, setTitle] = useState("")
+  const [date, setDate] = useState("")
+
+  function submit(e) {
+    setError(null)
+    e.preventDefault()
+    if (!title.trim() || !date.trim()) {
+      setError("Title, and date must be supplied")
+    } else {
+      addSnapshot({ title, date })
+    }
+  }
+
+  function cancel(){
+    setWriting(false);
+  }
+ // unfinished after
+  return (
+    <article>
+      <form onSubmit={submit}>
+        {error && <p className="error">{error}</p>}
+        Title
+        <input value={title} onChange={(e) => setTitle(e.target.value)} />
+        Date
+        <input value={date} onChange={(e) => setDate(e.target.value)} />
         <p> 
           <button type="submit">Create</button>
           &nbsp;

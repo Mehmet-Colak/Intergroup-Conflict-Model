@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 import Nav from "./Nav"
-import Article, { Snapshot } from "./Article"
-import ArticleEntry from "./ArticleEntry"
+//make snapshot default
+import { Article, Snapshot } from "./Article"
+//must make snapshot entry default
+import { ArticleEntry, SnapshotEntry } from "./ArticleEntry"
 import { SignIn, SignOut } from "./Auth"
 import { useAuthentication } from "../services/authService"
 import { fetchArticles, createArticle, fetchSnapshot, createSnapshot } from "../services/articleService"
@@ -75,7 +77,7 @@ export default function App() {
     })
   }
 
-  function addSnapshot({ title, date}) {
+  function addSnapshot({ title, date }) {
     createSnapshot({ title, date, n1, n2, r1, r2, p1, p2, t1, t2, c1, c2 }).then((snapshot) => {
       setSnapshot(snapshot)
       setSnapshots([snapshot, ...snapshots])
@@ -248,7 +250,7 @@ export default function App() {
           {!user ? (
             ""
           ) : writing ? (
-            <ArticleEntry addSnapshot={addSnapshot} setWriting={setWriting} />
+            <SnapshotEntry addSnapshot={addSnapshot} setWriting={setWriting} />
           ) : (
             <Snapshot snapshot={snapshot} />
           )}

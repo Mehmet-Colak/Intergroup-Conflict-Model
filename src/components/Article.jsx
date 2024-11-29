@@ -1,4 +1,4 @@
-export default function Article({ article }) {
+export function Article({ article }) {
   return (
     <article>
       {!article ? (
