@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import Nav from "./Nav"
+import History from "./Nav"
 //make snapshot default
 import { Article, Snapshot } from "./Article"
 //must make snapshot entry default
 import { ArticleEntry, SnapshotEntry } from "./ArticleEntry"
 import { SignIn, SignOut } from "./Auth"
 import { useAuthentication } from "../services/authService"
-import { fetchArticles, createArticle, fetchSnapshot, createSnapshot } from "../services/articleService"
+import { fetchArticles, createArticle, fetchSnapshots, createSnapshot, emptySnapshots } from "../services/articleService"
 import "./App.css"
 
 import zeroPercent from "../images/0 percent.jpeg"
@@ -63,11 +63,19 @@ export default function App() {
 
   useEffect(conflictCalculator, [n1,n2,r1,r2,p1,p2,t1,t2,c1,c2])
 
+  //this is from the old code
   // useEffect(() => {
   //   if (user) {
   //     fetchArticles().then(setArticles)
   //   }
   // }, [user])
+
+  useEffect(() => {
+    if (user) {
+      fetchSnapshots().then(setSnapshots)
+    }
+  }, [user])
+  
 
   function addArticle({ title, body, date, location }) {
     createArticle({ title, body, date, location }).then((article) => {
@@ -77,8 +85,12 @@ export default function App() {
     })
   }
 
-  function addSnapshot({ title, date }) {
-    createSnapshot({ title, date, n1, n2, r1, r2, p1, p2, t1, t2, c1, c2 }).then((snapshot) => {
+  function addSnapshot({ title }) {
+    createSnapshot({ title, n1: Number (n1), n2: Number (n2), 
+      r1: Number (r1), r2: Number (r2), 
+      p1: Number (p1), p2: Number (p2), 
+      t1: Number (t1), t2: Number (t2),
+      c1: Number (c1), c2: Number (c2) }).then((snapshot) => {
       setSnapshot(snapshot)
       setSnapshots([snapshot, ...snapshots])
       setWriting(false)
@@ -86,6 +98,21 @@ export default function App() {
   }
 
   const seeToggle = () => {setSeeResult(prevState => !prevState);};
+
+  useEffect(() => {
+    if (snapshot){
+      setN1(snapshot.n1)
+      setN2(snapshot.n2)
+      setR1(snapshot.r1)
+      setR2(snapshot.r2)
+      setP1(snapshot.p1)
+      setP2(snapshot.p2)
+      setT1(snapshot.t1)
+      setT2(snapshot.t2)
+      setC1(snapshot.c1)
+      setC2(snapshot.c2)
+    }
+  }, [snapshot, snapshots])
 
   function reset(){
     setN1(1)
@@ -159,11 +186,12 @@ export default function App() {
     <div className="App">
       <header>
         Intergroup Conflict Model
-        {user && <button onClick={() => setWriting(true)}>Save Snapshot</button>}
+        {/* {user && <button onClick={() => setWriting(true)}>Save Snapshot</button>} */}
+        {user && <button onClick={() => addSnapshot({title:"x"})}>Save Snapshot</button>}
         {!user ? <SignIn /> : <SignOut />}
       </header>
 
-      <body>
+      <div>
         <div id="simulation">
           <div className="Group">
             Number of People in Group 1
@@ -236,17 +264,20 @@ export default function App() {
             Normn2 {twoDP(normn2)}
           </div>
         </div>
-
+            
+        
         <div id="history">History
+          <History snapshots={snapshots} setSnapshot={setSnapshot}></History>
+          {user && <button onClick={() => emptySnapshots().then (()=>setSnapshots([]))}>Delete All Snapshot</button>}
           {/* this is where the snapshot button goes, snapshots can be saved on a tab on the left */}
-          {!user ? "" : <Nav articles={articles} setArticle={setArticle} />}
+          {/* {!user ? "" : <Nav articles={articles} setArticle={setArticle} />}
           {!user ? (
             ""
           ) : writing ? (
             <ArticleEntry addArticle={addArticle} setWriting={setWriting} />
           ) : (
             <Article article={article} />
-          )}
+          )} */}
           {!user ? (
             ""
           ) : writing ? (
@@ -256,7 +287,7 @@ export default function App() {
           )}
         </div>
 
-      </body>
+      </div>
 
       <footer>
 

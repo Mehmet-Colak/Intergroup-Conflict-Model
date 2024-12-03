@@ -50,15 +50,16 @@ export function ArticleEntry({ addArticle, setWriting }) {
 export function SnapshotEntry({ addSnapshot, setWriting }) {
 
   const [title, setTitle] = useState("")
-  const [date, setDate] = useState("")
+
+  const [error, setError] = useState(null)
 
   function submit(e) {
     setError(null)
     e.preventDefault()
-    if (!title.trim() || !date.trim()) {
-      setError("Title, and date must be supplied")
+    if (!title.trim()) {
+      setError("Title must be supplied")
     } else {
-      addSnapshot({ title, date })
+      addSnapshot({ title })
     }
   }
 

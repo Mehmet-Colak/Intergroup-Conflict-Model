@@ -1,10 +1,10 @@
-export default function Nav({ articles, setArticle }) {
+export default function History({ snapshots, setSnapshot }) {
   return (
     <nav>
-      {!articles
-        ? "No articles"
-        : articles.map((a) => (
-            <p key={a.id} onClick={() => setArticle(a)}>
+      {!snapshots
+        ? "No snapshots"
+        : snapshots.map((a) => (
+            <p key={a.id} onClick={() => setSnapshot(a)}>
               {a.title}
             </p>
           ))}
