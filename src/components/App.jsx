@@ -57,6 +57,14 @@ export default function App() {
   function changeT2(e) {setT2(e.currentTarget.value);}
   function changeC2(e) {setC2(e.currentTarget.value);}
 
+  const [title, setTitle] = useState("Title");
+
+  const handleBlur = () => {
+    if (title.trim() === "") {
+      setTitle("Title");
+    }
+  };
+
   useEffect(conflictCalculator, [n1,n2,r1,r2,p1,p2,t1,t2,c1,c2])
 
   //this is from the old code
@@ -175,7 +183,7 @@ export default function App() {
       <header>
         Intergroup Conflict Model
         {/* {user && <button onClick={() => setWriting(true)}>Save Snapshot</button>} */}
-        {user && <button onClick={() => addSnapshot({title:"x"})}>Save Snapshot</button>}
+        {user && <button onClick={() => addSnapshot({title:title})}>Save Snapshot</button>}
         {!user ? <SignIn /> : <SignOut />}
       </header>
 
@@ -233,6 +241,8 @@ export default function App() {
               <input onChange={changeC2} type="range" min="0" max="1" value={c2} step="0.01"/>
               <input type="text" value={c2} onChange={(e) => setC2(zerotoOne(e.target.value))} />
             </div>
+            Title of the Snapshot
+            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} onBlur={handleBlur} />
           </div>
 
           <div className="Results">
