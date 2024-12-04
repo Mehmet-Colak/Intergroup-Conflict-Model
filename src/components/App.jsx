@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react"
-import History from "./Nav"
-//make snapshot default
-import { Article, Snapshot } from "./Article"
-//must make snapshot entry default
-import { ArticleEntry, SnapshotEntry } from "./ArticleEntry"
+import History from "./History"
+import { Snapshot } from "./Snapshot"
+import { SnapshotEntry } from "./SnapshotEntry"
 import { SignIn, SignOut } from "./Auth"
 import { useAuthentication } from "../services/authService"
-import { fetchArticles, createArticle, fetchSnapshots, createSnapshot, emptySnapshots } from "../services/articleService"
+import { fetchSnapshots, createSnapshot, emptySnapshots } from "../services/snapshotService"
 import "./App.css"
 
 import zeroPercent from "../images/0 percent.jpeg"
@@ -22,8 +20,6 @@ import ninetyPercent from "../images/90 percent.jpeg"
 import hundredPercent from "../images/100 percent.jpeg"
 
 export default function App() {
-  const [articles, setArticles] = useState([])
-  const [article, setArticle] = useState(null)
   const [writing, setWriting] = useState(false)
 
   const [snapshots, setSnapshots] = useState([])
@@ -76,14 +72,6 @@ export default function App() {
     }
   }, [user])
   
-
-  function addArticle({ title, body, date, location }) {
-    createArticle({ title, body, date, location }).then((article) => {
-      setArticle(article)
-      setArticles([article, ...articles])
-      setWriting(false)
-    })
-  }
 
   function addSnapshot({ title }) {
     createSnapshot({ title, n1: Number (n1), n2: Number (n2), 
