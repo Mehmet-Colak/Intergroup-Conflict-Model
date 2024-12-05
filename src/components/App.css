@@ -65,23 +65,6 @@ footer {
   background-color: rgb(248, 164, 133);
 }
 
-article {
-  /*
-  ERRORS:
-  the background image doesn't load on the firebase servers
-  the nav and article do not cover the whole screen
-  the nav and article do not split the screen on a 1 to 3 ratio
-  */
-  background-image: url("crystal-clear-sea-water-topdown-shot-free-video.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 100%;
-  color: rgb(233, 201, 71);
-  font-size: larger;
-  text-shadow: 1px 1px 0 black, /* Right shadow */ -1px 1px 0 black,
-    /* Left shadow */ 1px -1px 0 black, /* Top shadow */ -1px -1px 0 black; /* Bottom shadow */
-}
-
 nav {
   background-size: cover;
   background-repeat: no-repeat;

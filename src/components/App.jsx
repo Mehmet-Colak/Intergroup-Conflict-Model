@@ -424,11 +424,13 @@ export default function App() {
           )}
         </div>
         {/* <div className="Testing">
-            Normn1 {twoDP(normn1)}
-          </div>
-          <div className="Testing">
-            Normn2 {twoDP(normn2)}
-          </div> */}
+          N1 {twoDP(n1)}
+          Normn1 {twoDP(normn1)}
+        </div>
+        <div className="Testing">
+          N2 {twoDP(n2)}
+          Normn2 {twoDP(normn2)}
+        </div> */}
       </div>
 
       <div id="history">
