@@ -20,7 +20,6 @@ import ninetyPercent from "../images/90 percent.jpeg"
 import hundredPercent from "../images/100 percent.jpeg"
 
 export default function App() {
-  const [writing, setWriting] = useState(false)
 
   const [snapshots, setSnapshots] = useState([])
   const [snapshot, setSnapshot] = useState(null)
@@ -57,11 +56,11 @@ export default function App() {
   function changeT2(e) {setT2(e.currentTarget.value);}
   function changeC2(e) {setC2(e.currentTarget.value);}
 
-  const [title, setTitle] = useState("Title");
+  const [title, setTitle] = useState("Snapshot");
 
   const handleBlur = () => {
     if (title.trim() === "") {
-      setTitle("Title");
+      setTitle("Snapshot");
     }
   };
 
@@ -89,7 +88,6 @@ export default function App() {
       c1: Number (c1), c2: Number (c2) }).then((snapshot) => {
       setSnapshot(snapshot)
       setSnapshots([snapshot, ...snapshots])
-      setWriting(false)
     })
   }
 
@@ -97,6 +95,7 @@ export default function App() {
 
   useEffect(() => {
     if (snapshot){
+      setTitle(snapshot.title)
       setN1(snapshot.n1)
       setN2(snapshot.n2)
       setR1(snapshot.r1)
@@ -182,13 +181,16 @@ export default function App() {
     <div className="App">
       <header>
         Intergroup Conflict Model
-        {/* {user && <button onClick={() => setWriting(true)}>Save Snapshot</button>} */}
-        {user && <button onClick={() => addSnapshot({title:title})}>Save Snapshot</button>}
+        {/* {user && <button onClick={() => setWriting(true)}>Save Snapshot</button>}
+        {user && <button onClick={() => addSnapshot({title:title})}>Save Snapshot</button>} */}
         {!user ? <SignIn /> : <SignOut />}
       </header>
 
-      <div>
+      <div id="body">
         <div id="simulation">
+          Title of the Snapshot
+          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} onBlur={handleBlur} />
+          <button onClick={reset}>Reset Values</button>
           <div className="Group">
             Number of People in Group 1
             <div className="sliderContainer">
@@ -241,12 +243,9 @@ export default function App() {
               <input onChange={changeC2} type="range" min="0" max="1" value={c2} step="0.01"/>
               <input type="text" value={c2} onChange={(e) => setC2(zerotoOne(e.target.value))} />
             </div>
-            Title of the Snapshot
-            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} onBlur={handleBlur} />
           </div>
 
           <div className="Results">
-            <button onClick={reset}>Reset Values</button>
             <button onClick={seeToggle}>{seeResult ? 'Hide Results' : 'See Results'}</button>
             {seeResult && (
             <div>
@@ -254,35 +253,20 @@ export default function App() {
               <img src={imagepicker(twoDP(final))} alt="Likelihood visual" style={{ height: '200px', objectFit: 'contain' }}/>
             </div>
             )}
+            {user && <button onClick={() => addSnapshot({title:title})}>Save Snapshot</button>}
           </div>
-          <div className="Testing">
+          {/* <div className="Testing">
             Normn1 {twoDP(normn1)}
           </div>
           <div className="Testing">
             Normn2 {twoDP(normn2)}
-          </div>
+          </div> */}
         </div>
             
         
         <div id="history">History
           <History snapshots={snapshots} setSnapshot={setSnapshot}></History>
           {user && <button onClick={() => emptySnapshots().then (()=>setSnapshots([]))}>Delete All Snapshot</button>}
-          {/* this is where the snapshot button goes, snapshots can be saved on a tab on the left */}
-          {/* {!user ? "" : <Nav articles={articles} setArticle={setArticle} />}
-          {!user ? (
-            ""
-          ) : writing ? (
-            <ArticleEntry addArticle={addArticle} setWriting={setWriting} />
-          ) : (
-            <Article article={article} />
-          )} */}
-          {!user ? (
-            ""
-          ) : writing ? (
-            <SnapshotEntry addSnapshot={addSnapshot} setWriting={setWriting} />
-          ) : (
-            <Snapshot snapshot={snapshot} />
-          )}
         </div>
 
       </div>
