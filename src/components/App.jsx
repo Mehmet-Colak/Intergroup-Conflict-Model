@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react"
 import History from "./History"
-import { Snapshot } from "./Snapshot"
-import { SnapshotEntry } from "./SnapshotEntry"
 import { SignIn, SignOut } from "./Auth"
 import { useAuthentication } from "../services/authService"
 import {
