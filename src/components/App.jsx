@@ -175,14 +175,13 @@ export default function App() {
   }
 
   function conflictCalculator() {
-    //multiply n1 and n2 by the resources?
 
-    //update these properly?
-    setNormN1(n1 / (n1 + n2))
-    setNormN2(n2 / (n1 + n2))
-    // let normn1 = n1/(n1+n2)
-    // let normn2 = n2/(n1+n2)
-    //add these later
+    const N1 = Number(n1)
+    const N2 = Number(n2)
+
+    setNormN1(N1 / (N1 + N2))
+    setNormN2(N2 / (N1 + N2))
+
     const a = 12.5
     const b = 12.5
     const g = 12.5
