@@ -39,7 +39,6 @@ export default function App() {
   const [c1, setC1] = useState(0.5)
 
   const [n1, setN1] = useState(1)
-  const [normn1, setNormN1] = useState(0.5)
 
   function changeR1(e) {
     setR1(e.currentTarget.value)
@@ -60,7 +59,6 @@ export default function App() {
   const [c2, setC2] = useState(0.5)
 
   const [n2, setN2] = useState(1)
-  const [normn2, setNormN2] = useState(0.5)
 
   function changeR2(e) {
     setR2(e.currentTarget.value)
@@ -175,23 +173,20 @@ export default function App() {
   }
 
   function conflictCalculator() {
-
     const N1 = Number(n1)
     const N2 = Number(n2)
 
-    setNormN1(N1 / (N1 + N2))
-    setNormN2(N2 / (N1 + N2))
+    const nn1 = N1 / (N1 + N2)
+    const nn2 = N2 / (N1 + N2)
 
-    const a = 12.5
-    const b = 12.5
-    const g = 12.5
-    const o = 12.5
+    const a = 25
+    const b = 25
+    const g = 25
+    const o = 25
 
     let conflict =
-      normn1 * (a * rCalc(r1) + b * pCalc(p1) + g * tCalc(t1) + o * cCalc(c1)) +
-      normn2 * (a * rCalc(r2) + b * pCalc(p2) + g * tCalc(t2) + o * cCalc(c2))
-
-    conflict *= 2
+      nn1 * (a * rCalc(r1) + b * pCalc(p1) + g * tCalc(t1) + o * cCalc(c1)) +
+      nn2 * (a * rCalc(r2) + b * pCalc(p2) + g * tCalc(t2) + o * cCalc(c2))
 
     setFinal(conflict)
     console.log(conflict)
