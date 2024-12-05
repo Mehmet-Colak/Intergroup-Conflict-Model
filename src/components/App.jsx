@@ -447,7 +447,15 @@ export default function App() {
         )}
       </div>
 
-      <footer>Footer</footer>
+      <footer>
+        Footer
+        <a href="https://github.com/Mehmet-Colak/Intergroup-Conflict-Model">
+          Github
+        </a>
+        <a href="https://console.firebase.google.com/u/0/project/intergroup-conflict-model/overview">
+          Firebase
+        </a>
+      </footer>
     </div>
   )
 }
