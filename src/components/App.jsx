@@ -215,29 +215,30 @@ export default function App() {
   return (
     <div className="App">
       <header>
-        Intergroup Conflict Model
-        {/* {user && <button onClick={() => setWriting(true)}>Save Snapshot</button>}
-        {user && <button onClick={() => addSnapshot({title:title})}>Save Snapshot</button>} */}
-        {!user ? <SignIn /> : <SignOut />}
+        ConflictCalc
+        <h1>{!user ? <SignIn /> : <SignOut />}</h1>
       </header>
 
       <div id="simulation">
-        <p>Title of the Snapshot</p>
-        <p>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            onBlur={handleBlur}
-          />
-        </p>
+        <div>
+          <p1>Title of the Snapshot</p1>
 
-        <p id="reset">
+          <div>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              onBlur={handleBlur}
+            />
+          </div>
+        </div>
+
+        <div>
           <button onClick={reset}>Reset Values</button>
-        </p>
+        </div>
 
         <div className="Group">
-          Number of People in Group 1
+          <p1>Number of People in Group 1</p1>
           <div className="sliderContainer">
             <input
               type="text"
@@ -255,6 +256,7 @@ export default function App() {
               value={r1}
               step="0.01"
             />
+
             <input
               type="text"
               value={r1}
@@ -271,6 +273,7 @@ export default function App() {
               value={p1}
               step="0.01"
             />
+
             <input
               type="text"
               value={p1}
@@ -287,6 +290,7 @@ export default function App() {
               value={t1}
               step="0.01"
             />
+
             <input
               type="text"
               value={t1}
@@ -303,6 +307,7 @@ export default function App() {
               value={c1}
               step="0.01"
             />
+
             <input
               type="text"
               value={c1}
@@ -310,8 +315,9 @@ export default function App() {
             />
           </div>
         </div>
+
         <div className="Group">
-          Number of People in Group 2
+          <p1>Number of People in Group 2</p1>
           <div className="sliderContainer">
             <input
               type="text"
@@ -329,6 +335,7 @@ export default function App() {
               value={r2}
               step="0.01"
             />
+
             <input
               type="text"
               value={r2}
@@ -345,6 +352,7 @@ export default function App() {
               value={p2}
               step="0.01"
             />
+
             <input
               type="text"
               value={p2}
@@ -361,6 +369,7 @@ export default function App() {
               value={t2}
               step="0.01"
             />
+
             <input
               type="text"
               value={t2}
@@ -377,57 +386,39 @@ export default function App() {
               value={c2}
               step="0.01"
             />
+
             <input
               type="text"
               value={c2}
               onChange={(e) => setC2(zerotoOne(e.target.value))}
             />
+
+            <p></p>
           </div>
         </div>
 
-        <div className="Results">
-          <p id="results">
-            <button onClick={seeToggle}>
-              {seeResult ? "Hide Results" : "See Results"}
-            </button>
-          </p>
-
-          {seeResult && (
-            <div>
-              <p id="result_text">
-                The likelihood of conflict is {twoDP(final)}%
-              </p>
-
-              <p id="result_image">
-                <img
-                  src={imagepicker(twoDP(final))}
-                  alt="Likelihood visual"
-                  style={{ width: "70vw", objectFit: "contain" }}
-                />
-              </p>
-            </div>
-          )}
-          {user && (
-            <p id="save">
-              <button onClick={() => addSnapshot({ title: title })}>
-                Save Snapshot
-              </button>
-            </p>
-          )}
-        </div>
         {/* <div className="Testing">
-          N1 {twoDP(n1)}
-          Normn1 {twoDP(normn1)}
-        </div>
-        <div className="Testing">
-          N2 {twoDP(n2)}
-          Normn2 {twoDP(normn2)}
-        </div> */}
+
+        N1 {twoDP(n1)}
+
+        Normn1 {twoDP(normn1)}
+
+      </div>
+
+      <div className="Testing">
+
+        N2 {twoDP(n2)}
+
+        Normn2 {twoDP(normn2)}
+
+      </div> */}
       </div>
 
       <div id="history">
         <p>History</p>
+
         <History snapshots={snapshots} setSnapshot={setSnapshot}></History>
+
         {user && (
           <p id="delete">
             <button
@@ -439,8 +430,42 @@ export default function App() {
         )}
       </div>
 
+      <div className="Results">
+        <p id="results">
+          <button onClick={seeToggle}>
+            {seeResult ? "Hide Results" : "See Results"}
+          </button>{" "}
+        </p>
+
+        {seeResult && (
+          <div>
+            <p id="result_text">
+              The likelihood of conflict is {twoDP(final)}%
+            </p>
+
+            <p id="result_image">
+              <img
+                src={imagepicker(twoDP(final))}
+                alt="Likelihood visual"
+                style={{ width: "70vw", objectFit: "contain" }}
+              />
+            </p>
+          </div>
+        )}
+
+        {user && (
+          <p id="save">
+            <button onClick={() => addSnapshot({ title: title })}>
+              Save Snapshot
+            </button>
+
+            <> </>
+          </p>
+        )}
+      </div>
+
       <footer>
-        Footer
+        The SMIling COLlaborators
         <a href="https://github.com/Mehmet-Colak/Intergroup-Conflict-Model">
           Github
         </a>
