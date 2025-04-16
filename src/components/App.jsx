@@ -466,7 +466,7 @@ export default function App() {
             <p>Number of People in Group 1</p>
             <div className="sliderContainer">
               <input
-                type="text"
+                type="texttitle"
                 value={n1}
                 onChange={(e) => setN1(e.target.value)}
               />
@@ -656,7 +656,7 @@ export default function App() {
             <p>Number of People in Group 2</p>
             <div className="sliderContainer">
               <input
-                type="text"
+                type="texttitle"
                 value={n2}
                 onChange={(e) => setN2(e.target.value)}
               />
