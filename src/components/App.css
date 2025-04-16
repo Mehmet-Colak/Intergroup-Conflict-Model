@@ -4,6 +4,22 @@ body {
   font-family: georgia;
 }
 
+input[type="range"] {
+  width: 150px;
+  height: 20px;
+}
+
+input[type="text"] {
+  width: 30px;
+  height: 20px;
+  pointer-events: none;
+}
+
+input[type="texttitle"] {
+  width: 150px;
+  height: 40px;
+}
+
 .Testing {
   background-color: rgb(248, 88, 88);
 
@@ -84,10 +100,6 @@ h1 {
   padding-top: 20px;
 
   padding-bottom: 10px;
-}
-
-p1 {
-  font-weight: bold;
 }
 
 .Results {

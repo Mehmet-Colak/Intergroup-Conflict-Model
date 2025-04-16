@@ -8,11 +8,62 @@ import {
   deleteDoc,
   orderBy,
   limit,
-  Timestamp,
 } from "firebase/firestore"
 
-export async function createSnapshot({ title, n1, n2, r1, r2, p1, p2, t1, t2, c1, c2 }){
-  const data = { title, n1, n2, r1, r2, p1, p2, t1, t2, c1, c2 }
+export async function createSnapshot({
+  title,
+  n1,
+  s1,
+  gd1,
+  ds1,
+  c1,
+  pd1,
+  nr1,
+  wr1,
+  m1,
+  i1,
+  r1,
+  f1,
+  n2,
+  s2,
+  gd2,
+  ds2,
+  c2,
+  pd2,
+  nr2,
+  wr2,
+  m2,
+  i2,
+  r2,
+  f2,
+}) {
+  const data = {
+    title,
+    n1,
+    s1,
+    gd1,
+    ds1,
+    c1,
+    pd1,
+    nr1,
+    wr1,
+    m1,
+    i1,
+    r1,
+    f1,
+    n2,
+    s2,
+    gd2,
+    ds2,
+    c2,
+    pd2,
+    nr2,
+    wr2,
+    m2,
+    i2,
+    r2,
+    f2,
+  }
   console.log(data)
   const docRef = await addDoc(collection(db, "snapshots"), data)
   return { id: docRef.id, ...data }
@@ -28,11 +79,11 @@ export async function fetchSnapshots() {
   }))
 }
 
-export async function emptySnapshots(){
-  const q = query(collection(db, "snapshots"));
-  const querySnapshot = await getDocs(q);
+export async function emptySnapshots() {
+  const q = query(collection(db, "snapshots"))
+  const querySnapshot = await getDocs(q)
 
   querySnapshot.forEach(async (document) => {
-      await deleteDoc(doc(db, "snapshots", document.id));
-  });
+    await deleteDoc(doc(db, "snapshots", document.id))
+  })
 }
