@@ -29,6 +29,8 @@ export default function App() {
 
   const [useMorals, setUseMorals] = useState(false)
 
+  const [useRandom, setUseRandom] = useState(false)
+
   const [seeResult, setSeeResult] = useState(false)
 
   const [final1, setFinal1] = useState(0)
@@ -49,6 +51,8 @@ export default function App() {
   const [i1, setI1] = useState(0.5)
   const [r1, setR1] = useState(0)
   const [f1, setF1] = useState(0.5)
+  //random value
+  const [random1, setRandom1] = useState(Math.random() * 2 - 1)
 
   function changeS1(e) {
     setS1(e.currentTarget.value)
@@ -102,6 +106,8 @@ export default function App() {
   const [i2, setI2] = useState(0.5)
   const [r2, setR2] = useState(0)
   const [f2, setF2] = useState(0.5)
+  //random value
+  const [random2, setRandom2] = useState(Math.random() * 2 - 1)
 
   function changeS2(e) {
     setS2(e.currentTarget.value)
@@ -233,6 +239,13 @@ export default function App() {
 
   const moralsToggle = () => {
     setUseMorals((prevState) => !prevState)
+  }
+
+  const randomToggle = () => {
+    setUseRandom((prevState) => !prevState)
+    setRandom1(Math.random() * 2 - 1)
+    setRandom2(Math.random() * 2 - 1)
+    console.log(random1, random2)
   }
 
   const seeToggle = () => {
@@ -451,6 +464,11 @@ export default function App() {
             />
           </div>
         </div>
+        <p id="morals">
+          <button onClick={moralsToggle}>
+            {useMorals ? "Remove Morals" : "Add Morals"}
+          </button>{" "}
+        </p>
         <div>
           <button onClick={reset}>Reset Values</button>
         </div>
@@ -861,9 +879,9 @@ export default function App() {
       </div>
 
       <div className="Results">
-        <p id="morals">
-          <button onClick={moralsToggle}>
-            {useMorals ? "Remove Morals" : "Add Morals"}
+        <p id="random">
+          <button onClick={randomToggle}>
+            {useRandom ? "Remove Random" : "Add Random"}
           </button>{" "}
         </p>
         <p id="results">
@@ -871,7 +889,6 @@ export default function App() {
             {seeResult ? "Hide Results" : "See Results"}
           </button>{" "}
         </p>
-
         {seeResult && (
           <div
             style={{
