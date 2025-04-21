@@ -27,9 +27,9 @@ export default function App() {
 
   const user = useAuthentication()
 
-  const [useMorals, setUseMorals] = useState(false)
+  const [addMorals, setAddMorals] = useState(false)
 
-  const [useRandom, setUseRandom] = useState(false)
+  const [addRandom, setAddRandom] = useState(false)
 
   const [seeResult, setSeeResult] = useState(false)
 
@@ -52,7 +52,37 @@ export default function App() {
   const [r1, setR1] = useState(0)
   const [f1, setF1] = useState(0.5)
   //random value
-  const [random1, setRandom1] = useState(Math.random() * 2 - 1)
+  const [random1, setRandom1] = useState(0)
+
+  //moral foundations for one
+  const [c_h1, setc_h1] = useState(0)
+  const [l_b1, setl_b1] = useState(0)
+  const [a_s1, seta_s1] = useState(0)
+  const [p_d1, setp_d1] = useState(0)
+  const [e_d1, sete_d1] = useState(0)
+  const [p_i1, setp_i1] = useState(0)
+  const [l_o1, setl_o1] = useState(0)
+
+  //outcome
+  const [nn1, setnn1] = useState(0)
+  const [di1, setdi1] = useState(0)
+  const [iu1, setiu1] = useState(0)
+  const [ip1, setip1] = useState(0)
+  const [nd1, setnd1] = useState(0)
+  const [wd1, setwd1] = useState(0)
+  const [ind1, setind1] = useState(0)
+  const [iwd1, setiwd1] = useState(0)
+  const [pd1, setpd1] = useState(0)
+  const [rd1, setrd1] = useState(0)
+  const [du1, setdu1] = useState(0)
+  const [dp1, setdp1] = useState(0)
+  const [co1, setco1] = useState(0)
+  const [cu1, setcu1] = useState(0)
+  const [cp1, setcp1] = useState(0)
+  const [cd1, setcd1] = useState(0)
+  const [vd1, setvd1] = useState(0)
+  const [lc1, setlc1] = useState(0)
+  const [rlc1, setrlc1] = useState(0)
 
   function changeS1(e) {
     setS1(e.currentTarget.value)
@@ -88,6 +118,35 @@ export default function App() {
     setF1(e.currentTarget.value)
   }
 
+  //moral foundations
+  function changec_h1(e) {
+    setc_h1(e.currentTarget.value)
+  }
+
+  function changel_b1(e) {
+    setl_b1(e.currentTarget.value)
+  }
+
+  function changea_s1(e) {
+    seta_s1(e.currentTarget.value)
+  }
+
+  function changep_d1(e) {
+    setp_d1(e.currentTarget.value)
+  }
+
+  function changee_d1(e) {
+    sete_d1(e.currentTarget.value)
+  }
+
+  function changep_i1(e) {
+    setp_i1(e.currentTarget.value)
+  }
+
+  function changel_o1(e) {
+    setl_o1(e.currentTarget.value)
+  }
+
   const [final2, setFinal2] = useState(0)
   //amount of people variables
   const [n2, setN2] = useState(1)
@@ -107,7 +166,37 @@ export default function App() {
   const [r2, setR2] = useState(0)
   const [f2, setF2] = useState(0.5)
   //random value
-  const [random2, setRandom2] = useState(Math.random() * 2 - 1)
+  const [random2, setRandom2] = useState(0)
+
+  //moral foundations for two
+  const [c_h2, setc_h2] = useState(0)
+  const [l_b2, setl_b2] = useState(0)
+  const [a_s2, seta_s2] = useState(0)
+  const [p_d2, setp_d2] = useState(0)
+  const [e_d2, sete_d2] = useState(0)
+  const [p_i2, setp_i2] = useState(0)
+  const [l_o2, setl_o2] = useState(0)
+
+  //outcome
+  const [nn2, setnn2] = useState(0)
+  const [di2, setdi2] = useState(0)
+  const [iu2, setiu2] = useState(0)
+  const [ip2, setip2] = useState(0)
+  const [nd2, setnd2] = useState(0)
+  const [wd2, setwd2] = useState(0)
+  const [ind2, setind2] = useState(0)
+  const [iwd2, setiwd2] = useState(0)
+  const [pd2, setpd2] = useState(0)
+  const [rd2, setrd2] = useState(0)
+  const [du2, setdu2] = useState(0)
+  const [dp2, setdp2] = useState(0)
+  const [co2, setco2] = useState(0)
+  const [cu2, setcu2] = useState(0)
+  const [cp2, setcp2] = useState(0)
+  const [cd2, setcd2] = useState(0)
+  const [vd2, setvd2] = useState(0)
+  const [lc2, setlc2] = useState(0)
+  const [rlc2, setrlc2] = useState(0)
 
   function changeS2(e) {
     setS2(e.currentTarget.value)
@@ -141,6 +230,35 @@ export default function App() {
   }
   function changeF2(e) {
     setF2(e.currentTarget.value)
+  }
+
+  //moral foundations
+  function changec_h2(e) {
+    setc_h2(e.currentTarget.value)
+  }
+
+  function changel_b2(e) {
+    setl_b2(e.currentTarget.value)
+  }
+
+  function changea_s2(e) {
+    seta_s2(e.currentTarget.value)
+  }
+
+  function changep_d2(e) {
+    setp_d2(e.currentTarget.value)
+  }
+
+  function changee_d2(e) {
+    sete_d2(e.currentTarget.value)
+  }
+
+  function changep_i2(e) {
+    setp_i2(e.currentTarget.value)
+  }
+
+  function changel_o2(e) {
+    setl_o2(e.currentTarget.value)
   }
 
   //we'd call this at each of those functions
@@ -184,6 +302,13 @@ export default function App() {
     i1,
     r1,
     f1,
+    c_h1,
+    l_b1,
+    a_s1,
+    p_d1,
+    e_d1,
+    p_i1,
+    l_o1,
     n2,
     s2,
     gd2,
@@ -196,6 +321,15 @@ export default function App() {
     i2,
     r2,
     f2,
+    c_h2,
+    l_b2,
+    a_s2,
+    p_d2,
+    e_d2,
+    p_i2,
+    l_o2,
+    addRandom,
+    addMorals,
   ])
 
   useEffect(() => {
@@ -219,6 +353,13 @@ export default function App() {
       i1: Number(i1),
       r1: Number(r1),
       f1: Number(f1),
+      c_h1: Number(c_h1),
+      l_b1: Number(l_b1),
+      a_s1: Number(a_s1),
+      p_d1: Number(p_d1),
+      e_d1: Number(e_d1),
+      p_i1: Number(p_i1),
+      l_o1: Number(l_o1),
       n2: Number(n2),
       s2: Number(s2),
       gd2: Number(gd2),
@@ -231,6 +372,13 @@ export default function App() {
       i2: Number(i2),
       r2: Number(r2),
       f2: Number(f2),
+      c_h2: Number(c_h2),
+      l_b2: Number(l_b2),
+      a_s2: Number(a_s2),
+      p_d2: Number(p_d2),
+      e_d2: Number(e_d2),
+      p_i2: Number(p_i2),
+      l_o2: Number(l_o2),
     }).then((snapshot) => {
       setSnapshot(snapshot)
       setSnapshots([snapshot, ...snapshots])
@@ -238,14 +386,11 @@ export default function App() {
   }
 
   const moralsToggle = () => {
-    setUseMorals((prevState) => !prevState)
+    setAddMorals((prevState) => !prevState)
   }
 
   const randomToggle = () => {
-    setUseRandom((prevState) => !prevState)
-    setRandom1(Math.random() * 2 - 1)
-    setRandom2(Math.random() * 2 - 1)
-    console.log(random1, random2)
+    setAddRandom((prevState) => !prevState)
   }
 
   const seeToggle = () => {
@@ -267,6 +412,13 @@ export default function App() {
       setI1(snapshot.i1)
       setR1(snapshot.r1)
       setF1(snapshot.f1)
+      setc_h1(snapshot.c_h1)
+      setl_b1(snapshot.l_b1)
+      seta_s1(snapshot.a_s1)
+      setp_d1(snapshot.p_d1)
+      sete_d1(snapshot.e_d1)
+      setp_i1(snapshot.p_i1)
+      setl_o1(snapshot.l_o1)
       setN2(snapshot.n2)
       setS2(snapshot.s2)
       setGD2(snapshot.gd2)
@@ -279,6 +431,13 @@ export default function App() {
       setI2(snapshot.i2)
       setR2(snapshot.r2)
       setF2(snapshot.f2)
+      setc_h2(snapshot.c_h2)
+      setl_b2(snapshot.l_b2)
+      seta_s2(snapshot.a_s2)
+      setp_d2(snapshot.p_d2)
+      sete_d2(snapshot.e_d2)
+      setp_i2(snapshot.p_i2)
+      setl_o2(snapshot.l_o2)
     }
   }, [snapshot, snapshots])
 
@@ -295,6 +454,13 @@ export default function App() {
     setI1(0.5)
     setR1(0)
     setF1(0.5)
+    setc_h1(0)
+    setl_b1(0)
+    seta_s1(0)
+    setp_d1(0)
+    sete_d1(0)
+    setp_i1(0)
+    setl_o1(0)
     setN2(1)
     setS2(0.5)
     setGD2(0.5)
@@ -307,12 +473,23 @@ export default function App() {
     setI2(0.5)
     setR2(0)
     setF2(0.5)
+    setc_h2(0)
+    setl_b2(0)
+    seta_s2(0)
+    setp_d2(0)
+    sete_d2(0)
+    setp_i2(0)
+    setl_o2(0)
   }
 
   //changed up to here
 
   function fixInputRange(x) {
     return Math.min(Math.max(x, 0), 1)
+  }
+
+  function fixGreaterInputRange(x) {
+    return Math.min(Math.max(x, -1), 1)
   }
 
   function zeroToOne(x, step) {
@@ -335,30 +512,30 @@ export default function App() {
     //doesn't get called rn
     console.log("hey")
     return [
-      nn1,
-      s1,
-      gd1,
-      ds1,
-      c1,
-      p1,
-      nr1,
-      wr1,
-      m1,
-      i1,
-      r1,
-      f1,
-      nn2,
-      s2,
-      gd2,
-      ds2,
-      c2,
-      p2,
-      nr2,
-      wr2,
-      m2,
-      i2,
-      r2,
-      f2,
+      // nn1,
+      // s1,
+      // gd1,
+      // ds1,
+      // c1,
+      // p1,
+      // nr1,
+      // wr1,
+      // m1,
+      // i1,
+      // r1,
+      // f1,
+      // nn2,
+      // s2,
+      // gd2,
+      // ds2,
+      // c2,
+      // p2,
+      // nr2,
+      // wr2,
+      // m2,
+      // i2,
+      // r2,
+      // f2,
     ]
   }
 
@@ -422,9 +599,12 @@ export default function App() {
     let ind1 = (1 - m1) * nd1
     let wd1 = wr1 - wr2
     let iwd1 = m1 * wd1
-    let pd1 = nn1 - nn2
+    let pd1 =
+      nn1 - nn2 < 0
+        ? -Math.pow(Math.abs(nn1 - nn2), 1.8)
+        : Math.pow(nn1 - nn2, 1.8)
     let normCoeff1 = 1 / (0.79 - 0.42 * m1)
-    let rd1 = normCoeff1 * (0.63 * ind1 + 0.21 * iwd1 + 0.16 * pd1 ** 1.8)
+    let rd1 = normCoeff1 * (0.63 * ind1 + 0.21 * iwd1 + 0.16 * pd1)
     let du1
     let dp1
     if (rd1 <= 0) {
@@ -444,9 +624,12 @@ export default function App() {
     let ind2 = (1 - m2) * nd2
     let wd2 = wr2 - wr1
     let iwd2 = m2 * wd2
-    let pd2 = nn2 - nn1
+    let pd2 =
+      nn2 - nn1 < 0
+        ? -Math.pow(Math.abs(nn2 - nn1), 1.8)
+        : Math.pow(nn2 - nn1, 1.8)
     let normCoeff2 = 1 / (0.79 - 0.42 * m2)
-    let rd2 = normCoeff2 * (0.63 * ind2 + 0.21 * iwd2 + 0.16 * pd2 ** 1.8)
+    let rd2 = normCoeff2 * (0.63 * ind2 + 0.21 * iwd2 + 0.16 * pd2)
     let du2
     let dp2
     if (rd2 <= 0) {
@@ -573,8 +756,13 @@ export default function App() {
     let vd1 = (3 / 6) * upd1 + (2 / 6) * und1 + (1 / 6) * uwd1
     let lc1 = cd1 * vd1
     let rlc1 = lc1
-    if (useRandom) {
-      rlc1 = lc1 * (1 + 0.05 * random1)
+    let tempr1 = Math.random() * 2 - 1
+    if (addRandom) {
+      setRandom1(tempr1)
+      rlc1 = lc1 * (1 + 0.05 * tempr1)
+    } else {
+      setRandom1(0)
+      rlc1 = lc1
     }
 
     let cd2 = 0.4 * cu2 ** 1.3 + 0.6 * cp2 ** 1.7
@@ -584,8 +772,13 @@ export default function App() {
     let vd2 = (3 / 6) * upd2 + (2 / 6) * und2 + (1 / 6) * uwd2
     let lc2 = cd2 * vd2
     let rlc2 = lc2
-    if (useRandom) {
-      rlc2 = lc2 * (1 + 0.05 * random2)
+    let tempr2 = Math.random() * 2 - 1
+    if (addRandom) {
+      setRandom2(tempr2)
+      rlc2 = lc2 * (1 + 0.05 * tempr2)
+    } else {
+      setRandom2(0)
+      rlc2 = lc2
     }
     return [cd1, cd2, vd1, vd2, lc1, lc2, rlc1, rlc2]
   }
@@ -593,62 +786,11 @@ export default function App() {
   function conflictCalculator() {
     const N1 = Number(n1)
     const N2 = Number(n2)
-    const nn1 = N1 / (N1 + N2)
-    const nn2 = N2 / (N1 + N2)
-    if (useMorals) {
-      //issue with nn13?
-      const [
-        nn1,
-        s1,
-        gd1,
-        ds1,
-        c1,
-        p1,
-        nr1,
-        wr1,
-        m1,
-        i1,
-        r1,
-        f1,
-        nn2,
-        s2,
-        gd2,
-        ds2,
-        c2,
-        p2,
-        nr2,
-        wr2,
-        m2,
-        i2,
-        r2,
-        f2,
-      ] = step0(
-        nn1,
-        s1,
-        gd1,
-        ds1,
-        c1,
-        p1,
-        nr1,
-        wr1,
-        m1,
-        i1,
-        r1,
-        f1,
-        nn2,
-        s2,
-        gd2,
-        ds2,
-        c2,
-        p2,
-        nr2,
-        wr2,
-        m2,
-        i2,
-        r2,
-        f2
-      )
+    setnn1(N1 / (N1 + N2))
+    setnn2(N2 / (N1 + N2))
+    if (addMorals) {
     }
+
     const [di1, di2, iu1, iu2] = step1(N1, N2)
     const [ip1, ip2] = step2()
     const [
@@ -684,20 +826,45 @@ export default function App() {
       random1,
       random2
     )
-    //now how will we normalize and represent our final values?
+    setdi1(di1)
+    setiu1(iu1)
+    setip1(ip1)
+    setnd1(nd1)
+    setwd1(wd1)
+    setind1(ind1)
+    setiwd1(iwd1)
+    setpd1(pd1)
+    setrd1(rd1)
+    setdu1(du1)
+    setdp1(dp1)
+    setco1(co1)
+    setcu1(cu1)
+    setcp1(cp1)
+    setcd1(cd1)
+    setvd1(vd1)
+    setlc1(lc1)
+    setrlc1(rlc1)
     setFinal1(rlc1)
+
+    setdi2(di2)
+    setiu2(iu2)
+    setip2(ip2)
+    setnd2(nd2)
+    setwd2(wd2)
+    setind2(ind2)
+    setiwd2(iwd2)
+    setpd2(pd2)
+    setrd2(rd2)
+    setdu2(du2)
+    setdp2(dp2)
+    setco2(co2)
+    setcu2(cu2)
+    setcp2(cp2)
+    setcd2(cd2)
+    setvd2(vd2)
+    setlc2(lc2)
+    setrlc2(rlc2)
     setFinal2(rlc2)
-    // step3(nn1, nn2, iu1, iu2, ip1, ip2, m1, m2)
-    // const a = 25
-    // const b = 25
-    // const g = 25
-    // const o = 25
-    // let conflict =
-    //   nn1 * (a * rCalc(r1) + b * pCalc(p1) + g * tCalc(t1) + o * cCalc(c1)) +
-    //   nn2 * (a * rCalc(r2) + b * pCalc(p2) + g * tCalc(t2) + o * cCalc(c2))
-    // setFinal1(conflict)
-    // setFinal2(conflict)
-    // console.log(conflict)
   }
 
   function imagepicker(percentage) {
@@ -743,7 +910,7 @@ export default function App() {
         </div>
         <p id="morals">
           <button onClick={moralsToggle}>
-            {useMorals ? "Remove Morals" : "Add Morals"}
+            {addMorals ? "Remove Morals" : "Add Morals"}
           </button>{" "}
         </p>
         <div>
@@ -758,8 +925,9 @@ export default function App() {
           }}
         >
           <div className="Group">
-            <p>Number of People in Group 1</p>
+            <p>Group 1</p>
             <div className="sliderContainer">
+              n1
               <input
                 type="texttitle"
                 value={n1}
@@ -925,7 +1093,7 @@ export default function App() {
               <input
                 type="text"
                 value={r1}
-                onChange={(e) => setR1(fixInputRange(e.target.value))}
+                onChange={(e) => setR1(fixGreaterInputRange(e.target.value))}
               />
             </div>
 
@@ -947,9 +1115,154 @@ export default function App() {
             </div>
           </div>
 
+          {/* add the moral foundations sliders */}
+          {addMorals && (
+            <div>
+              <div className="SliderContainer">
+                c_h1
+                <input
+                  onChange={changec_h1}
+                  type="range"
+                  min="-1"
+                  max="1"
+                  value={c_h1}
+                  step="0.01"
+                />
+                <input
+                  type="text"
+                  value={c_h1}
+                  onChange={(e) =>
+                    setc_h1(fixGreaterInputRange(e.target.value))
+                  }
+                />
+              </div>
+              <div className="SliderContainer">
+                l_b1
+                <input
+                  onChange={changel_b1}
+                  type="range"
+                  min="-1"
+                  max="1"
+                  value={l_b1}
+                  step="0.01"
+                />
+                <input
+                  type="text"
+                  value={l_b1}
+                  onChange={(e) =>
+                    setl_b1(fixGreaterInputRange(e.target.value))
+                  }
+                />
+              </div>
+              <div className="SliderContainer">
+                a_s1
+                <input
+                  onChange={changea_s1}
+                  type="range"
+                  min="-1"
+                  max="1"
+                  value={a_s1}
+                  step="0.01"
+                />
+                <input
+                  type="text"
+                  value={a_s1}
+                  onChange={(e) =>
+                    seta_s1(fixGreaterInputRange(e.target.value))
+                  }
+                />
+              </div>
+              <div className="SliderContainer">
+                p_d1
+                <input
+                  onChange={changep_d1}
+                  type="range"
+                  min="-1"
+                  max="1"
+                  value={p_d1}
+                  step="0.01"
+                />
+                <input
+                  type="text"
+                  value={p_d1}
+                  onChange={(e) =>
+                    setp_d1(fixGreaterInputRange(e.target.value))
+                  }
+                />
+              </div>
+              <div className="SliderContainer">
+                e_d1
+                <input
+                  onChange={changee_d1}
+                  type="range"
+                  min="-1"
+                  max="1"
+                  value={e_d1}
+                  step="0.01"
+                />
+                <input
+                  type="text"
+                  value={e_d1}
+                  onChange={(e) =>
+                    sete_d1(fixGreaterInputRange(e.target.value))
+                  }
+                />
+              </div>
+              <div className="SliderContainer">
+                p_i1
+                <input
+                  onChange={changep_i1}
+                  type="range"
+                  min="-1"
+                  max="1"
+                  value={p_i1}
+                  step="0.01"
+                />
+                <input
+                  type="text"
+                  value={p_i1}
+                  onChange={(e) =>
+                    setp_i1(fixGreaterInputRange(e.target.value))
+                  }
+                />
+              </div>
+              <div className="SliderContainer">
+                l_o1
+                <input
+                  onChange={changel_o1}
+                  type="range"
+                  min="-1"
+                  max="1"
+                  value={l_o1}
+                  step="0.01"
+                />
+                <input
+                  type="text"
+                  value={l_o1}
+                  onChange={(e) =>
+                    setl_o1(fixGreaterInputRange(e.target.value))
+                  }
+                />
+              </div>
+            </div>
+          )}
+          {/* add the modified values */}
+          {addMorals && (
+            <div>
+              <div>{c_h1}</div>
+              <div>{l_b1}</div>
+              <div>{a_s1}</div>
+              <div>{p_d1}</div>
+              <div>{e_d1}</div>
+              <div>{p_i1}</div>
+              <div>{l_o1}</div>
+            </div>
+          )}
+
           <div className="Group">
-            <p>Number of People in Group 2</p>
+            <p>Group 2</p>
             <div className="sliderContainer">
+              n2
               <input
                 type="texttitle"
                 value={n2}
@@ -1115,7 +1428,7 @@ export default function App() {
               <input
                 type="text"
                 value={r2}
-                onChange={(e) => setR2(fixInputRange(e.target.value))}
+                onChange={(e) => setR2(fixGreaterInputRange(e.target.value))}
               />
             </div>
 
@@ -1136,6 +1449,149 @@ export default function App() {
               />
             </div>
           </div>
+          {/* add the moral foundations sliders */}
+          {addMorals && (
+            <div>
+              <div className="SliderContainer">
+                c_h2
+                <input
+                  onChange={changec_h2}
+                  type="range"
+                  min="-1"
+                  max="1"
+                  value={c_h2}
+                  step="0.01"
+                />
+                <input
+                  type="text"
+                  value={c_h2}
+                  onChange={(e) =>
+                    setc_h2(fixGreaterInputRange(e.target.value))
+                  }
+                />
+              </div>
+              <div className="SliderContainer">
+                l_b2
+                <input
+                  onChange={changel_b2}
+                  type="range"
+                  min="-1"
+                  max="1"
+                  value={l_b2}
+                  step="0.01"
+                />
+                <input
+                  type="text"
+                  value={l_b2}
+                  onChange={(e) =>
+                    setl_b2(fixGreaterInputRange(e.target.value))
+                  }
+                />
+              </div>
+              <div className="SliderContainer">
+                a_s2
+                <input
+                  onChange={changea_s2}
+                  type="range"
+                  min="-1"
+                  max="1"
+                  value={a_s2}
+                  step="0.01"
+                />
+                <input
+                  type="text"
+                  value={a_s2}
+                  onChange={(e) =>
+                    seta_s2(fixGreaterInputRange(e.target.value))
+                  }
+                />
+              </div>
+              <div className="SliderContainer">
+                p_d2
+                <input
+                  onChange={changep_d2}
+                  type="range"
+                  min="-1"
+                  max="1"
+                  value={p_d2}
+                  step="0.01"
+                />
+                <input
+                  type="text"
+                  value={p_d2}
+                  onChange={(e) =>
+                    setp_d2(fixGreaterInputRange(e.target.value))
+                  }
+                />
+              </div>
+              <div className="SliderContainer">
+                e_d2
+                <input
+                  onChange={changee_d2}
+                  type="range"
+                  min="-1"
+                  max="1"
+                  value={e_d2}
+                  step="0.01"
+                />
+                <input
+                  type="text"
+                  value={e_d2}
+                  onChange={(e) =>
+                    sete_d2(fixGreaterInputRange(e.target.value))
+                  }
+                />
+              </div>
+              <div className="SliderContainer">
+                p_i2
+                <input
+                  onChange={changep_i2}
+                  type="range"
+                  min="-1"
+                  max="1"
+                  value={p_i2}
+                  step="0.01"
+                />
+                <input
+                  type="text"
+                  value={p_i2}
+                  onChange={(e) =>
+                    setp_i2(fixGreaterInputRange(e.target.value))
+                  }
+                />
+              </div>
+              <div className="SliderContainer">
+                l_o2
+                <input
+                  onChange={changel_o2}
+                  type="range"
+                  min="-1"
+                  max="1"
+                  value={l_o2}
+                  step="0.01"
+                />
+                <input
+                  type="text"
+                  value={l_o2}
+                  onChange={(e) =>
+                    setl_o2(fixGreaterInputRange(e.target.value))
+                  }
+                />
+              </div>
+            </div>
+          )}
+          {/* add the modified values */}
+          {addMorals && (
+            <div>
+              <div>{c_h2}</div>
+              <div>{l_b2}</div>
+              <div>{a_s2}</div>
+              <div>{p_d2}</div>
+              <div>{e_d2}</div>
+              <div>{p_i2}</div>
+              <div>{l_o2}</div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -1158,7 +1614,7 @@ export default function App() {
       <div className="Results">
         <p id="random">
           <button onClick={randomToggle}>
-            {useRandom ? "Remove Random" : "Add Random"}
+            {addRandom ? "Remove Random" : "Add Random"}
           </button>{" "}
         </p>
         <p id="results">
@@ -1175,27 +1631,61 @@ export default function App() {
               margin: "auto",
             }}
           >
-            <div className="groupresults">
-              <p id="result_text">
+            <div
+              style={{
+                display: "flex",
+                flexDirction: "row",
+                gap: 20,
+                margin: "auto",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirction: "row",
+                  gap: 20,
+                  margin: "auto",
+                }}
+              >
                 {/* For G1 The likelihood of conflict is {twoDP(final)}% */}
-                {/* Do it twice
-              Normalized Number of the People: Percentage of people in our group.
-              In-Group Diversity:
-              Inherent Unity: The amount of cohesion in the in-group.
-              Coerced Prejudice: The amount of prejudice for the out-group as updated by the coercion.
-              Importance of Wanted Resources: How much of the wanted resources does the in-group value?
-              Importance of Needed Resources: How much of the needed resources does the in-group value?
-              Wanted Disparity:
-              Needed Disparity:
-              Population Disparity:
-              Disparity Unity:
-              Disparity Prejudice:
-              Communication Outcome:
-              Communication Unity:
-              Communication Prejudice
-              Sentiment for Conflict:
-              Likelihood of Conflict: */}
-              </p>
+                <div className="result column">
+                  <div>nn1: {twoDP(nn1)}</div>
+                  <div>di1: {twoDP(di1)}</div>
+                  <div>iu1: {twoDP(iu1)}</div>
+                  <div>ip1: {twoDP(ip1)}</div>
+                  <div>nd1: {twoDP(nd1)}</div>
+                </div>
+                <div className="result column">
+                  <div>wd1: {twoDP(wd1)}</div>
+                  <div>ind1: {twoDP(ind1)}</div>
+                  <div>iwd1: {twoDP(iwd1)}</div>
+                  <div>pd1: {twoDP(pd1)}</div>
+                  <div>rd1: {twoDP(rd1)}</div>
+                </div>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirction: "row",
+                  gap: 20,
+                  margin: "auto",
+                }}
+              >
+                <div className="result column">
+                  <div>du1: {twoDP(du1)}</div>
+                  <div>dp1: {twoDP(dp1)}</div>
+                  <div>co1: {twoDP(co1)}</div>
+                  <div>cu1: {twoDP(cu1)}</div>
+                  <div>cp1: {twoDP(cp1)}</div>
+                </div>
+                <div className="result column">
+                  <div>cd1: {twoDP(cd1)}</div>
+                  <div>vd1: {twoDP(vd1)}</div>
+                  <div>lc1: {twoDP(lc1)}</div>
+                  <div>r1: {twoDP(random1)}</div>
+                  <div>final1: {twoDP(final1)}</div>
+                </div>
+              </div>
 
               <p id="result_image">
                 {/* <img
@@ -1205,9 +1695,60 @@ export default function App() {
               /> */}
               </p>
             </div>
-            <div className="groupresults">
-              <p id="result_text"></p>
-              {/* For G2*/}
+            <div
+              style={{
+                display: "flex",
+                flexDirction: "row",
+                gap: 20,
+                margin: "auto",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirction: "row",
+                  gap: 20,
+                  margin: "auto",
+                }}
+              >
+                <div className="result column">
+                  <div>nn2: {twoDP(nn2)}</div>
+                  <div>di2: {twoDP(di2)}</div>
+                  <div>iu2: {twoDP(iu2)}</div>
+                  <div>ip2: {twoDP(ip2)}</div>
+                  <div>nd2: {twoDP(nd2)}</div>
+                </div>
+                <div className="result column">
+                  <div>wd2: {twoDP(wd2)}</div>
+                  <div>ind2: {twoDP(ind2)}</div>
+                  <div>iwd2: {twoDP(iwd2)}</div>
+                  <div>pd2: {twoDP(pd2)}</div>
+                  <div>rd2: {twoDP(rd2)}</div>
+                </div>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirction: "row",
+                  gap: 20,
+                  margin: "auto",
+                }}
+              >
+                <div className="result column">
+                  <div>du2: {twoDP(du2)}</div>
+                  <div>dp2: {twoDP(dp2)}</div>
+                  <div>co2: {twoDP(co2)}</div>
+                  <div>cu2: {twoDP(cu2)}</div>
+                  <div>cp2: {twoDP(cp2)}</div>
+                </div>
+                <div className="result column">
+                  <div>cd2: {twoDP(cd2)}</div>
+                  <div>vd2: {twoDP(vd2)}</div>
+                  <div>lc2: {twoDP(lc2)}</div>
+                  <div>r2: {twoDP(random2)}</div>
+                  <div>final: {twoDP(final2)}</div>
+                </div>
+              </div>
 
               <p id="result_image">
                 {/* <img
