@@ -42,7 +42,7 @@ export default function App() {
   const [ds1, setDS1] = useState(0.5)
   const [c1, setC1] = useState(0.5)
   //prejudice variable
-  const [pd1, setPD1] = useState(0.5)
+  const [p1, setP1] = useState(0.5)
   //resources variables
   const [nr1, setNR1] = useState(0.5)
   const [wr1, setWR1] = useState(0.5)
@@ -66,8 +66,8 @@ export default function App() {
   function changeC1(e) {
     setC1(e.currentTarget.value)
   }
-  function changePD1(e) {
-    setPD1(e.currentTarget.value)
+  function changeP1(e) {
+    setP1(e.currentTarget.value)
   }
   function changeNR1(e) {
     zeroSum(e)
@@ -97,7 +97,7 @@ export default function App() {
   const [ds2, setDS2] = useState(0.5)
   const [c2, setC2] = useState(0.5)
   //prejudice variable
-  const [pd2, setPD2] = useState(0.5)
+  const [p2, setP2] = useState(0.5)
   //resources variables
   const [nr2, setNR2] = useState(0.5)
   const [wr2, setWR2] = useState(0.5)
@@ -121,8 +121,8 @@ export default function App() {
   function changeC2(e) {
     setC2(e.currentTarget.value)
   }
-  function changePD2(e) {
-    setPD2(e.currentTarget.value)
+  function changeP2(e) {
+    setP2(e.currentTarget.value)
   }
   function changeNR2(e) {
     zeroSum(e)
@@ -177,7 +177,7 @@ export default function App() {
     gd1,
     ds1,
     c1,
-    pd1,
+    p1,
     nr1,
     wr1,
     m1,
@@ -189,7 +189,7 @@ export default function App() {
     gd2,
     ds2,
     c2,
-    pd2,
+    p2,
     nr2,
     wr2,
     m2,
@@ -212,7 +212,7 @@ export default function App() {
       gd1: Number(gd1),
       ds1: Number(ds1),
       c1: Number(c1),
-      pd1: Number(pd1),
+      p1: Number(p1),
       nr1: Number(nr1),
       wr1: Number(wr1),
       m1: Number(m1),
@@ -224,7 +224,7 @@ export default function App() {
       gd2: Number(gd2),
       ds2: Number(ds2),
       c2: Number(c2),
-      pd2: Number(pd2),
+      p2: Number(p2),
       nr2: Number(nr2),
       wr2: Number(wr2),
       m2: Number(m2),
@@ -260,7 +260,7 @@ export default function App() {
       setGD1(snapshot.gd1)
       setDS1(snapshot.ds1)
       setC1(snapshot.c1)
-      setPD1(snapshot.pd1)
+      setP1(snapshot.p1)
       setNR1(snapshot.nr1)
       setWR1(snapshot.wr1)
       setM1(snapshot.m1)
@@ -272,7 +272,7 @@ export default function App() {
       setGD2(snapshot.gd2)
       setDS2(snapshot.ds2)
       setC2(snapshot.c2)
-      setPD2(snapshot.pd2)
+      setP2(snapshot.p2)
       setNR2(snapshot.nr2)
       setWR2(snapshot.wr2)
       setM2(snapshot.m2)
@@ -288,7 +288,7 @@ export default function App() {
     setGD1(0.5)
     setDS1(0.5)
     setC1(0.5)
-    setPD1(0.5)
+    setP1(0.5)
     setNR1(0.5)
     setWR1(0.5)
     setM1(0.5)
@@ -300,7 +300,7 @@ export default function App() {
     setGD2(0.5)
     setDS2(0.5)
     setC2(0.5)
-    setPD2(0.5)
+    setP2(0.5)
     setNR2(0.5)
     setWR2(0.5)
     setM2(0.5)
@@ -311,103 +311,383 @@ export default function App() {
 
   //changed up to here
 
-  function zerotoOne(x) {
+  function fixInputRange(x) {
     return Math.min(Math.max(x, 0), 1)
+  }
+
+  function zeroToOne(x, step) {
+    if (x > 1) {
+      console.log(`At step ${step} corrected to 1 from ${x}`)
+      return 1
+    }
+    if (x < 0) {
+      console.log(`At step ${step} corrected to 0 from ${x}`)
+      return 0
+    }
+    return x
   }
 
   function twoDP(x) {
     return (Math.round(x * 100) / 100).toFixed(2)
   }
 
-  function rCalc(x) {
-    return (1 - x) ** 2
-  }
-
-  function pCalc(x) {
-    return x ** 2
-  }
-
-  function tCalc(x) {
-    return Math.max(0, 2 * x - 1)
-  }
-
-  function cCalc(x) {
-    return Math.cos((Math.PI * x) / 2)
-  }
-
   function step0() {
-    //moral foundations
+    //doesn't get called rn
+    console.log("hey")
+    return [
+      nn1,
+      s1,
+      gd1,
+      ds1,
+      c1,
+      p1,
+      nr1,
+      wr1,
+      m1,
+      i1,
+      r1,
+      f1,
+      nn2,
+      s2,
+      gd2,
+      ds2,
+      c2,
+      p2,
+      nr2,
+      wr2,
+      m2,
+      i2,
+      r2,
+      f2,
+    ]
   }
 
-  function step1() {
+  function step1(N1, N2) {
     //create unity
-    diversity1 = gd1 * ds1
-    cohesion1 = s1(1 - 0.2(diversity1))
+    let di1 = gd1 * ds1
+    let cohesion1 = s1 * (1 - 0.2 * di1)
+    let solidarity1
+    let iu1
     if (c1 <= 0.3) {
-      solidarity1 = cohesion1(1 + (5 / 3) * c1)
+      solidarity1 = cohesion1 * (1 + (5 / 3) * c1)
     } else {
-      solidarity1 = cohesion1(1 - (2 / 7) * (c1 - 0.3))
+      solidarity1 = cohesion1 * (1 - (2 / 7) * (c1 - 0.3))
     }
     if (N1 >= 150) {
-      u1 = solidarity1 * (N1 ^ (-0.02 * (1 - s1)))
+      iu1 = solidarity1 * N1 ** (-0.02 * (1 - s1))
     } else {
-      u1 = solidarity1
+      iu1 = solidarity1
     }
 
-    diversity2 = gd2 * ds2
-    cohesion2 = s1(1 - 0.2(diversity2))
+    let di2 = gd2 * ds2
+    let cohesion2 = s2 * (1 - 0.2 * di2)
+    let solidarity2
+    let iu2
     if (c2 <= 0.3) {
-      solidarity2 = cohesion1(1 + (5 / 3) * c2)
+      solidarity2 = cohesion2 * (1 + (5 / 3) * c2)
     } else {
-      solidarity2 = cohesion1(1 - (2 / 7) * (c2 - 0.3))
+      solidarity2 = cohesion2 * (1 - (2 / 7) * (c2 - 0.3))
     }
     if (N2 >= 150) {
-      u2 = solidarity2 * (N2 ^ (-0.02 * (1 - s2)))
+      iu2 = solidarity2 * N2 ** (-0.02 * (1 - s2))
     } else {
-      u2 = solidarity2
+      iu2 = solidarity2
     }
+
+    return [di1, di2, iu1, iu2]
   }
 
   function step2() {
     //update prejudice
+    let ip1
     if (c1 <= 0.6) {
-      p1 = pd1(1 + (2 / 3) * c1)
+      ip1 = p1 * (1 + (2 / 3) * c1)
     } else {
-      p1 = pd1(1 - (3 / 4) * (c1 - 0.6))
+      ip1 = p1 * (1 - (3 / 4) * (c1 - 0.6))
     }
 
+    let ip2
     if (c2 <= 0.6) {
-      p2 = pd2(1 + (2 / 3) * c2)
+      ip2 = p2 * (1 + (2 / 3) * c2)
     } else {
-      p2 = pd2(1 - (3 / 4) * (c2 - 0.6))
+      ip2 = p2 * (1 - (3 / 4) * (c2 - 0.6))
     }
+
+    return [ip1, ip2]
   }
 
-  function step3() {
+  function step3(nn1, nn2, iu1, iu2, ip1, ip2) {
     //resource scarcity
-    nd1 = nr1 - nr2
-    wd1 = wr1 - wr2
-    dop1 = nn1 - nn2
-    disparity1 =
-      (1 / (0.79 - 0.42 * m1)) *
-      (0.63 * (1 - m1) * nd1 + 0.21 * m1 * wd1 + 0.16 * (pd1 ^ 1.8))
+    let nd1 = nr1 - nr2
+    let ind1 = (1 - m1) * nd1
+    let wd1 = wr1 - wr2
+    let iwd1 = m1 * wd1
+    let pd1 = nn1 - nn2
+    let normCoeff1 = 1 / (0.79 - 0.42 * m1)
+    let rd1 = normCoeff1 * (0.63 * ind1 + 0.21 * iwd1 + 0.16 * pd1 ** 1.8)
+    let du1
+    let dp1
+    if (rd1 <= 0) {
+      du1 = iu1 * (1 + 0.35 * Math.abs(rd1))
+      dp1 = ip1 * (1 + 0.55 * Math.abs(rd1))
+    } else {
+      if (s1 > 0.7) {
+        du1 = iu1 * (1 + (s1 - 0.7) * rd1)
+        dp1 = ip1 * (1 + (5 / 3) * (s1 - 0.7) * rd1)
+      } else {
+        du1 = iu1 * (1 - (4 / 7) * (0.7 - s1) * rd1)
+        dp1 = ip1 * (1 - (6 / 7) * (0.7 - s1) * rd1)
+      }
+    }
 
-    //continue from here and then mirror
+    let nd2 = nr2 - nr1
+    let ind2 = (1 - m2) * nd2
+    let wd2 = wr2 - wr1
+    let iwd2 = m2 * wd2
+    let pd2 = nn2 - nn1
+    let normCoeff2 = 1 / (0.79 - 0.42 * m2)
+    let rd2 = normCoeff2 * (0.63 * ind2 + 0.21 * iwd2 + 0.16 * pd2 ** 1.8)
+    let du2
+    let dp2
+    if (rd2 <= 0) {
+      du2 = iu2 * (1 + 0.35 * Math.abs(rd2))
+      dp2 = ip2 * (1 + 0.55 * Math.abs(rd2))
+    } else {
+      if (s2 > 0.7) {
+        du2 = iu2 * (1 + (s2 - 0.7) * rd2)
+        dp2 = ip2 * (1 + (5 / 3) * (s2 - 0.7) * rd2)
+      } else {
+        du2 = iu2 * (1 - (4 / 7) * (0.7 - s2) * rd2)
+        dp2 = ip2 * (1 - (6 / 7) * (0.7 - s2) * rd2)
+      }
+    }
+
+    return [
+      nd1,
+      nd2,
+      wd1,
+      wd2,
+      ind1,
+      ind2,
+      iwd1,
+      iwd2,
+      pd1,
+      pd2,
+      rd1,
+      rd2,
+      du1,
+      du2,
+      dp1,
+      dp2,
+    ]
   }
 
-  function step4() {
+  function step4(du1, du2, dp1, dp2) {
     //contact
+    let badrep1 = r1 < 0
+    let co1
+    let cu1
+    let cp1
+    if (i1 === 0) {
+      co1 = 0
+    } else {
+      if (f1 <= 0.65) {
+        co1 = ((1 / 0.65) * Math.abs(r1 * f1)) ** i1
+        if (badrep1) {
+          //4
+          cu1 = du1 * (1 + 0.4 * co1)
+          cp1 = dp1 * (1 + 0.5 * co1)
+        } else {
+          //2
+          cu1 = du1 * (1 - 0.3 * co1)
+          cp1 = dp1 * (1 + 0.2 * co1)
+        }
+      } else {
+        co1 = ((1 / 0.35) * Math.abs(r1 * (f1 - 0.65))) ** i1
+        if (badrep1) {
+          //3
+          cu1 = du1 * (1 + 0.4 * co1)
+          cp1 = dp1 * (1 + 0.8 * co1)
+        } else {
+          //1
+          cu1 = du1 * (1 - 0.3 * co1)
+          cp1 = dp1 * (1 - 0.3 * co1)
+        }
+      }
+    }
+
+    let badrep2 = r2 < 0
+    let co2
+    let cu2
+    let cp2
+    if (i2 === 0) {
+      co2 = 0
+    } else {
+      if (f2 <= 0.65) {
+        co2 = ((1 / 0.65) * Math.abs(r2 * f2)) ** i2
+        if (badrep2) {
+          //4
+          cu2 = du2 * (1 + 0.4 * co2)
+          cp2 = dp2 * (1 + 0.5 * co2)
+        } else {
+          //2
+          cu2 = du2 * (1 - 0.3 * co2)
+          cp2 = dp2 * (1 + 0.2 * co2)
+        }
+      } else {
+        co2 = ((1 / 0.35) * Math.abs(r2 * (f2 - 0.65))) ** i2
+        if (badrep2) {
+          //3
+          cu2 = du2 * (1 + 0.4 * co2)
+          cp2 = dp2 * (1 + 0.8 * co2)
+        } else {
+          //1
+          cu2 = du2 * (1 - 0.3 * co2)
+          cp2 = dp2 * (1 - 0.3 * co2)
+        }
+      }
+    }
+
+    return [co1, co2, cu1, cu2, cp1, cp2]
   }
 
-  function step5() {
+  function step5(
+    nd1,
+    nd2,
+    wd1,
+    wd2,
+    pd1,
+    pd2,
+    cu1,
+    cu2,
+    cp1,
+    cp2,
+    random1,
+    random2
+  ) {
     //final calculations
+    let cd1 = 0.4 * cu1 ** 1.3 + 0.6 * cp1 ** 1.7
+    let und1 = (1 - s1) * nd1 ** 2 + s1
+    let uwd1 = (1 - s1) * wd1 ** 2 + s1
+    let upd1 = (1 - s1) * pd1 ** 2 + s1
+    let vd1 = (3 / 6) * upd1 + (2 / 6) * und1 + (1 / 6) * uwd1
+    let lc1 = cd1 * vd1
+    let rlc1 = lc1
+    if (useRandom) {
+      rlc1 = lc1 * (1 + 0.05 * random1)
+    }
+
+    let cd2 = 0.4 * cu2 ** 1.3 + 0.6 * cp2 ** 1.7
+    let und2 = (1 - s2) * nd2 ** 2 + s2
+    let uwd2 = (1 - s2) * wd2 ** 2 + s2
+    let upd2 = (1 - s2) * pd2 ** 2 + s2
+    let vd2 = (3 / 6) * upd2 + (2 / 6) * und2 + (1 / 6) * uwd2
+    let lc2 = cd2 * vd2
+    let rlc2 = lc2
+    if (useRandom) {
+      rlc2 = lc2 * (1 + 0.05 * random2)
+    }
+    return [cd1, cd2, vd1, vd2, lc1, lc2, rlc1, rlc2]
   }
 
   function conflictCalculator() {
-    // const N1 = Number(n1)
-    // const N2 = Number(n2)
-    // const nn1 = N1 / (N1 + N2)
-    // const nn2 = N2 / (N1 + N2)
+    const N1 = Number(n1)
+    const N2 = Number(n2)
+    const nn1 = N1 / (N1 + N2)
+    const nn2 = N2 / (N1 + N2)
+    if (useMorals) {
+      //issue with nn13?
+      const [
+        nn1,
+        s1,
+        gd1,
+        ds1,
+        c1,
+        p1,
+        nr1,
+        wr1,
+        m1,
+        i1,
+        r1,
+        f1,
+        nn2,
+        s2,
+        gd2,
+        ds2,
+        c2,
+        p2,
+        nr2,
+        wr2,
+        m2,
+        i2,
+        r2,
+        f2,
+      ] = step0(
+        nn1,
+        s1,
+        gd1,
+        ds1,
+        c1,
+        p1,
+        nr1,
+        wr1,
+        m1,
+        i1,
+        r1,
+        f1,
+        nn2,
+        s2,
+        gd2,
+        ds2,
+        c2,
+        p2,
+        nr2,
+        wr2,
+        m2,
+        i2,
+        r2,
+        f2
+      )
+    }
+    const [di1, di2, iu1, iu2] = step1(N1, N2)
+    const [ip1, ip2] = step2()
+    const [
+      nd1,
+      nd2,
+      wd1,
+      wd2,
+      ind1,
+      ind2,
+      iwd1,
+      iwd2,
+      pd1,
+      pd2,
+      rd1,
+      rd2,
+      du1,
+      du2,
+      dp1,
+      dp2,
+    ] = step3(nn1, nn2, iu1, iu2, ip1, ip2)
+    const [co1, co2, cu1, cu2, cp1, cp2] = step4(du1, du2, dp1, dp2)
+    const [cd1, cd2, vd1, vd2, lc1, lc2, rlc1, rlc2] = step5(
+      nd1,
+      nd2,
+      wd1,
+      wd2,
+      pd1,
+      pd2,
+      cu1,
+      cu2,
+      cp1,
+      cp2,
+      random1,
+      random2
+    )
+    //now how will we normalize and represent our final values?
+    setFinal1(rlc1)
+    setFinal2(rlc2)
+    // step3(nn1, nn2, iu1, iu2, ip1, ip2, m1, m2)
     // const a = 25
     // const b = 25
     // const g = 25
@@ -418,9 +698,6 @@ export default function App() {
     // setFinal1(conflict)
     // setFinal2(conflict)
     // console.log(conflict)
-    // if (useMorals){
-    //   return
-    // }
   }
 
   function imagepicker(percentage) {
@@ -502,7 +779,7 @@ export default function App() {
               <input
                 type="text"
                 value={s1}
-                onChange={(e) => setS1(zerotoOne(e.target.value))}
+                onChange={(e) => setS1(fixInputRange(e.target.value))}
               />
             </div>
             <div className="SliderContainer">
@@ -518,7 +795,7 @@ export default function App() {
               <input
                 type="text"
                 value={gd1}
-                onChange={(e) => setGD1(zerotoOne(e.target.value))}
+                onChange={(e) => setGD1(fixInputRange(e.target.value))}
               />
             </div>
             <div className="SliderContainer">
@@ -534,7 +811,7 @@ export default function App() {
               <input
                 type="text"
                 value={ds1}
-                onChange={(e) => setDS1(zerotoOne(e.target.value))}
+                onChange={(e) => setDS1(fixInputRange(e.target.value))}
               />
             </div>
             <div className="SliderContainer">
@@ -550,23 +827,23 @@ export default function App() {
               <input
                 type="text"
                 value={c1}
-                onChange={(e) => setC1(zerotoOne(e.target.value))}
+                onChange={(e) => setC1(fixInputRange(e.target.value))}
               />
             </div>
             <div className="SliderContainer">
-              pd1
+              p1
               <input
-                onChange={changePD1}
+                onChange={changeP1}
                 type="range"
                 min="0"
                 max="1"
-                value={pd1}
+                value={p1}
                 step="0.01"
               />
               <input
                 type="text"
-                value={pd1}
-                onChange={(e) => setPD1(zerotoOne(e.target.value))}
+                value={p1}
+                onChange={(e) => setP1(fixInputRange(e.target.value))}
               />
             </div>
             <div className="SliderContainer">
@@ -583,7 +860,7 @@ export default function App() {
               <input
                 type="text"
                 value={nr1}
-                onChange={(e) => setNR1(zerotoOne(e.target.value))}
+                onChange={(e) => setNR1(fixInputRange(e.target.value))}
               />
             </div>
             <div className="SliderContainer">
@@ -600,7 +877,7 @@ export default function App() {
               <input
                 type="text"
                 value={wr1}
-                onChange={(e) => setWR1(zerotoOne(e.target.value))}
+                onChange={(e) => setWR1(fixInputRange(e.target.value))}
               />
             </div>
             <div className="SliderContainer">
@@ -616,7 +893,7 @@ export default function App() {
               <input
                 type="text"
                 value={m1}
-                onChange={(e) => setM1(zerotoOne(e.target.value))}
+                onChange={(e) => setM1(fixInputRange(e.target.value))}
               />
             </div>
             <div className="SliderContainer">
@@ -632,7 +909,7 @@ export default function App() {
               <input
                 type="text"
                 value={i1}
-                onChange={(e) => setI1(zerotoOne(e.target.value))}
+                onChange={(e) => setI1(fixInputRange(e.target.value))}
               />
             </div>
             <div className="SliderContainer">
@@ -648,7 +925,7 @@ export default function App() {
               <input
                 type="text"
                 value={r1}
-                onChange={(e) => setR1(zerotoOne(e.target.value))}
+                onChange={(e) => setR1(fixInputRange(e.target.value))}
               />
             </div>
 
@@ -665,7 +942,7 @@ export default function App() {
               <input
                 type="text"
                 value={f1}
-                onChange={(e) => setF1(zerotoOne(e.target.value))}
+                onChange={(e) => setF1(fixInputRange(e.target.value))}
               />
             </div>
           </div>
@@ -692,7 +969,7 @@ export default function App() {
               <input
                 type="text"
                 value={s2}
-                onChange={(e) => setS2(zerotoOne(e.target.value))}
+                onChange={(e) => setS2(fixInputRange(e.target.value))}
               />
             </div>
             <div className="SliderContainer">
@@ -708,7 +985,7 @@ export default function App() {
               <input
                 type="text"
                 value={gd2}
-                onChange={(e) => setGD2(zerotoOne(e.target.value))}
+                onChange={(e) => setGD2(fixInputRange(e.target.value))}
               />
             </div>
             <div className="SliderContainer">
@@ -724,7 +1001,7 @@ export default function App() {
               <input
                 type="text"
                 value={ds2}
-                onChange={(e) => setDS2(zerotoOne(e.target.value))}
+                onChange={(e) => setDS2(fixInputRange(e.target.value))}
               />
             </div>
             <div className="SliderContainer">
@@ -740,23 +1017,23 @@ export default function App() {
               <input
                 type="text"
                 value={c2}
-                onChange={(e) => setC2(zerotoOne(e.target.value))}
+                onChange={(e) => setC2(fixInputRange(e.target.value))}
               />
             </div>
             <div className="SliderContainer">
-              pd2
+              p2
               <input
-                onChange={changePD2}
+                onChange={changeP2}
                 type="range"
                 min="0"
                 max="1"
-                value={pd2}
+                value={p2}
                 step="0.01"
               />
               <input
                 type="text"
-                value={pd2}
-                onChange={(e) => setPD2(zerotoOne(e.target.value))}
+                value={p2}
+                onChange={(e) => setP2(fixInputRange(e.target.value))}
               />
             </div>
             <div className="SliderContainer">
@@ -773,7 +1050,7 @@ export default function App() {
               <input
                 type="text"
                 value={nr2}
-                onChange={(e) => setNR2(zerotoOne(e.target.value))}
+                onChange={(e) => setNR2(fixInputRange(e.target.value))}
               />
             </div>
             <div className="SliderContainer">
@@ -790,7 +1067,7 @@ export default function App() {
               <input
                 type="text"
                 value={wr2}
-                onChange={(e) => setWR2(zerotoOne(e.target.value))}
+                onChange={(e) => setWR2(fixInputRange(e.target.value))}
               />
             </div>
             <div className="SliderContainer">
@@ -806,7 +1083,7 @@ export default function App() {
               <input
                 type="text"
                 value={m2}
-                onChange={(e) => setM2(zerotoOne(e.target.value))}
+                onChange={(e) => setM2(fixInputRange(e.target.value))}
               />
             </div>
             <div className="SliderContainer">
@@ -822,7 +1099,7 @@ export default function App() {
               <input
                 type="text"
                 value={i2}
-                onChange={(e) => setI2(zerotoOne(e.target.value))}
+                onChange={(e) => setI2(fixInputRange(e.target.value))}
               />
             </div>
             <div className="SliderContainer">
@@ -838,7 +1115,7 @@ export default function App() {
               <input
                 type="text"
                 value={r2}
-                onChange={(e) => setR2(zerotoOne(e.target.value))}
+                onChange={(e) => setR2(fixInputRange(e.target.value))}
               />
             </div>
 
@@ -855,7 +1132,7 @@ export default function App() {
               <input
                 type="text"
                 value={f2}
-                onChange={(e) => setF2(zerotoOne(e.target.value))}
+                onChange={(e) => setF2(fixInputRange(e.target.value))}
               />
             </div>
           </div>
