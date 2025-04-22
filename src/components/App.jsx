@@ -778,8 +778,11 @@ export default function App() {
     if (addMorals) {
     }
 
+    //gd, ds, s, and c
     const [di1, di2, iu1, iu2] = step1(N1, N2)
+    //p and c
     const [ip1, ip2] = step2()
+    //nr, wr, m, and s
     const [
       nd1,
       nd2,
@@ -799,6 +802,7 @@ export default function App() {
       dp2,
     ] = step3(nn1, nn2, iu1, iu2, ip1, ip2)
     const [co1, co2, cu1, cu2, cp1, cp2] = step4(du1, du2, dp1, dp2)
+    //r, f, and s
     const [cd1, cd2, vd1, vd2, lc1, lc2, random1, random2, rlc1, rlc2] = step5(
       nd1,
       nd2,
