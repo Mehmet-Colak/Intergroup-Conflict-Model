@@ -734,20 +734,7 @@ export default function App() {
     return [co1, co2, cu1, cu2, cp1, cp2]
   }
 
-  function step5(
-    nd1,
-    nd2,
-    wd1,
-    wd2,
-    pd1,
-    pd2,
-    cu1,
-    cu2,
-    cp1,
-    cp2,
-    random1,
-    random2
-  ) {
+  function step5(nd1, nd2, wd1, wd2, pd1, pd2, cu1, cu2, cp1, cp2) {
     //final calculations
     let cd1 = 0.4 * cu1 ** 1.3 + 0.6 * cp1 ** 1.7
     let und1 = (1 - s1) * nd1 ** 2 + s1
@@ -780,7 +767,7 @@ export default function App() {
       setRandom2(0)
       rlc2 = lc2
     }
-    return [cd1, cd2, vd1, vd2, lc1, lc2, rlc1, rlc2]
+    return [cd1, cd2, vd1, vd2, lc1, lc2, random1, random2, rlc1, rlc2]
   }
 
   function conflictCalculator() {
@@ -812,7 +799,7 @@ export default function App() {
       dp2,
     ] = step3(nn1, nn2, iu1, iu2, ip1, ip2)
     const [co1, co2, cu1, cu2, cp1, cp2] = step4(du1, du2, dp1, dp2)
-    const [cd1, cd2, vd1, vd2, lc1, lc2, rlc1, rlc2] = step5(
+    const [cd1, cd2, vd1, vd2, lc1, lc2, random1, random2, rlc1, rlc2] = step5(
       nd1,
       nd2,
       wd1,
@@ -822,9 +809,7 @@ export default function App() {
       cu1,
       cu2,
       cp1,
-      cp2,
-      random1,
-      random2
+      cp2
     )
     setdi1(di1)
     setiu1(iu1)
@@ -868,10 +853,10 @@ export default function App() {
   }
 
   function imagepicker(percentage) {
-    if (percentage < 0 || percentage > 100) {
+    if (percentage < 0 || percentage > 1) {
       return "Out of range"
     }
-    const range = Math.floor(percentage / 10)
+    const range = Math.floor(percentage / 0.1)
 
     const array = [
       zeroPercent,
@@ -1688,11 +1673,11 @@ export default function App() {
               </div>
 
               <p id="result_image">
-                {/* <img
-                src={imagepicker(twoDP(final))}
-                alt="Likelihood visual"
-                style={{ width: "70vw", objectFit: "contain" }}
-              /> */}
+                <img
+                  src={imagepicker(twoDP(final1))}
+                  alt="Likelihood visual"
+                  style={{ width: "10vw", objectFit: "contain" }}
+                />
               </p>
             </div>
             <div
@@ -1751,11 +1736,11 @@ export default function App() {
               </div>
 
               <p id="result_image">
-                {/* <img
-                src={imagepicker(twoDP(final))}
-                alt="Likelihood visual"
-                style={{ width: "70vw", objectFit: "contain" }}
-              /> */}
+                <img
+                  src={imagepicker(twoDP(final2))}
+                  alt="Likelihood visual"
+                  style={{ width: "10vw", objectFit: "contain" }}
+                />
               </p>
             </div>
           </div>
