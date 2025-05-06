@@ -62,6 +62,23 @@ export default function App() {
   const [p_i1, setp_i1] = useState(0)
   const [l_o1, setl_o1] = useState(0)
 
+  //mf inputs
+  //unity variables
+  const [cs1, setCS1] = useState(0.5)
+  const [cgd1, setCGD1] = useState(0.5)
+  const [cds1, setCDS1] = useState(0.5)
+  const [cc1, setCC1] = useState(0.5)
+  //prejudice variable
+  const [chp1, setCHP1] = useState(0.5)
+  //resources variables
+  const [cnr1, setCNR1] = useState(0.5)
+  const [cwr1, setCWR1] = useState(0.5)
+  const [cm1, setCM1] = useState(0.5)
+  //communication variables
+  const [ci1, setCI1] = useState(0.5)
+  const [cr1, setCR1] = useState(0)
+  const [cf1, setCF1] = useState(0.5)
+
   //outcome
   const [nn1, setnn1] = useState(0)
   const [di1, setdi1] = useState(0)
@@ -174,6 +191,23 @@ export default function App() {
   const [e_d2, sete_d2] = useState(0)
   const [p_i2, setp_i2] = useState(0)
   const [l_o2, setl_o2] = useState(0)
+
+  //mf inputs
+  //unity variables
+  const [cs2, setCS2] = useState(0.5)
+  const [cgd2, setCGD2] = useState(0.5)
+  const [cds2, setCDS2] = useState(0.5)
+  const [cc2, setCC2] = useState(0.5)
+  //prejudice variable
+  const [chp2, setCHP2] = useState(0.5)
+  //resources variables
+  const [cnr2, setCNR2] = useState(0.5)
+  const [cwr2, setCWR2] = useState(0.5)
+  const [cm2, setCM2] = useState(0.5)
+  //communication variables
+  const [ci2, setCI2] = useState(0.5)
+  const [cr2, setCR2] = useState(0)
+  const [cf2, setCF2] = useState(0.5)
 
   //outcome
   const [nn2, setnn2] = useState(0)
@@ -549,7 +583,7 @@ export default function App() {
       solidarity1 = cohesion1 * (1 - (2 / 7) * (_c1 - 0.3))
     }
     if (_N1 > 150) {
-      iu1 = (solidarity1 * 0.98) ^ (_n1 / 150 + _s1)
+      iu1 = solidarity1 * (0.98 ^ (_n1 / 150)) + _s1
     } else {
       iu1 = solidarity1
     }
@@ -564,7 +598,7 @@ export default function App() {
       solidarity2 = cohesion2 * (1 - (2 / 7) * (_c2 - 0.3))
     }
     if (_N2 > 150) {
-      iu1 = (solidarity1 * 0.98) ^ (_n2 / 150 + _s2)
+      iu2 = solidarity2 * (0.98 ^ (_n2 / 150)) + _s2
     } else {
       iu2 = solidarity2
     }
@@ -575,7 +609,7 @@ export default function App() {
   function step2(_p1, _p2, _c1, _c2, _i1, _i2) {
     //update prejudice and interaction
     let ip1
-    if (_c1 <= 0.6) {
+    if (_c1 >= 0.6) {
       ip1 = _p1 * (1 + (2 / 3) * _c1)
     } else {
       ip1 = _p1 * (1 - (3 / 4) * (_c1 - 0.6))
@@ -585,14 +619,14 @@ export default function App() {
     ii1 = _i1 * (1 - 0.4 * _c1)
 
     let ip2
-    if (c2 <= 0.6) {
+    if (_c2 >= 0.6) {
       ip2 = _p2 * (1 + (2 / 3) * _c2)
     } else {
       ip2 = _p2 * (1 - (3 / 4) * (_c2 - 0.6))
     }
 
     let ii2
-    ii1 = _i2 * (1 - 0.4 * _c2)
+    ii2 = _i2 * (1 - 0.4 * _c2)
 
     return [ip1, ip2, ii1, ii2]
   }
@@ -805,87 +839,60 @@ export default function App() {
     const N2 = Number(n2)
 
     //changed p to chp
-    let cN1,
-      cs1,
-      cgd1,
-      cds1,
-      cc1,
-      chp1,
-      cnr1,
-      cwr1,
-      cm1,
-      ci1,
-      cr1,
-      cf1,
-      cN2,
-      cs2,
-      cgd2,
-      cds2,
-      cc2,
-      chp2,
-      cnr2,
-      cwr2,
-      cm2,
-      ci2,
-      cr2,
-      cf2
-
     if (addMorals) {
-      cN1 = 2 * N1
-      cs1 = 2 * s1
-      cgd1 = 2 * gd1
-      cds1 = 2 * ds1
-      cc1 = 2 * c1
-      chp1 = 2 * p1
-      cnr1 = 2 * nr1
-      cwr1 = 2 * wr1
-      cm1 = 2 * m1
-      ci1 = 2 * i1
-      cr1 = 2 * r1
-      cf1 = 2 * f1
-      cN2 = 2 * N2
-      cs2 = 2 * s2
-      cgd2 = 2 * gd2
-      cds2 = 2 * ds2
-      cc2 = 2 * c2
-      chp2 = 2 * p2
-      cnr2 = 2 * nr2
-      cwr2 = 2 * wr2
-      cm2 = 2 * m2
-      ci2 = 2 * i2
-      cr2 = 2 * r2
-      cf2 = 2 * f2
+      setCS1(2 * s1)
+      setCGD1(2 * gd1)
+      setCDS1(2 * ds1)
+      setCC1(2 * c1)
+      setCHP1(2 * p1)
+      setCNR1(2 * nr1)
+      setCWR1(2 * wr1)
+      setCM1(2 * m1)
+      setCI1(2 * i1)
+      setCR1(2 * r1)
+      setCF1(2 * f1)
+
+      setCS2(2 * s2)
+      setCGD2(2 * gd2)
+      setCDS2(2 * ds2)
+      setCC2(2 * c2)
+      setCHP2(2 * p2)
+      setCNR2(2 * nr2)
+      setCWR2(2 * wr2)
+      setCM2(2 * m2)
+      setCI2(2 * i2)
+      setCR2(2 * r2)
+      setCF2(2 * f2)
     } else {
-      cN1 = N1
-      cs1 = s1
-      cgd1 = gd1
-      cds1 = ds1
-      cc1 = c1
-      chp1 = p1
-      cnr1 = nr1
-      cwr1 = wr1
-      cm1 = m1
-      ci1 = i1
-      cr1 = r1
-      cf1 = f1
-      cN2 = N2
-      cs2 = s2
-      cgd2 = gd2
-      cds2 = ds2
-      cc2 = c2
-      chp2 = p2
-      cnr2 = nr2
-      cwr2 = wr2
-      cm2 = m2
-      ci2 = i2
-      cr2 = r2
-      cf2 = f2
+      setCS1(s1)
+      setCGD1(gd1)
+      setCDS1(ds1)
+      setCC1(c1)
+      setCHP1(p1)
+      setCNR1(nr1)
+      setCWR1(wr1)
+      setCM1(m1)
+      setCI1(i1)
+      setCR1(r1)
+      setCF1(f1)
+
+      setCS2(s2)
+      setCGD2(gd2)
+      setCDS2(ds2)
+      setCC2(c2)
+      setCHP2(p2)
+      setCNR2(nr2)
+      setCWR2(wr2)
+      setCM2(m2)
+      setCI2(i2)
+      setCR2(r2)
+      setCF2(f2)
     }
 
     //gd, ds, s, and c
     const [tdi1, tdi2, tiu1, tiu2] = step1(
-      cN1,
-      cN2,
+      N1,
+      N2,
       cgd1,
       cgd2,
       cds1,
@@ -921,8 +928,8 @@ export default function App() {
       tdp1,
       tdp2,
     ] = step3(
-      cN1,
-      cN2,
+      N1,
+      N2,
       cs1,
       cs2,
       chp1,
@@ -1381,13 +1388,18 @@ export default function App() {
           {/* add the modified values */}
           {addMorals && (
             <div>
-              <div>{c_h1}</div>
-              <div>{l_b1}</div>
-              <div>{a_s1}</div>
-              <div>{p_d1}</div>
-              <div>{e_d1}</div>
-              <div>{p_i1}</div>
-              <div>{l_o1}</div>
+              <div>updated inputs</div>
+              <div>{cs1}</div>
+              <div>{cgd1}</div>
+              <div>{cds1}</div>
+              <div>{cc1}</div>
+              <div>{chp1}</div>
+              <div>{cnr1}</div>
+              <div>{cwr1}</div>
+              <div>{cm1}</div>
+              <div>{ci1}</div>
+              <div>{cr1}</div>
+              <div>{cf1}</div>
             </div>
           )}
 
@@ -1715,13 +1727,18 @@ export default function App() {
           {/* add the modified values */}
           {addMorals && (
             <div>
-              <div>{c_h2}</div>
-              <div>{l_b2}</div>
-              <div>{a_s2}</div>
-              <div>{p_d2}</div>
-              <div>{e_d2}</div>
-              <div>{p_i2}</div>
-              <div>{l_o2}</div>
+              <div>updated inputs</div>
+              <div>{cs2}</div>
+              <div>{cgd2}</div>
+              <div>{cds2}</div>
+              <div>{cc2}</div>
+              <div>{chp2}</div>
+              <div>{cnr2}</div>
+              <div>{cwr2}</div>
+              <div>{cm2}</div>
+              <div>{ci2}</div>
+              <div>{cr2}</div>
+              <div>{cf2}</div>
             </div>
           )}
         </div>
