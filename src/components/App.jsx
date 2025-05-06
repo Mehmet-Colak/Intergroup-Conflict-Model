@@ -33,7 +33,6 @@ export default function App() {
 
   const [seeResult, setSeeResult] = useState(false)
 
-  const [final1, setFinal1] = useState(0)
   //amount of people variables
   const [n1, setN1] = useState(1)
   //unity variables
@@ -82,7 +81,7 @@ export default function App() {
   const [cd1, setcd1] = useState(0)
   const [vd1, setvd1] = useState(0)
   const [lc1, setlc1] = useState(0)
-  const [rlc1, setrlc1] = useState(0)
+  const [ii1, setii1] = useState(0)
 
   function changeS1(e) {
     setS1(e.currentTarget.value)
@@ -147,7 +146,6 @@ export default function App() {
     setl_o1(e.currentTarget.value)
   }
 
-  const [final2, setFinal2] = useState(0)
   //amount of people variables
   const [n2, setN2] = useState(1)
   //unity variables
@@ -196,7 +194,7 @@ export default function App() {
   const [cd2, setcd2] = useState(0)
   const [vd2, setvd2] = useState(0)
   const [lc2, setlc2] = useState(0)
-  const [rlc2, setrlc2] = useState(0)
+  const [ii2, setii2] = useState(0)
 
   function changeS2(e) {
     setS2(e.currentTarget.value)
@@ -539,34 +537,34 @@ export default function App() {
     ]
   }
 
-  function step1(N1, N2) {
+  function step1(_N1, _N2, _gd1, _gd2, _ds1, _ds2, _s1, _s2, _c1, _c2) {
     //create unity
-    let di1 = gd1 * ds1
-    let cohesion1 = s1 * (1 - 0.2 * di1)
+    let di1 = _gd1 * _ds1
+    let cohesion1 = _s1 * (1 - 0.2 * di1)
     let solidarity1
     let iu1
-    if (c1 <= 0.3) {
-      solidarity1 = cohesion1 * (1 + (5 / 3) * c1)
+    if (_c1 <= 0.3) {
+      solidarity1 = cohesion1 * (1 + (5 / 3) * _c1)
     } else {
-      solidarity1 = cohesion1 * (1 - (2 / 7) * (c1 - 0.3))
+      solidarity1 = cohesion1 * (1 - (2 / 7) * (_c1 - 0.3))
     }
-    if (N1 >= 150) {
-      iu1 = solidarity1 * N1 ** (-0.02 * (1 - s1))
+    if (_N1 > 150) {
+      iu1 = (solidarity1 * 0.98) ^ (_n1 / 150 + _s1)
     } else {
       iu1 = solidarity1
     }
 
-    let di2 = gd2 * ds2
-    let cohesion2 = s2 * (1 - 0.2 * di2)
+    let di2 = _gd2 * _ds2
+    let cohesion2 = _s2 * (1 - 0.2 * di2)
     let solidarity2
     let iu2
-    if (c2 <= 0.3) {
-      solidarity2 = cohesion2 * (1 + (5 / 3) * c2)
+    if (_c2 <= 0.3) {
+      solidarity2 = cohesion2 * (1 + (5 / 3) * _c2)
     } else {
-      solidarity2 = cohesion2 * (1 - (2 / 7) * (c2 - 0.3))
+      solidarity2 = cohesion2 * (1 - (2 / 7) * (_c2 - 0.3))
     }
-    if (N2 >= 150) {
-      iu2 = solidarity2 * N2 ** (-0.02 * (1 - s2))
+    if (_N2 > 150) {
+      iu1 = (solidarity1 * 0.98) ^ (_n2 / 150 + _s2)
     } else {
       iu2 = solidarity2
     }
@@ -574,90 +572,120 @@ export default function App() {
     return [di1, di2, iu1, iu2]
   }
 
-  function step2() {
-    //update prejudice
+  function step2(_p1, _p2, _c1, _c2, _i1, _i2) {
+    //update prejudice and interaction
     let ip1
-    if (c1 <= 0.6) {
-      ip1 = p1 * (1 + (2 / 3) * c1)
+    if (_c1 <= 0.6) {
+      ip1 = _p1 * (1 + (2 / 3) * _c1)
     } else {
-      ip1 = p1 * (1 - (3 / 4) * (c1 - 0.6))
+      ip1 = _p1 * (1 - (3 / 4) * (_c1 - 0.6))
     }
+
+    let ii1
+    ii1 = _i1 * (1 - 0.4 * _c1)
 
     let ip2
     if (c2 <= 0.6) {
-      ip2 = p2 * (1 + (2 / 3) * c2)
+      ip2 = _p2 * (1 + (2 / 3) * _c2)
     } else {
-      ip2 = p2 * (1 - (3 / 4) * (c2 - 0.6))
+      ip2 = _p2 * (1 - (3 / 4) * (_c2 - 0.6))
     }
 
-    return [ip1, ip2]
+    let ii2
+    ii1 = _i2 * (1 - 0.4 * _c2)
+
+    return [ip1, ip2, ii1, ii2]
   }
 
-  function step3(nn1, nn2, iu1, iu2, ip1, ip2) {
+  function step3(
+    _N1,
+    _N2,
+    _s1,
+    _s2,
+    _p1,
+    _p2,
+    _m1,
+    _m2,
+    _nr1,
+    _nr2,
+    _wr1,
+    _wr2,
+    _iu1,
+    _iu2,
+    _ip1,
+    _ip2
+  ) {
     //resource scarcity
-    let nd1 = nr1 - nr2
-    let ind1 = (1 - m1) * nd1
-    let wd1 = wr1 - wr2
-    let iwd1 = m1 * wd1
+    let nn1 = _N1 / (_N1 + _N2)
+    let nn2 = _N2 / (_N2 + _N1)
+
+    let nd1 = _nr1 / (nn1 + nn2 * _p1) - _nr2 / (nn2 - nn2 * _p1)
+    let ind1 = (1 - _m1) * nd1
+    let wd1 = _wr1 / (nn1 + nn2 * _s1) - _wr2 / (nn2 - nn2 * _s1)
+    let iwd1 = _m1 * wd1
     let pd1 =
-      nn1 - nn2 < 0
-        ? -Math.pow(Math.abs(nn1 - nn2), 1.8)
-        : Math.pow(nn1 - nn2, 1.8)
-    let normCoeff1 = 1 / (0.79 - 0.42 * m1)
+      nn1 / (nn1 + nn2 * ((_s1 + _p1) / 2)) -
+      nn2 / (nn2 - nn2 * ((_s1 + _p1) / 2))
+    let normCoeff1 = 1 / (0.79 - 0.42 * _m1)
     let rd1 = normCoeff1 * (0.63 * ind1 + 0.21 * iwd1 + 0.16 * pd1)
+    let vd1 = (3 / 6) * pd1 + (2 / 6) * ind1 + (1 / 6) * iwd1
     let du1
     let dp1
     if (rd1 <= 0) {
-      du1 = iu1 * (1 + 0.35 * Math.abs(rd1))
-      dp1 = ip1 * (1 + 0.55 * Math.abs(rd1))
+      du1 = _iu1 * (1 + 0.35 * Math.abs(rd1))
+      dp1 = _ip1 * (1 + 0.55 * Math.abs(rd1))
     } else {
-      if (s1 > 0.7) {
-        du1 = iu1 * (1 + (s1 - 0.7) * rd1)
-        dp1 = ip1 * (1 + (5 / 3) * (s1 - 0.7) * rd1)
+      if (_s1 > 0.7) {
+        du1 = _iu1 * (1 + (_s1 - 0.7) * rd1)
+        dp1 = _ip1 * (1 + (5 / 3) * (_s1 - 0.7) * rd1)
       } else {
-        du1 = iu1 * (1 - (4 / 7) * (0.7 - s1) * rd1)
-        dp1 = ip1 * (1 - (6 / 7) * (0.7 - s1) * rd1)
+        du1 = _iu1 * (1 - (4 / 7) * (0.7 - _s1) * rd1)
+        dp1 = _ip1 * (1 - (6 / 7) * (0.7 - _s1) * rd1)
       }
     }
 
-    let nd2 = nr2 - nr1
-    let ind2 = (1 - m2) * nd2
-    let wd2 = wr2 - wr1
-    let iwd2 = m2 * wd2
+    let nd2 = _nr2 / (nn2 + nn1 * _p2) - _nr1 / (nn1 - nn1 * _p2)
+    let ind2 = (1 - _m2) * nd2
+    let wd2 = _wr2 / (nn2 + nn1 * _s2) - _wr1 / (nn1 - nn1 * _s2)
+    let iwd2 = _m2 * wd2
     let pd2 =
-      nn2 - nn1 < 0
-        ? -Math.pow(Math.abs(nn2 - nn1), 1.8)
-        : Math.pow(nn2 - nn1, 1.8)
-    let normCoeff2 = 1 / (0.79 - 0.42 * m2)
+      nn2 / (nn2 + nn1 * ((_s2 + _p2) / 2)) -
+      nn1 / (nn1 - nn1 * ((_s2 + _p2) / 2))
+    let normCoeff2 = 1 / (0.79 - 0.42 * _m2)
     let rd2 = normCoeff2 * (0.63 * ind2 + 0.21 * iwd2 + 0.16 * pd2)
+    let vd2 = (3 / 6) * pd2 + (2 / 6) * ind2 + (1 / 6) * iwd2
     let du2
     let dp2
     if (rd2 <= 0) {
-      du2 = iu2 * (1 + 0.35 * Math.abs(rd2))
-      dp2 = ip2 * (1 + 0.55 * Math.abs(rd2))
+      du2 = _iu2 * (1 + 0.35 * Math.abs(rd2))
+      dp2 = _ip2 * (1 + 0.55 * Math.abs(rd2))
     } else {
-      if (s2 > 0.7) {
-        du2 = iu2 * (1 + (s2 - 0.7) * rd2)
-        dp2 = ip2 * (1 + (5 / 3) * (s2 - 0.7) * rd2)
+      if (_s2 > 0.7) {
+        du2 = _iu2 * (1 + (_s2 - 0.7) * rd2)
+        dp2 = _ip2 * (1 + (5 / 3) * (_s2 - 0.7) * rd2)
       } else {
-        du2 = iu2 * (1 - (4 / 7) * (0.7 - s2) * rd2)
-        dp2 = ip2 * (1 - (6 / 7) * (0.7 - s2) * rd2)
+        du2 = _iu2 * (1 - (4 / 7) * (0.7 - _s2) * rd2)
+        dp2 = _ip2 * (1 - (6 / 7) * (0.7 - _s2) * rd2)
       }
     }
 
     return [
+      nn1,
+      nn2,
       nd1,
       nd2,
-      wd1,
-      wd2,
       ind1,
       ind2,
+      wd1,
+      wd2,
       iwd1,
       iwd2,
       pd1,
       pd2,
       rd1,
       rd2,
+      vd1,
+      vd2,
       du1,
       du2,
       dp1,
@@ -665,68 +693,81 @@ export default function App() {
     ]
   }
 
-  function step4(du1, du2, dp1, dp2) {
+  function step4(
+    _c1,
+    _c2,
+    _r1,
+    _r2,
+    _f1,
+    _f2,
+    _ii1,
+    _ii2,
+    _du1,
+    _du2,
+    _dp1,
+    _dp2
+  ) {
     //contact
-    let badrep1 = r1 < 0
+    let goodrep1 = _r1 > 0
     let co1
     let cu1
     let cp1
-    if (i1 === 0) {
+    if (_ii1 === 0) {
       co1 = 0
     } else {
-      if (f1 <= 0.65) {
-        co1 = ((1 / 0.65) * Math.abs(r1 * f1)) ** i1
-        if (badrep1) {
+      if (_f1 > 0.65) {
+        co1 = ((1 / 0.35) * Math.abs(_r1 * (_f1 - 0.65))) ** _ii1
+        if (goodrep1) {
           //4
-          cu1 = du1 * (1 + 0.4 * co1)
-          cp1 = dp1 * (1 + 0.5 * co1)
+          cu1 = _du1 * (1 - 0.3 * co1)
+          cp1 = _dp1 * (1 - 0.3 * co1)
         } else {
           //2
-          cu1 = du1 * (1 - 0.3 * co1)
-          cp1 = dp1 * (1 + 0.2 * co1)
+          cu1 = _du1 * (1 + 0.4 * co1)
+          cp1 = _dp1 * (1 + 0.8 * co1)
         }
       } else {
-        co1 = ((1 / 0.35) * Math.abs(r1 * (f1 - 0.65))) ** i1
-        if (badrep1) {
+        co1 = ((1 / 0.65) * Math.abs(_r1 * _f1)) ** _ii1
+        if (goodrep1) {
           //3
-          cu1 = du1 * (1 + 0.4 * co1)
-          cp1 = dp1 * (1 + 0.8 * co1)
+          cu1 = _du1 * (1 - 0.3 * co1)
+          cp1 = _dp1 * (1 + 0.2 * co1)
         } else {
           //1
-          cu1 = du1 * (1 - 0.3 * co1)
-          cp1 = dp1 * (1 - 0.3 * co1)
+          cu1 = _du1 * (1 + 0.4 * co1)
+          cp1 = _dp1 * (1 + 0.5 * co1)
         }
       }
     }
 
-    let badrep2 = r2 < 0
+    let goodrep2 = _r2 > 0
     let co2
     let cu2
     let cp2
-    if (i2 === 0) {
+    if (_ii2 === 0) {
       co2 = 0
     } else {
-      if (f2 <= 0.65) {
-        co2 = ((1 / 0.65) * Math.abs(r2 * f2)) ** i2
-        if (badrep2) {
+      if (_f2 > 0.65) {
+        co2 = ((1 / 0.35) * Math.abs(_r2 * (_f2 - 0.65))) ** _ii2
+        if (goodrep2) {
           //4
-          cu2 = du2 * (1 + 0.4 * co2)
-          cp2 = dp2 * (1 + 0.5 * co2)
+          cu2 = _du2 * (1 - 0.3 * co2)
+          cp2 = _dp2 * (1 - 0.3 * co2)
         } else {
           //2
-          cu2 = du2 * (1 - 0.3 * co2)
-          cp2 = dp2 * (1 + 0.2 * co2)
+          cu2 = _du2 * (1 + 0.4 * co2)
+          cp2 = _dp2 * (1 + 0.8 * co2)
         }
       } else {
-        co2 = ((1 / 0.35) * Math.abs(r2 * (f2 - 0.65))) ** i2
-        if (badrep2) {
+        co2 = ((1 / 0.65) * Math.abs(_r2 * _f2)) ** _ii2
+        if (goodrep2) {
           //3
-          cu2 = du2 * (1 + 0.4 * co2)
-          cp2 = dp2 * (1 + 0.8 * co2)
+          cu2 = _du2 * (1 - 0.3 * co2)
+          cp2 = _dp2 * (1 + 0.2 * co2)
         } else {
           //1
-          cu2 = du2 * (1 - 0.3 * co2)
-          cp2 = dp2 * (1 - 0.3 * co2)
+          cu2 = _du2 * (1 + 0.4 * co2)
+          cp2 = _dp2 * (1 + 0.5 * co2)
         }
       }
     }
@@ -734,126 +775,228 @@ export default function App() {
     return [co1, co2, cu1, cu2, cp1, cp2]
   }
 
-  function step5(nd1, nd2, wd1, wd2, pd1, pd2, cu1, cu2, cp1, cp2) {
+  function step5(_vd1, _vd2, _cu1, _cu2, _cp1, _cp2) {
     //final calculations
-    let cd1 = 0.4 * cu1 ** 1.3 + 0.6 * cp1 ** 1.7
-    let und1 = (1 - s1) * nd1 ** 2 + s1
-    let uwd1 = (1 - s1) * wd1 ** 2 + s1
-    let upd1 = (1 - s1) * pd1 ** 2 + s1
-    let vd1 = (3 / 6) * upd1 + (2 / 6) * und1 + (1 / 6) * uwd1
-    let lc1 = cd1 * vd1
-    let rlc1 = lc1
+    let cd1 = 0.4 * _cu1 ** 1.3 + 0.6 * _cp1 ** 1.7
+    let lc1 = cd1 * _vd1
     let tempr1 = Math.random() * 2 - 1
     if (addRandom) {
       setRandom1(tempr1)
-      rlc1 = lc1 * (1 + 0.05 * tempr1)
+      lc1 = lc1 * (1 + 0.05 * tempr1)
     } else {
       setRandom1(0)
-      rlc1 = lc1
     }
 
-    let cd2 = 0.4 * cu2 ** 1.3 + 0.6 * cp2 ** 1.7
-    let und2 = (1 - s2) * nd2 ** 2 + s2
-    let uwd2 = (1 - s2) * wd2 ** 2 + s2
-    let upd2 = (1 - s2) * pd2 ** 2 + s2
-    let vd2 = (3 / 6) * upd2 + (2 / 6) * und2 + (1 / 6) * uwd2
-    let lc2 = cd2 * vd2
-    let rlc2 = lc2
+    let cd2 = 0.4 * _cu2 ** 1.3 + 0.6 * _cp2 ** 1.7
+    let lc2 = cd2 * _vd2
     let tempr2 = Math.random() * 2 - 1
     if (addRandom) {
       setRandom2(tempr2)
-      rlc2 = lc2 * (1 + 0.05 * tempr2)
+      lc2 = lc2 * (1 + 0.05 * tempr2)
     } else {
       setRandom2(0)
-      rlc2 = lc2
     }
-    return [cd1, cd2, vd1, vd2, lc1, lc2, random1, random2, rlc1, rlc2]
+
+    return [cd1, cd2, lc1, lc2]
   }
 
   function conflictCalculator() {
     const N1 = Number(n1)
     const N2 = Number(n2)
-    setnn1(N1 / (N1 + N2))
-    setnn2(N2 / (N1 + N2))
+
+    //changed p to chp
+    let cN1,
+      cs1,
+      cgd1,
+      cds1,
+      cc1,
+      chp1,
+      cnr1,
+      cwr1,
+      cm1,
+      ci1,
+      cr1,
+      cf1,
+      cN2,
+      cs2,
+      cgd2,
+      cds2,
+      cc2,
+      chp2,
+      cnr2,
+      cwr2,
+      cm2,
+      ci2,
+      cr2,
+      cf2
+
     if (addMorals) {
+      cN1 = 2 * N1
+      cs1 = 2 * s1
+      cgd1 = 2 * gd1
+      cds1 = 2 * ds1
+      cc1 = 2 * c1
+      chp1 = 2 * p1
+      cnr1 = 2 * nr1
+      cwr1 = 2 * wr1
+      cm1 = 2 * m1
+      ci1 = 2 * i1
+      cr1 = 2 * r1
+      cf1 = 2 * f1
+      cN2 = 2 * N2
+      cs2 = 2 * s2
+      cgd2 = 2 * gd2
+      cds2 = 2 * ds2
+      cc2 = 2 * c2
+      chp2 = 2 * p2
+      cnr2 = 2 * nr2
+      cwr2 = 2 * wr2
+      cm2 = 2 * m2
+      ci2 = 2 * i2
+      cr2 = 2 * r2
+      cf2 = 2 * f2
+    } else {
+      cN1 = N1
+      cs1 = s1
+      cgd1 = gd1
+      cds1 = ds1
+      cc1 = c1
+      chp1 = p1
+      cnr1 = nr1
+      cwr1 = wr1
+      cm1 = m1
+      ci1 = i1
+      cr1 = r1
+      cf1 = f1
+      cN2 = N2
+      cs2 = s2
+      cgd2 = gd2
+      cds2 = ds2
+      cc2 = c2
+      chp2 = p2
+      cnr2 = nr2
+      cwr2 = wr2
+      cm2 = m2
+      ci2 = i2
+      cr2 = r2
+      cf2 = f2
     }
 
     //gd, ds, s, and c
-    const [di1, di2, iu1, iu2] = step1(N1, N2)
+    const [tdi1, tdi2, tiu1, tiu2] = step1(
+      cN1,
+      cN2,
+      cgd1,
+      cgd2,
+      cds1,
+      cds2,
+      cs1,
+      cs2,
+      cc1,
+      cc2
+    )
     //p and c
-    const [ip1, ip2] = step2()
+    const [tip1, tip2, tii1, tii2] = step2(chp1, chp2, cc1, cc2, ci1, ci2)
+
     //nr, wr, m, and s
     const [
-      nd1,
-      nd2,
-      wd1,
-      wd2,
-      ind1,
-      ind2,
-      iwd1,
-      iwd2,
-      pd1,
-      pd2,
-      rd1,
-      rd2,
-      du1,
-      du2,
-      dp1,
-      dp2,
-    ] = step3(nn1, nn2, iu1, iu2, ip1, ip2)
-    const [co1, co2, cu1, cu2, cp1, cp2] = step4(du1, du2, dp1, dp2)
-    //r, f, and s
-    const [cd1, cd2, vd1, vd2, lc1, lc2, random1, random2, rlc1, rlc2] = step5(
-      nd1,
-      nd2,
-      wd1,
-      wd2,
-      pd1,
-      pd2,
-      cu1,
-      cu2,
-      cp1,
-      cp2
+      tnn1,
+      tnn2,
+      tnd1,
+      tnd2,
+      tind1,
+      tind2,
+      twd1,
+      twd2,
+      tiwd1,
+      tiwd2,
+      tpd1,
+      tpd2,
+      trd1,
+      trd2,
+      tvd1,
+      tvd2,
+      tdu1,
+      tdu2,
+      tdp1,
+      tdp2,
+    ] = step3(
+      cN1,
+      cN2,
+      cs1,
+      cs2,
+      chp1,
+      chp2,
+      cm1,
+      cm2,
+      cnr1,
+      cnr2,
+      cwr1,
+      cwr2,
+      tiu1,
+      tiu2,
+      tip1,
+      tip2
     )
-    setdi1(di1)
-    setiu1(iu1)
-    setip1(ip1)
-    setnd1(nd1)
-    setwd1(wd1)
-    setind1(ind1)
-    setiwd1(iwd1)
-    setpd1(pd1)
-    setrd1(rd1)
-    setdu1(du1)
-    setdp1(dp1)
-    setco1(co1)
-    setcu1(cu1)
-    setcp1(cp1)
-    setcd1(cd1)
-    setvd1(vd1)
-    setlc1(lc1)
-    setrlc1(rlc1)
-    setFinal1(rlc1)
 
-    setdi2(di2)
-    setiu2(iu2)
-    setip2(ip2)
-    setnd2(nd2)
-    setwd2(wd2)
-    setind2(ind2)
-    setiwd2(iwd2)
-    setpd2(pd2)
-    setrd2(rd2)
-    setdu2(du2)
-    setdp2(dp2)
-    setco2(co2)
-    setcu2(cu2)
-    setcp2(cp2)
-    setcd2(cd2)
-    setvd2(vd2)
-    setlc2(lc2)
-    setrlc2(rlc2)
-    setFinal2(rlc2)
+    //ii, r, f, du, dp
+    const [tco1, tco2, tcu1, tcu2, tcp1, tcp2] = step4(
+      cc1,
+      cc2,
+      cr1,
+      cr2,
+      cf1,
+      cf2,
+      tii1,
+      tii2,
+      tdu1,
+      tdu2,
+      tdp1,
+      tdp2
+    )
+
+    //r, f, and s
+    const [tcd1, tcd2, tlc1, tlc2] = step5(tvd1, tvd2, tcu1, tcu2, tcp1, tcp2)
+
+    setnn1(tnn1)
+    setdi1(tdi1)
+    setiu1(tiu1)
+    setip1(tip1)
+    setii1(tii1)
+    setnd1(tnd1)
+    setwd1(twd1)
+    setind1(tind1)
+    setiwd1(tiwd1)
+    setpd1(tpd1)
+    setrd1(trd1)
+    setvd1(tvd1)
+    setdu1(tdu1)
+    setdp1(tdp1)
+    setco1(tco1)
+    setcu1(tcu1)
+    setcp1(tcp1)
+    setcd1(tcd1)
+    setlc1(tlc1)
+
+    setnn2(tnn2)
+    setdi2(tdi2)
+    setiu2(tiu2)
+    setip2(tip2)
+    setii2(tii2)
+    setnd2(tnd2)
+    setwd2(twd2)
+    setind2(tind2)
+    setiwd2(tiwd2)
+    setpd2(tpd2)
+    setrd2(trd2)
+    setvd2(tvd2)
+    setdu2(tdu2)
+    setdp2(tdp2)
+    setco2(tco2)
+    setcu2(tcu2)
+    setcp2(tcp2)
+    setcd2(tcd2)
+    setlc2(tlc2)
   }
 
   function imagepicker(percentage) {
@@ -1642,14 +1785,14 @@ export default function App() {
                   <div>di1: {twoDP(di1)}</div>
                   <div>iu1: {twoDP(iu1)}</div>
                   <div>ip1: {twoDP(ip1)}</div>
-                  <div>nd1: {twoDP(nd1)}</div>
+                  <div>ii1: {twoDP(ii1)}</div>
                 </div>
                 <div className="result column">
-                  <div>wd1: {twoDP(wd1)}</div>
+                  <div>nd1: {twoDP(nd1)}</div>
                   <div>ind1: {twoDP(ind1)}</div>
+                  <div>wd1: {twoDP(wd1)}</div>
                   <div>iwd1: {twoDP(iwd1)}</div>
                   <div>pd1: {twoDP(pd1)}</div>
-                  <div>rd1: {twoDP(rd1)}</div>
                 </div>
               </div>
               <div
@@ -1661,24 +1804,24 @@ export default function App() {
                 }}
               >
                 <div className="result column">
+                  <div>rd1: {twoDP(rd1)}</div>
+                  <div>vd1: {twoDP(vd1)}</div>
                   <div>du1: {twoDP(du1)}</div>
                   <div>dp1: {twoDP(dp1)}</div>
+                  <div>ran1: {twoDP(random1)}</div>
+                </div>
+                <div className="result column">
                   <div>co1: {twoDP(co1)}</div>
                   <div>cu1: {twoDP(cu1)}</div>
                   <div>cp1: {twoDP(cp1)}</div>
-                </div>
-                <div className="result column">
                   <div>cd1: {twoDP(cd1)}</div>
-                  <div>vd1: {twoDP(vd1)}</div>
                   <div>lc1: {twoDP(lc1)}</div>
-                  <div>r1: {twoDP(random1)}</div>
-                  <div>final1: {twoDP(final1)}</div>
                 </div>
               </div>
 
               <p id="result_image">
                 <img
-                  src={imagepicker(twoDP(final1))}
+                  src={imagepicker(twoDP(lc1))}
                   alt="Likelihood visual"
                   style={{ width: "10vw", objectFit: "contain" }}
                 />
@@ -1705,14 +1848,14 @@ export default function App() {
                   <div>di2: {twoDP(di2)}</div>
                   <div>iu2: {twoDP(iu2)}</div>
                   <div>ip2: {twoDP(ip2)}</div>
-                  <div>nd2: {twoDP(nd2)}</div>
+                  <div>ii2: {twoDP(ii2)}</div>
                 </div>
                 <div className="result column">
-                  <div>wd2: {twoDP(wd2)}</div>
+                  <div>nd2: {twoDP(nd2)}</div>
                   <div>ind2: {twoDP(ind2)}</div>
+                  <div>wd2: {twoDP(wd2)}</div>
                   <div>iwd2: {twoDP(iwd2)}</div>
                   <div>pd2: {twoDP(pd2)}</div>
-                  <div>rd2: {twoDP(rd2)}</div>
                 </div>
               </div>
               <div
@@ -1724,24 +1867,24 @@ export default function App() {
                 }}
               >
                 <div className="result column">
+                  <div>rd2: {twoDP(rd2)}</div>
+                  <div>vd2: {twoDP(vd2)}</div>
                   <div>du2: {twoDP(du2)}</div>
                   <div>dp2: {twoDP(dp2)}</div>
+                  <div>ran2: {twoDP(random2)}</div>
+                </div>
+                <div className="result column">
                   <div>co2: {twoDP(co2)}</div>
                   <div>cu2: {twoDP(cu2)}</div>
                   <div>cp2: {twoDP(cp2)}</div>
-                </div>
-                <div className="result column">
                   <div>cd2: {twoDP(cd2)}</div>
-                  <div>vd2: {twoDP(vd2)}</div>
                   <div>lc2: {twoDP(lc2)}</div>
-                  <div>r2: {twoDP(random2)}</div>
-                  <div>final: {twoDP(final2)}</div>
                 </div>
               </div>
 
               <p id="result_image">
                 <img
-                  src={imagepicker(twoDP(final2))}
+                  src={imagepicker(twoDP(lc2))}
                   alt="Likelihood visual"
                   style={{ width: "10vw", objectFit: "contain" }}
                 />
