@@ -341,6 +341,17 @@ export default function App() {
     e_d1,
     p_i1,
     l_o1,
+    cs1,
+    cgd1,
+    cds1,
+    cc1,
+    chp1,
+    cnr1,
+    cwr1,
+    cm1,
+    ci1,
+    cr1,
+    cf1,
     n2,
     s2,
     gd2,
@@ -360,6 +371,18 @@ export default function App() {
     e_d2,
     p_i2,
     l_o2,
+    cs2,
+    cgd2,
+    cds2,
+    cc2,
+    chp2,
+    cnr2,
+    cwr2,
+    cm2,
+    ci2,
+    cr2,
+    cf2,
+    n2,
     addRandom,
     addMorals,
   ])
@@ -524,13 +547,25 @@ export default function App() {
     return Math.min(Math.max(x, -1), 1)
   }
 
-  function zeroToOne(x, step) {
+  function clamp(x, step, group) {
     if (x > 1) {
-      console.log(`At step ${step} corrected to 1 from ${x}`)
+      console.log(`At step ${step} for ${group} corrected to 1 from ${x}`)
       return 1
     }
     if (x < 0) {
-      console.log(`At step ${step} corrected to 0 from ${x}`)
+      console.log(`At step ${step} for ${group} corrected to 0 from ${x}`)
+      return 0
+    }
+    return x
+  }
+
+  function greaterclamp(x, step, group) {
+    if (x > 1) {
+      console.log(`At step ${step} for ${group} corrected to 1 from ${x}`)
+      return 1
+    }
+    if (x < -1) {
+      console.log(`At step ${step} for ${group} corrected to -1 from ${x}`)
       return 0
     }
     return x
@@ -573,34 +608,34 @@ export default function App() {
 
   function step1(_N1, _N2, _gd1, _gd2, _ds1, _ds2, _s1, _s2, _c1, _c2) {
     //create unity
-    let di1 = _gd1 * _ds1
-    let cohesion1 = _s1 * (1 - 0.2 * di1)
+    let di1 = clamp(_gd1 * _ds1, "1a", "1")
+    let cohesion1 = clamp(_s1 * (1 - 0.2 * di1), "1b", "1")
     let solidarity1
     let iu1
     if (_c1 <= 0.3) {
-      solidarity1 = cohesion1 * (1 + (5 / 3) * _c1)
+      solidarity1 = clamp(cohesion1 * (1 + (5 / 3) * _c1), "1c", "1")
     } else {
-      solidarity1 = cohesion1 * (1 - (2 / 7) * (_c1 - 0.3))
+      solidarity1 = clamp(cohesion1 * (1 - (2 / 7) * (_c1 - 0.3)), "1c", "1")
     }
     if (_N1 > 150) {
-      iu1 = solidarity1 * (0.98 ^ (_n1 / 150)) + _s1
+      iu1 = clamp(solidarity1 * (0.98 ^ (_n1 / 150)) + _s1, "1d", "1")
     } else {
-      iu1 = solidarity1
+      iu1 = clamp(solidarity1, "1d", "1")
     }
 
-    let di2 = _gd2 * _ds2
-    let cohesion2 = _s2 * (1 - 0.2 * di2)
+    let di2 = clamp(_gd2 * _ds2, "1a", "2")
+    let cohesion2 = clamp(_s2 * (1 - 0.2 * di2), "1b", "2")
     let solidarity2
     let iu2
     if (_c2 <= 0.3) {
-      solidarity2 = cohesion2 * (1 + (5 / 3) * _c2)
+      solidarity2 = clamp(cohesion2 * (1 + (5 / 3) * _c2), "1c", "2")
     } else {
-      solidarity2 = cohesion2 * (1 - (2 / 7) * (_c2 - 0.3))
+      solidarity2 = clamp(cohesion2 * (1 - (2 / 7) * (_c2 - 0.3)), "1c", "2")
     }
     if (_N2 > 150) {
-      iu2 = solidarity2 * (0.98 ^ (_n2 / 150)) + _s2
+      iu2 = clamp(solidarity2 * (0.98 ^ (_n2 / 150)) + _s2, "1d", "2")
     } else {
-      iu2 = solidarity2
+      iu2 = clamp(solidarity2, "1d", "2")
     }
 
     return [di1, di2, iu1, iu2]
@@ -610,23 +645,23 @@ export default function App() {
     //update prejudice and interaction
     let ip1
     if (_c1 >= 0.6) {
-      ip1 = _p1 * (1 + (2 / 3) * _c1)
+      ip1 = clamp(_p1 * (1 + (2 / 3) * _c1), "2a", "1")
     } else {
-      ip1 = _p1 * (1 - (3 / 4) * (_c1 - 0.6))
+      ip1 = clamp(_p1 * (1 - (3 / 4) * (_c1 - 0.6)), "2a", "1")
     }
 
     let ii1
-    ii1 = _i1 * (1 - 0.4 * _c1)
+    ii1 = clamp(_i1 * (1 - 0.4 * _c1), "2b", "1")
 
     let ip2
     if (_c2 >= 0.6) {
-      ip2 = _p2 * (1 + (2 / 3) * _c2)
+      ip2 = clamp(_p2 * (1 + (2 / 3) * _c2), "2a", "2")
     } else {
-      ip2 = _p2 * (1 - (3 / 4) * (_c2 - 0.6))
+      ip2 = clamp(_p2 * (1 - (3 / 4) * (_c2 - 0.6)), "2a", "2")
     }
 
     let ii2
-    ii2 = _i2 * (1 - 0.4 * _c2)
+    ii2 = clamp(_i2 * (1 - 0.4 * _c2), "2b", "2")
 
     return [ip1, ip2, ii1, ii2]
   }
@@ -650,56 +685,94 @@ export default function App() {
     _ip2
   ) {
     //resource scarcity
-    let nn1 = _N1 / (_N1 + _N2)
-    let nn2 = _N2 / (_N2 + _N1)
+    let nn1 = clamp(_N1 / (_N1 + _N2), "3a", "1")
+    let nn2 = clamp(_N2 / (_N2 + _N1), "3a", "2")
 
-    let nd1 = _nr1 / (nn1 + nn2 * _p1) - _nr2 / (nn2 - nn2 * _p1)
-    let ind1 = (1 - _m1) * nd1
-    let wd1 = _wr1 / (nn1 + nn2 * _s1) - _wr2 / (nn2 - nn2 * _s1)
-    let iwd1 = _m1 * wd1
-    let pd1 =
+    let nd1 = greaterclamp(
+      _nr1 / (nn1 + nn2 * _p1) - _nr2 / (nn2 - nn2 * _p1),
+      "3b-a",
+      "1"
+    )
+    let ind1 = clamp((1 - _m1) * nd1, "3b-b", "1")
+    let wd1 = greaterclamp(
+      _wr1 / (nn1 + nn2 * _s1) - _wr2 / (nn2 - nn2 * _s1),
+      "3c-a",
+      "1"
+    )
+    let iwd1 = clamp(_m1 * wd1, "3c-b", "1")
+    let pd1 = greaterclamp(
       nn1 / (nn1 + nn2 * ((_s1 + _p1) / 2)) -
-      nn2 / (nn2 - nn2 * ((_s1 + _p1) / 2))
-    let normCoeff1 = 1 / (0.79 - 0.42 * _m1)
-    let rd1 = normCoeff1 * (0.63 * ind1 + 0.21 * iwd1 + 0.16 * pd1)
-    let vd1 = (3 / 6) * pd1 + (2 / 6) * ind1 + (1 / 6) * iwd1
+        nn2 / (nn2 - nn2 * ((_s1 + _p1) / 2)),
+      "3d",
+      "1"
+    )
+    let normCoeff1 = clamp(1 / (0.79 - 0.42 * _m1), "3d/e", "1")
+    let rd1 = greaterclamp(
+      normCoeff1 * (0.63 * ind1 + 0.21 * iwd1 + 0.16 * pd1),
+      "3e-a",
+      "1"
+    )
+    let vd1 = greaterclamp(
+      (3 / 6) * pd1 + (2 / 6) * ind1 + (1 / 6) * iwd1,
+      "3e-b",
+      "1"
+    )
     let du1
     let dp1
     if (rd1 <= 0) {
-      du1 = _iu1 * (1 + 0.35 * Math.abs(rd1))
-      dp1 = _ip1 * (1 + 0.55 * Math.abs(rd1))
+      du1 = clamp(_iu1 * (1 + 0.35 * Math.abs(rd1)), "3f-a-a", "1")
+      dp1 = clamp(_ip1 * (1 + 0.55 * Math.abs(rd1)), "3f-a-b", "1")
     } else {
       if (_s1 > 0.7) {
-        du1 = _iu1 * (1 + (_s1 - 0.7) * rd1)
-        dp1 = _ip1 * (1 + (5 / 3) * (_s1 - 0.7) * rd1)
+        du1 = clamp(_iu1 * (1 + (_s1 - 0.7) * rd1), "3f-b-a", "1")
+        dp1 = clamp(_ip1 * (1 + (5 / 3) * (_s1 - 0.7) * rd1), "3f-b-b", "1")
       } else {
-        du1 = _iu1 * (1 - (4 / 7) * (0.7 - _s1) * rd1)
-        dp1 = _ip1 * (1 - (6 / 7) * (0.7 - _s1) * rd1)
+        du1 = clamp(_iu1 * (1 - (4 / 7) * (0.7 - _s1) * rd1), "3f-c-a", "1")
+        dp1 = clamp(_ip1 * (1 - (6 / 7) * (0.7 - _s1) * rd1), "3f-c-b", "1")
       }
     }
 
-    let nd2 = _nr2 / (nn2 + nn1 * _p2) - _nr1 / (nn1 - nn1 * _p2)
-    let ind2 = (1 - _m2) * nd2
-    let wd2 = _wr2 / (nn2 + nn1 * _s2) - _wr1 / (nn1 - nn1 * _s2)
-    let iwd2 = _m2 * wd2
-    let pd2 =
+    let nd2 = greaterclamp(
+      _nr2 / (nn2 + nn1 * _p2) - _nr1 / (nn1 - nn1 * _p2),
+      "3b-a",
+      "2"
+    )
+    let ind2 = clamp((1 - _m2) * nd2, "3b-b", "2")
+    let wd2 = greaterclamp(
+      _wr2 / (nn2 + nn1 * _s2) - _wr1 / (nn1 - nn1 * _s2),
+      "3c-a",
+      "2"
+    )
+    let iwd2 = clamp(_m2 * wd2, "3c-b", "2")
+    let pd2 = greaterclamp(
       nn2 / (nn2 + nn1 * ((_s2 + _p2) / 2)) -
-      nn1 / (nn1 - nn1 * ((_s2 + _p2) / 2))
-    let normCoeff2 = 1 / (0.79 - 0.42 * _m2)
-    let rd2 = normCoeff2 * (0.63 * ind2 + 0.21 * iwd2 + 0.16 * pd2)
-    let vd2 = (3 / 6) * pd2 + (2 / 6) * ind2 + (1 / 6) * iwd2
+        nn1 / (nn1 - nn1 * ((_s2 + _p2) / 2)),
+      "3d",
+      "2"
+    )
+    let normCoeff2 = clamp(1 / (0.79 - 0.42 * _m2), "3d/e", "2")
+    let rd2 = greaterclamp(
+      normCoeff2 * (0.63 * ind2 + 0.21 * iwd2 + 0.16 * pd2),
+      "3e-a",
+      "2"
+    )
+    let vd2 = greaterclamp(
+      (3 / 6) * pd2 + (2 / 6) * ind2 + (1 / 6) * iwd2,
+      "3e-b",
+      "2"
+    )
     let du2
     let dp2
     if (rd2 <= 0) {
-      du2 = _iu2 * (1 + 0.35 * Math.abs(rd2))
-      dp2 = _ip2 * (1 + 0.55 * Math.abs(rd2))
+      du2 = clamp(_iu2 * (1 + 0.35 * Math.abs(rd2)), "3f-a-a", "2")
+      dp2 = clamp(_ip2 * (1 + 0.55 * Math.abs(rd2)), "3f-a-b", "2")
     } else {
       if (_s2 > 0.7) {
-        du2 = _iu2 * (1 + (_s2 - 0.7) * rd2)
-        dp2 = _ip2 * (1 + (5 / 3) * (_s2 - 0.7) * rd2)
+        du2 = clamp(_iu2 * (1 + (_s2 - 0.7) * rd2), "3f-b-a", "2")
+        dp2 = clamp(_ip2 * (1 + (5 / 3) * (_s2 - 0.7) * rd2), "3f-b-b", "2")
       } else {
-        du2 = _iu2 * (1 - (4 / 7) * (0.7 - _s2) * rd2)
-        dp2 = _ip2 * (1 - (6 / 7) * (0.7 - _s2) * rd2)
+        du2 = clamp(_iu2 * (1 - (4 / 7) * (0.7 - _s2) * rd2), "3f-c-a", "2")
+        dp2 = clamp(_ip2 * (1 - (6 / 7) * (0.7 - _s2) * rd2), "3f-c-b", "2")
       }
     }
 
@@ -750,26 +823,30 @@ export default function App() {
       co1 = 0
     } else {
       if (_f1 > 0.65) {
-        co1 = ((1 / 0.35) * Math.abs(_r1 * (_f1 - 0.65))) ** _ii1
+        co1 = greaterclamp(
+          ((1 / 0.35) * Math.abs(_r1 * (_f1 - 0.65))) ** _ii1,
+          "4a-a",
+          "1"
+        )
         if (goodrep1) {
-          //4
-          cu1 = _du1 * (1 - 0.3 * co1)
-          cp1 = _dp1 * (1 - 0.3 * co1)
+          cu1 = clamp(_du1 * (1 - 0.3 * co1), "4b-a", "1")
+          cp1 = clamp(_dp1 * (1 - 0.3 * co1), "4b-b", "1")
         } else {
-          //2
-          cu1 = _du1 * (1 + 0.4 * co1)
-          cp1 = _dp1 * (1 + 0.8 * co1)
+          cu1 = clamp(_du1 * (1 + 0.4 * co1), "4b-c", "1")
+          cp1 = clamp(_dp1 * (1 + 0.8 * co1), "4b-d", "1")
         }
       } else {
-        co1 = ((1 / 0.65) * Math.abs(_r1 * _f1)) ** _ii1
+        co1 = greaterclamp(
+          ((1 / 0.65) * Math.abs(_r1 * _f1)) ** _ii1,
+          "4a-b",
+          "1"
+        )
         if (goodrep1) {
-          //3
-          cu1 = _du1 * (1 - 0.3 * co1)
-          cp1 = _dp1 * (1 + 0.2 * co1)
+          cu1 = clamp(_du1 * (1 - 0.3 * co1), "4b-a", "1")
+          cp1 = clamp(_dp1 * (1 + 0.2 * co1), "4b-b", "1")
         } else {
-          //1
-          cu1 = _du1 * (1 + 0.4 * co1)
-          cp1 = _dp1 * (1 + 0.5 * co1)
+          cu1 = clamp(_du1 * (1 + 0.4 * co1), "4b-c", "1")
+          cp1 = clamp(_dp1 * (1 + 0.5 * co1), "4b-d", "1")
         }
       }
     }
@@ -782,26 +859,30 @@ export default function App() {
       co2 = 0
     } else {
       if (_f2 > 0.65) {
-        co2 = ((1 / 0.35) * Math.abs(_r2 * (_f2 - 0.65))) ** _ii2
+        co2 = greaterclamp(
+          ((1 / 0.35) * Math.abs(_r2 * (_f2 - 0.65))) ** _ii2,
+          "4a-a",
+          "2"
+        )
         if (goodrep2) {
-          //4
-          cu2 = _du2 * (1 - 0.3 * co2)
-          cp2 = _dp2 * (1 - 0.3 * co2)
+          cu2 = clamp(_du2 * (1 - 0.3 * co2), "4b-a", "2")
+          cp2 = clamp(_dp2 * (1 - 0.3 * co2), "4b-b", "2")
         } else {
-          //2
-          cu2 = _du2 * (1 + 0.4 * co2)
-          cp2 = _dp2 * (1 + 0.8 * co2)
+          cu2 = clamp(_du2 * (1 + 0.4 * co2), "4b-c", "2")
+          cp2 = clamp(_dp2 * (1 + 0.8 * co2), "4b-d", "2")
         }
       } else {
-        co2 = ((1 / 0.65) * Math.abs(_r2 * _f2)) ** _ii2
+        co2 = greaterclamp(
+          ((1 / 0.65) * Math.abs(_r2 * _f2)) ** _ii2,
+          "4a-b",
+          "2"
+        )
         if (goodrep2) {
-          //3
-          cu2 = _du2 * (1 - 0.3 * co2)
-          cp2 = _dp2 * (1 + 0.2 * co2)
+          cu2 = clamp(_du2 * (1 - 0.3 * co2), "4b-a", "2")
+          cp2 = clamp(_dp2 * (1 + 0.2 * co2), "4b-b", "2")
         } else {
-          //1
-          cu2 = _du2 * (1 + 0.4 * co2)
-          cp2 = _dp2 * (1 + 0.5 * co2)
+          cu2 = clamp(_du2 * (1 + 0.4 * co2), "4b-c", "2")
+          cp2 = clamp(_dp2 * (1 + 0.5 * co2), "4b-d", "2")
         }
       }
     }
@@ -811,22 +892,22 @@ export default function App() {
 
   function step5(_vd1, _vd2, _cu1, _cu2, _cp1, _cp2) {
     //final calculations
-    let cd1 = 0.4 * _cu1 ** 1.3 + 0.6 * _cp1 ** 1.7
-    let lc1 = cd1 * _vd1
+    let cd1 = clamp(0.4 * _cu1 ** 1.3 + 0.6 * _cp1 ** 1.7, "5a", "1")
+    let lc1 = clamp(cd1 * Math.abs(_vd1), "5b-a", "1")
     let tempr1 = Math.random() * 2 - 1
     if (addRandom) {
       setRandom1(tempr1)
-      lc1 = lc1 * (1 + 0.05 * tempr1)
+      lc1 = clamp(lc1 * (1 + 0.05 * tempr1), "5b-b", "1")
     } else {
       setRandom1(0)
     }
 
-    let cd2 = 0.4 * _cu2 ** 1.3 + 0.6 * _cp2 ** 1.7
-    let lc2 = cd2 * _vd2
+    let cd2 = clamp(0.4 * _cu2 ** 1.3 + 0.6 * _cp2 ** 1.7, "5a", "2")
+    let lc2 = clamp(cd2 * Math.abs(_vd2), "5b-a", "2")
     let tempr2 = Math.random() * 2 - 1
     if (addRandom) {
       setRandom2(tempr2)
-      lc2 = lc2 * (1 + 0.05 * tempr2)
+      lc2 = clamp(lc2 * (1 + 0.05 * tempr2), "5b-b", "2")
     } else {
       setRandom2(0)
     }
@@ -1389,17 +1470,17 @@ export default function App() {
           {addMorals && (
             <div>
               <div>updated inputs</div>
-              <div>{cs1}</div>
-              <div>{cgd1}</div>
-              <div>{cds1}</div>
-              <div>{cc1}</div>
-              <div>{chp1}</div>
-              <div>{cnr1}</div>
-              <div>{cwr1}</div>
-              <div>{cm1}</div>
-              <div>{ci1}</div>
-              <div>{cr1}</div>
-              <div>{cf1}</div>
+              <div>{twoDP(cs1)}</div>
+              <div>{twoDP(cgd1)}</div>
+              <div>{twoDP(cds1)}</div>
+              <div>{twoDP(cc1)}</div>
+              <div>{twoDP(chp1)}</div>
+              <div>{twoDP(cnr1)}</div>
+              <div>{twoDP(cwr1)}</div>
+              <div>{twoDP(cm1)}</div>
+              <div>{twoDP(ci1)}</div>
+              <div>{twoDP(cr1)}</div>
+              <div>{twoDP(cf1)}</div>
             </div>
           )}
 
@@ -1728,17 +1809,17 @@ export default function App() {
           {addMorals && (
             <div>
               <div>updated inputs</div>
-              <div>{cs2}</div>
-              <div>{cgd2}</div>
-              <div>{cds2}</div>
-              <div>{cc2}</div>
-              <div>{chp2}</div>
-              <div>{cnr2}</div>
-              <div>{cwr2}</div>
-              <div>{cm2}</div>
-              <div>{ci2}</div>
-              <div>{cr2}</div>
-              <div>{cf2}</div>
+              <div>{twoDP(cs2)}</div>
+              <div>{twoDP(cgd2)}</div>
+              <div>{twoDP(cds2)}</div>
+              <div>{twoDP(cc2)}</div>
+              <div>{twoDP(chp2)}</div>
+              <div>{twoDP(cnr2)}</div>
+              <div>{twoDP(cwr2)}</div>
+              <div>{twoDP(cm2)}</div>
+              <div>{twoDP(ci2)}</div>
+              <div>{twoDP(cr2)}</div>
+              <div>{twoDP(cf2)}</div>
             </div>
           )}
         </div>
