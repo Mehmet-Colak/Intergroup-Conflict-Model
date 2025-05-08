@@ -382,7 +382,6 @@ export default function App() {
     ci2,
     cr2,
     cf2,
-    n2,
     addRandom,
     addMorals,
   ])
@@ -587,34 +586,55 @@ export default function App() {
     return (Math.round(x * 100) / 100).toFixed(2)
   }
 
-  function step0() {
+  function step0(
+    _s1,
+    _gd1,
+    _ds1,
+    _c1,
+    _p1,
+    _nr1,
+    _wr1,
+    _m1,
+    _i1,
+    _r1,
+    _f1,
+    _s2,
+    _gd2,
+    _ds2,
+    _c2,
+    _p2,
+    _nr2,
+    _wr2,
+    _m2,
+    _i2,
+    _r2,
+    _f2
+  ) {
     //doesn't get called rn
     console.log("hey")
     return [
-      // nn1,
-      // s1,
-      // gd1,
-      // ds1,
-      // c1,
-      // p1,
-      // nr1,
-      // wr1,
-      // m1,
-      // i1,
-      // r1,
-      // f1,
-      // nn2,
-      // s2,
-      // gd2,
-      // ds2,
-      // c2,
-      // p2,
-      // nr2,
-      // wr2,
-      // m2,
-      // i2,
-      // r2,
-      // f2,
+      s1,
+      gd1,
+      ds1,
+      c1,
+      p1,
+      nr1,
+      wr1,
+      m1,
+      i1,
+      r1,
+      f1,
+      s2,
+      gd2,
+      ds2,
+      c2,
+      p2,
+      nr2,
+      wr2,
+      m2,
+      i2,
+      r2,
+      f2,
     ]
   }
 
@@ -701,11 +721,7 @@ export default function App() {
     let nn2 = clamp(_N2 / (_N2 + _N1), "3a", "2")
 
     //don't know how well this NaN clamper works
-    let nd1 = greaterclamp(
-      _nr1 / nn1 + nn2 * 0.5 * _p1 - _nr2 / nn2 - nn2 * 0.5 * _p1,
-      "3b-a",
-      "1"
-    )
+    let nd1 = greaterclamp(_nr1 / nn1 - _nr2 / nn2, "3b-a", "1")
     let ind1 = clamp((1 - _m1) * nd1, "3b-b", "1")
     let wd1 = greaterclamp(_wr1 / nn1 - _wr2 / nn2, "3c-a", "1")
     let iwd1 = clamp(_m1 * wd1, "3c-b", "1")
@@ -812,6 +828,8 @@ export default function App() {
     let cp1
     if (_ii1 === 0) {
       co1 = 0
+      cu1 = _du1
+      cp1 = _dp1
     } else {
       if (_f1 > 0.65) {
         co1 = greaterclamp(
@@ -848,6 +866,8 @@ export default function App() {
     let cp2
     if (_ii2 === 0) {
       co2 = 0
+      cu2 = _du2
+      cp2 = _dp2
     } else {
       if (_f2 > 0.65) {
         co2 = greaterclamp(
@@ -881,10 +901,10 @@ export default function App() {
     return [co1, co2, cu1, cu2, cp1, cp2]
   }
 
-  function step5(_vd1, _vd2, _cu1, _cu2, _cp1, _cp2) {
+  function step5(_vd1, _vd2, _cu1, _cu2, _cp1, _cp2, _s1, _s2) {
     //final calculations
     let cd1 = clamp(0.4 * _cu1 ** 1.3 + 0.6 * _cp1 ** 1.7, "5a", "1")
-    let lc1 = clamp(cd1 * Math.abs(_vd1), "5b-a", "1")
+    let lc1 = clamp(cd1 * ((1 - _s1) * _vd1 ** 2 + _s1), "5b-a", "1")
     let tempr1 = Math.random() * 2 - 1
     if (addRandom) {
       setRandom1(tempr1)
@@ -894,7 +914,7 @@ export default function App() {
     }
 
     let cd2 = clamp(0.4 * _cu2 ** 1.3 + 0.6 * _cp2 ** 1.7, "5a", "2")
-    let lc2 = clamp(cd2 * Math.abs(_vd2), "5b-a", "2")
+    let lc2 = clamp(cd2 * ((1 - _s2) * _vd2 ** 2 + _s2), "5b-a", "2")
     let tempr2 = Math.random() * 2 - 1
     if (addRandom) {
       setRandom2(tempr2)
@@ -912,53 +932,101 @@ export default function App() {
 
     //changed p to chp
     if (addMorals) {
-      setCS1(2 * s1)
-      setCGD1(2 * gd1)
-      setCDS1(2 * ds1)
-      setCC1(2 * c1)
-      setCHP1(2 * p1)
-      setCNR1(2 * nr1)
-      setCWR1(2 * wr1)
-      setCM1(2 * m1)
-      setCI1(2 * i1)
-      setCR1(2 * r1)
-      setCF1(2 * f1)
+      const [
+        ts1,
+        tgd1,
+        tds1,
+        tc1,
+        tp1,
+        tnr1,
+        twr1,
+        tm1,
+        ti1,
+        tr1,
+        tf1,
+        ts2,
+        tgd2,
+        tds2,
+        tc2,
+        tp2,
+        tnr2,
+        twr2,
+        tm2,
+        ti2,
+        tr2,
+        tf2,
+      ] = step0(
+        Number(s1),
+        Number(gd1),
+        Number(ds1),
+        Number(c1),
+        Number(p1),
+        Number(nr1),
+        Number(wr1),
+        Number(m1),
+        Number(i1),
+        Number(r1),
+        Number(f1),
+        Number(s2),
+        Number(gd2),
+        Number(ds2),
+        Number(c2),
+        Number(p2),
+        Number(nr2),
+        Number(wr2),
+        Number(m2),
+        Number(i2),
+        Number(r2),
+        Number(f2)
+      )
 
-      setCS2(2 * s2)
-      setCGD2(2 * gd2)
-      setCDS2(2 * ds2)
-      setCC2(2 * c2)
-      setCHP2(2 * p2)
-      setCNR2(2 * nr2)
-      setCWR2(2 * wr2)
-      setCM2(2 * m2)
-      setCI2(2 * i2)
-      setCR2(2 * r2)
-      setCF2(2 * f2)
+      setCS1(ts1)
+      setCGD1(tgd1)
+      setCDS1(tds1)
+      setCC1(tc1)
+      setCHP1(tp1)
+      setCNR1(tnr1)
+      setCWR1(twr1)
+      setCM1(tm1)
+      setCI1(ti1)
+      setCR1(tr1)
+      setCF1(tf1)
+
+      setCS2(ts2)
+      setCGD2(tgd2)
+      setCDS2(tds2)
+      setCC2(tc2)
+      setCHP2(tp2)
+      setCNR2(tnr2)
+      setCWR2(twr2)
+      setCM2(tm2)
+      setCI2(ti2)
+      setCR2(tr2)
+      setCF2(tf2)
     } else {
-      setCS1(s1)
-      setCGD1(gd1)
-      setCDS1(ds1)
-      setCC1(c1)
-      setCHP1(p1)
-      setCNR1(nr1)
-      setCWR1(wr1)
-      setCM1(m1)
-      setCI1(i1)
-      setCR1(r1)
-      setCF1(f1)
+      setCS1(Number(s1))
+      setCGD1(Number(gd1))
+      setCDS1(Number(ds1))
+      setCC1(Number(c1))
+      setCHP1(Number(p1))
+      setCNR1(Number(nr1))
+      setCWR1(Number(wr1))
+      setCM1(Number(m1))
+      setCI1(Number(i1))
+      setCR1(Number(r1))
+      setCF1(Number(f1))
 
-      setCS2(s2)
-      setCGD2(gd2)
-      setCDS2(ds2)
-      setCC2(c2)
-      setCHP2(p2)
-      setCNR2(nr2)
-      setCWR2(wr2)
-      setCM2(m2)
-      setCI2(i2)
-      setCR2(r2)
-      setCF2(f2)
+      setCS2(Number(s2))
+      setCGD2(Number(gd2))
+      setCDS2(Number(ds2))
+      setCC2(Number(c2))
+      setCHP2(Number(p2))
+      setCNR2(Number(nr2))
+      setCWR2(Number(wr2))
+      setCM2(Number(m2))
+      setCI2(Number(i2))
+      setCR2(Number(r2))
+      setCF2(Number(f2))
     }
 
     //gd, ds, s, and c
@@ -1035,7 +1103,16 @@ export default function App() {
     )
 
     //r, f, and s
-    const [tcd1, tcd2, tlc1, tlc2] = step5(tvd1, tvd2, tcu1, tcu2, tcp1, tcp2)
+    const [tcd1, tcd2, tlc1, tlc2] = step5(
+      tvd1,
+      tvd2,
+      tcu1,
+      tcu2,
+      tcp1,
+      tcp2,
+      cs1,
+      cs2
+    )
 
     setnn1(tnn1)
     setdi1(tdi1)
