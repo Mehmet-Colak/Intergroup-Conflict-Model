@@ -630,7 +630,7 @@ export default function App() {
       solidarity1 = clamp(cohesion1 * (1 - (2 / 7) * (_c1 - 0.3)), "1c", "1")
     }
     if (_N1 > 150) {
-      iu1 = clamp(solidarity1 * (0.98 ^ (_n1 / 150)) + _s1, "1d", "1")
+      iu1 = clamp(solidarity1 * (0.98 ^ (_N1 / 150)) + _s1, "1d", "1")
     } else {
       iu1 = clamp(solidarity1, "1d", "1")
     }
@@ -645,7 +645,7 @@ export default function App() {
       solidarity2 = clamp(cohesion2 * (1 - (2 / 7) * (_c2 - 0.3)), "1c", "2")
     }
     if (_N2 > 150) {
-      iu2 = clamp(solidarity2 * (0.98 ^ (_n2 / 150)) + _s2, "1d", "2")
+      iu2 = clamp(solidarity2 * (0.98 ^ (_N2 / 150)) + _s2, "1d", "2")
     } else {
       iu2 = clamp(solidarity2, "1d", "2")
     }
