@@ -702,35 +702,22 @@ export default function App() {
 
     //don't know how well this NaN clamper works
     let nd1 = greaterclamp(
-      _nr1 / NaNclamper(nn1 + nn2 * _p1, _nr1 / nn1 > _nr2 / nn2, "3b-a", "1") -
-        _nr2 /
-          NaNclamper(nn2 - nn2 * _p1, _nr1 / nn1 > _nr2 / nn2, "3b-a", "1"),
+      _nr1 / nn1 + nn2 * 0.5 * _p1 - _nr2 / nn2 - nn2 * 0.5 * _p1,
       "3b-a",
       "1"
     )
     let ind1 = clamp((1 - _m1) * nd1, "3b-b", "1")
-    let wd1 = greaterclamp(
-      _wr1 / NaNclamper(nn1 + nn2 * _s1, _nr1 / nn1 > _nr2 / nn2, "3c-a", "1") -
-        _wr2 /
-          NaNclamper(nn2 - nn2 * _p1, _nr1 / nn1 > _nr2 / nn2, "3c-a", "1"),
-      "3c-a",
-      "1"
-    )
+    let wd1 = greaterclamp(_wr1 / nn1 - _wr2 / nn2, "3c-a", "1")
     let iwd1 = clamp(_m1 * wd1, "3c-b", "1")
-    let pd1 = greaterclamp(
-      nn1 / NaNclamper(nn1 + nn2 * ((_s1 + _p1) / 2), nn1 > nn2, "3d", "1") -
-        nn2 / NaNclamper(nn2 - nn2 * ((_s1 + _p1) / 2), nn1 > nn2, "3d", "1"),
-      "3d",
-      "1"
-    )
-    let normCoeff1 = clamp(1 / (0.79 - 0.42 * _m1), "3d/e", "1")
+    let pd1 = greaterclamp(nn1 - nn2, "3d", "1")
+    let normCoeff1 = 1 / (0.79 - 0.42 * _m1)
     let rd1 = greaterclamp(
       normCoeff1 * (0.63 * ind1 + 0.21 * iwd1 + 0.16 * pd1),
       "3e-a",
       "1"
     )
     let vd1 = greaterclamp(
-      (3 / 6) * pd1 + (2 / 6) * ind1 + (1 / 6) * iwd1,
+      (3 / 6) * pd1 + (2 / 6) * nd1 + (1 / 6) * wd1,
       "3e-b",
       "1"
     )
@@ -749,36 +736,19 @@ export default function App() {
       }
     }
 
-    let nd2 = greaterclamp(
-      _nr2 / NaNclamper(nn2 + nn1 * _p2, _nr2 / nn2 > _nr1 / nn1, "3b-a", "2") -
-        _nr1 /
-          NaNclamper(nn1 - nn1 * _p2, _nr2 / nn2 > _nr1 / nn1, "3b-a", "2"),
-      "3b-a",
-      "2"
-    )
+    let nd2 = greaterclamp(_nr2 / nn2 - _nr1 / nn1, "3b-a", "2")
     let ind2 = clamp((1 - _m2) * nd2, "3b-b", "2")
-    let wd2 = greaterclamp(
-      _wr2 / NaNclamper(nn2 + nn1 * _s2, _nr2 / nn2 > _nr1 / nn1, "3c-a", "2") -
-        _wr1 /
-          NaNclamper(nn1 - nn1 * _s2, _nr2 / nn2 > _nr1 / nn1, "3c-a", "2"),
-      "3c-a",
-      "2"
-    )
+    let wd2 = greaterclamp(_wr2 / nn2 - _wr1 / nn1, "3c-a", "2")
     let iwd2 = clamp(_m2 * wd2, "3c-b", "2")
-    let pd2 = greaterclamp(
-      nn2 / NaNclamper(nn2 + nn1 * ((_s2 + _p2) / 2), nn2 > nn1, "3d", "2") -
-        nn1 / NaNclamper(nn1 - nn1 * ((_s2 + _p2) / 2), nn2 > nn1, "3d", "2"),
-      "3d",
-      "2"
-    )
-    let normCoeff2 = clamp(1 / (0.79 - 0.42 * _m2), "3d/e", "2")
+    let pd2 = greaterclamp(nn2 - nn1, "3d", "2")
+    let normCoeff2 = 1 / (0.79 - 0.42 * _m2)
     let rd2 = greaterclamp(
       normCoeff2 * (0.63 * ind2 + 0.21 * iwd2 + 0.16 * pd2),
       "3e-a",
       "2"
     )
     let vd2 = greaterclamp(
-      (3 / 6) * pd2 + (2 / 6) * ind2 + (1 / 6) * iwd2,
+      (3 / 6) * pd2 + (2 / 6) * nd2 + (1 / 6) * wd2,
       "3e-b",
       "2"
     )
