@@ -570,18 +570,6 @@ export default function App() {
     return x
   }
 
-  function NaNclamper(x, side, step, group) {
-    if (x == 0) {
-      console.log(`At step ${step} for ${group} corrected to non zero from NaN`)
-      if (side) {
-        return 0.01
-      } else {
-        return -0.01
-      }
-    }
-    return x
-  }
-
   function twoDP(x) {
     return (Math.round(x * 100) / 100).toFixed(2)
   }
@@ -767,12 +755,36 @@ export default function App() {
     let nn1 = clamp(_N1 / (_N1 + _N2), "3a", "1")
     let nn2 = clamp(_N2 / (_N2 + _N1), "3a", "2")
 
+    if (_p1 > 0.7) {
+      _p1 = (10 / 3) * (_p1 - 0.7)
+    } else {
+      _p1 = 0
+    }
+
+    if (_p2 > 0.7) {
+      _p2 = (10 / 3) * (_p2 - 0.7)
+    } else {
+      _p2 = 0
+    }
+
+    if (_s1 > 0.7) {
+      _s1 = (10 / 3) * (_s1 - 0.7)
+    } else {
+      _s1 = 0
+    }
+
+    if (_s2 > 0.7) {
+      _s2 = (10 / 3) * (_s2 - 0.7)
+    } else {
+      _s2 = 0
+    }
+
     //don't know how well this NaN clamper works
-    let nd1 = greaterclamp(_nr1 / nn1 - _nr2 / nn2, "3b-a", "1")
+    let nd1 = greaterclamp(_nr1 / (nn1 + nn2 * _p1) - 1, "3b-a", "1")
     let ind1 = clamp((1 - _m1) * nd1, "3b-b", "1")
-    let wd1 = greaterclamp(_wr1 / nn1 - _wr2 / nn2, "3c-a", "1")
+    let wd1 = greaterclamp(_wr1 / (nn1 + nn2 * _s1) - 1, "3c-a", "1")
     let iwd1 = clamp(_m1 * wd1, "3c-b", "1")
-    let pd1 = greaterclamp(nn1 - nn2, "3d", "1")
+    let pd1 = greaterclamp(2 * (nn1 - 0.5 * (1 + (_s1 + _p1) / 2)), "3d", "1")
     let normCoeff1 = 1 / (0.79 - 0.42 * _m1)
     let rd1 = greaterclamp(
       normCoeff1 * (0.63 * ind1 + 0.21 * iwd1 + 0.16 * pd1),
@@ -799,11 +811,11 @@ export default function App() {
       }
     }
 
-    let nd2 = greaterclamp(_nr2 / nn2 - _nr1 / nn1, "3b-a", "2")
+    let nd2 = greaterclamp(_nr2 / (nn2 + nn1 * _p2) - 1, "3b-a", "2")
     let ind2 = clamp((1 - _m2) * nd2, "3b-b", "2")
-    let wd2 = greaterclamp(_wr2 / nn2 - _wr1 / nn1, "3c-a", "2")
+    let wd2 = greaterclamp(_wr2 / (nn2 + nn1 * _s2) - 1, "3c-a", "2")
     let iwd2 = clamp(_m2 * wd2, "3c-b", "2")
-    let pd2 = greaterclamp(nn2 - nn1, "3d", "2")
+    let pd2 = greaterclamp(2 * (nn2 - 0.5 * (1 + (_s2 + _p2) / 2)), "3d", "2")
     let normCoeff2 = 1 / (0.79 - 0.42 * _m2)
     let rd2 = greaterclamp(
       normCoeff2 * (0.63 * ind2 + 0.21 * iwd2 + 0.16 * pd2),
