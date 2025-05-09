@@ -574,6 +574,58 @@ export default function App() {
     return (Math.round(x * 100) / 100).toFixed(2)
   }
 
+  function omega(x) {
+    return 1
+  }
+
+  function alpha(x) {
+    return 0.3 * x + 1
+  }
+
+  function beta(x) {
+    return -0.3 * x + 1
+  }
+
+  function gamma(x) {
+    if (x === 0) {
+      return 1
+    } else if (x > 0) {
+      return 0.3 * x ** 2 + 1
+    } else {
+      return -0.3 * x ** 2 + 1
+    }
+  }
+
+  function delta(x) {
+    if (x === 0) {
+      return 1
+    } else if (x > 0) {
+      return -0.3 * x ** 2 + 1
+    } else {
+      return 0.3 * x ** 2 + 1
+    }
+  }
+
+  function epsilon(x) {
+    if (x === 0) {
+      return 1
+    } else if (x > 0) {
+      return 0.3 * x ** (1 / 2) + 1
+    } else {
+      return -0.3 * x ** (1 / 2) + 1
+    }
+  }
+
+  function zeta(x) {
+    if (x === 0) {
+      return 1
+    } else if (x > 0) {
+      return -0.3 * x ** (1 / 2) + 1
+    } else {
+      return 0.3 * x ** (1 / 2) + 1
+    }
+  }
+
   function step0(
     _s1,
     _gd1,
@@ -598,30 +650,60 @@ export default function App() {
     _r2,
     _f2
   ) {
-    //doesn't get called rn
-    // console.log("hey")
-    // let cs1,
-    //   cgd1,
-    //   cds1,
-    //   cc1,
-    //   chp1,
-    //   cnr1,
-    //   cwr1,
-    //   cm1,
-    //   ci1,
-    //   cr1,
-    //   cf1,
-    //   cs2,
-    //   cgd2,
-    //   cds2,
-    //   cc2,
-    //   chp2,
-    //   cnr2,
-    //   cwr2,
-    //   cm2,
-    //   ci2,
-    //   cr2,
-    //   cf2
+    const [
+      _c_h1,
+      _c_h2,
+      _l_b1,
+      _l_b2,
+      _a_s1,
+      _a_s2,
+      _p_d1,
+      _p_d2,
+      _e_d1,
+      _e_d2,
+      _p_i1,
+      _p_i2,
+      _l_o1,
+      _l_o2,
+    ] = [
+      Number(c_h1),
+      Number(c_h2),
+      Number(l_b1),
+      Number(l_b2),
+      Number(a_s1),
+      Number(a_s2),
+      Number(p_d1),
+      Number(p_d2),
+      Number(e_d1),
+      Number(e_d2),
+      Number(p_i1),
+      Number(p_i2),
+      Number(l_o1),
+      Number(l_o2),
+    ]
+    let cs1,
+      cgd1,
+      cds1,
+      cc1,
+      chp1,
+      cnr1,
+      cwr1,
+      cm1,
+      ci1,
+      cr1,
+      cf1,
+      cs2,
+      cgd2,
+      cds2,
+      cc2,
+      chp2,
+      cnr2,
+      cwr2,
+      cm2,
+      ci2,
+      cr2,
+      cf2
+
     // table = { c_h: {}, l_b: {}, a_s: {}, p_d: {}, e_d: {}, p_i: {}, l_o: {} }
     // return [
     //   cs1,
