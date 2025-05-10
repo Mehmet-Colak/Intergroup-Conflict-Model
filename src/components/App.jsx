@@ -579,31 +579,31 @@ export default function App() {
   }
 
   function alpha(x) {
-    return 0.3 * x + 1
+    if (x === 0) {
+      return 1
+    } else if (x > 0) {
+      return 0.3 * x ** 2 + 1
+    } else {
+      return -0.3 * x ** 2 + 1
+    }
   }
 
   function beta(x) {
-    return -0.3 * x + 1
+    if (x === 0) {
+      return 1
+    } else if (x > 0) {
+      return -0.3 * x ** 2 + 1
+    } else {
+      return 0.3 * x ** 2 + 1
+    }
   }
 
   function gamma(x) {
-    if (x === 0) {
-      return 1
-    } else if (x > 0) {
-      return 0.3 * x ** 2 + 1
-    } else {
-      return -0.3 * x ** 2 + 1
-    }
+    return 0.3 * x + 1
   }
 
   function delta(x) {
-    if (x === 0) {
-      return 1
-    } else if (x > 0) {
-      return -0.3 * x ** 2 + 1
-    } else {
-      return 0.3 * x ** 2 + 1
-    }
+    return -0.3 * x + 1
   }
 
   function epsilon(x) {
@@ -612,7 +612,7 @@ export default function App() {
     } else if (x > 0) {
       return 0.3 * x ** (1 / 2) + 1
     } else {
-      return -0.3 * x ** (1 / 2) + 1
+      return -0.3 * (-x) ** (1 / 2) + 1
     }
   }
 
@@ -622,7 +622,7 @@ export default function App() {
     } else if (x > 0) {
       return -0.3 * x ** (1 / 2) + 1
     } else {
-      return 0.3 * x ** (1 / 2) + 1
+      return 0.3 * (-x) ** (1 / 2) + 1
     }
   }
 
@@ -681,6 +681,7 @@ export default function App() {
       Number(l_o1),
       Number(l_o2),
     ]
+
     let cs1,
       cgd1,
       cds1,
@@ -704,54 +705,277 @@ export default function App() {
       cr2,
       cf2
 
-    // table = { c_h: {}, l_b: {}, a_s: {}, p_d: {}, e_d: {}, p_i: {}, l_o: {} }
-    // return [
-    //   cs1,
-    //   cgd1,
-    //   cds1,
-    //   cc1,
-    //   chp1,
-    //   cnr1,
-    //   cwr1,
-    //   cm1,
-    //   ci1,
-    //   cr1,
-    //   cf1,
-    //   cs2,
-    //   cgd2,
-    //   cds2,
-    //   cc2,
-    //   chp2,
-    //   cnr2,
-    //   cwr2,
-    //   cm2,
-    //   ci2,
-    //   cr2,
-    //   cf2,
-    // ]
+    cs1 =
+      _s1 *
+      ((omega(_c_h1) +
+        epsilon(_l_b1) +
+        gamma(_a_s1) +
+        alpha(_p_d1) +
+        delta(_e_d1) +
+        zeta(_p_i1) +
+        beta(_l_o1)) /
+        7)
+
+    cs2 =
+      _s2 *
+      ((omega(_c_h2) +
+        epsilon(_l_b2) +
+        gamma(_a_s2) +
+        alpha(_p_d2) +
+        delta(_e_d2) +
+        zeta(_p_i2) +
+        beta(_l_o2)) /
+        7)
+
+    cgd1 =
+      _gd1 *
+      ((omega(_c_h1) +
+        zeta(_l_b1) +
+        beta(_a_s1) +
+        omega(_p_d1) +
+        zeta(_e_d1) +
+        delta(_p_i1) +
+        gamma(_l_o1)) /
+        7)
+
+    cgd2 =
+      _gd2 *
+      ((omega(_c_h2) +
+        zeta(_l_b2) +
+        beta(_a_s2) +
+        omega(_p_d2) +
+        zeta(_e_d2) +
+        delta(_p_i2) +
+        gamma(_l_o2)) /
+        7)
+
+    cds1 =
+      _ds1 *
+      ((omega(_c_h1) +
+        zeta(_l_b1) +
+        delta(_a_s1) +
+        omega(_p_d1) +
+        beta(_e_d1) +
+        delta(_p_i1) +
+        alpha(_l_o1)) /
+        7)
+
+    cds2 =
+      _ds2 *
+      ((omega(_c_h2) +
+        zeta(_l_b2) +
+        delta(_a_s2) +
+        omega(_p_d2) +
+        beta(_e_d2) +
+        delta(_p_i2) +
+        alpha(_l_o2)) /
+        7)
+
+    cc1 =
+      _c1 *
+      ((zeta(_c_h1) +
+        gamma(_l_b1) +
+        epsilon(_a_s1) +
+        alpha(_p_d1) +
+        omega(_e_d1) +
+        omega(_p_i1) +
+        zeta(_l_o1)) /
+        7)
+
+    cc2 =
+      _c2 *
+      ((zeta(_c_h2) +
+        gamma(_l_b2) +
+        epsilon(_a_s2) +
+        alpha(_p_d2) +
+        omega(_e_d2) +
+        omega(_p_i2) +
+        zeta(_l_o2)) /
+        7)
+
+    chp1 =
+      _p1 *
+      ((omega(_c_h1) +
+        gamma(_l_b1) +
+        alpha(_a_s1) +
+        epsilon(_p_d1) +
+        delta(_e_d1) +
+        zeta(_p_i1) +
+        beta(_l_o1)) /
+        7)
+
+    chp2 =
+      _p2 *
+      ((omega(_c_h2) +
+        gamma(_l_b2) +
+        alpha(_a_s2) +
+        epsilon(_p_d2) +
+        delta(_e_d2) +
+        zeta(_p_i2) +
+        beta(_l_o2)) /
+        7)
+
+    ci1 =
+      _i1 *
+      ((gamma(_c_h1) +
+        delta(_l_b1) +
+        beta(_a_s1) +
+        zeta(_p_d1) +
+        omega(_e_d1) +
+        omega(_p_i1) +
+        alpha(_l_o1)) /
+        7)
+
+    ci2 =
+      _i2 *
+      ((gamma(_c_h2) +
+        delta(_l_b2) +
+        beta(_a_s2) +
+        zeta(_p_d2) +
+        omega(_e_d2) +
+        omega(_p_i2) +
+        alpha(_l_o2)) /
+        7)
+
+    cnr1 =
+      _nr1 *
+      ((epsilon(_c_h1) +
+        omega(_l_b1) +
+        omega(_a_s1) +
+        beta(_p_d1) +
+        epsilon(_e_d1) +
+        gamma(_p_i1) +
+        omega(_l_o1)) /
+        7)
+
+    cnr2 =
+      _nr2 *
+      ((epsilon(_c_h2) +
+        omega(_l_b2) +
+        omega(_a_s2) +
+        beta(_p_d2) +
+        epsilon(_e_d2) +
+        gamma(_p_i2) +
+        omega(_l_o2)) /
+        7)
+
+    cwr1 =
+      _wr1 *
+      ((epsilon(_c_h1) +
+        omega(_l_b1) +
+        omega(_a_s1) +
+        delta(_p_d1) +
+        gamma(_e_d1) +
+        epsilon(_p_i1) +
+        omega(_l_o1)) /
+        7)
+
+    cwr2 =
+      _wr2 *
+      ((epsilon(_c_h2) +
+        omega(_l_b2) +
+        omega(_a_s2) +
+        delta(_p_d2) +
+        gamma(_e_d2) +
+        epsilon(_p_i2) +
+        omega(_l_o2)) /
+        7)
+
+    cm1 =
+      _m1 *
+      ((gamma(_c_h1) +
+        omega(_l_b1) +
+        omega(_a_s1) +
+        zeta(_p_d1) +
+        alpha(_e_d1) +
+        gamma(_p_i1) +
+        omega(_l_o1)) /
+        7)
+
+    cm2 =
+      _m2 *
+      ((gamma(_c_h2) +
+        omega(_l_b2) +
+        omega(_a_s2) +
+        zeta(_p_d2) +
+        alpha(_e_d2) +
+        gamma(_p_i2) +
+        omega(_l_o2)) /
+        7)
+
+    cr1 =
+      _r1 *
+      ((beta(_c_h1) +
+        delta(_l_b1) +
+        zeta(_a_s1) +
+        omega(_p_d1) +
+        omega(_e_d1) +
+        omega(_p_i1) +
+        epsilon(_l_o1)) /
+        7)
+
+    cr2 =
+      _r2 *
+      ((beta(_c_h2) +
+        delta(_l_b2) +
+        zeta(_a_s2) +
+        omega(_p_d2) +
+        omega(_e_d2) +
+        omega(_p_i2) +
+        epsilon(_l_o2)) /
+        7)
+
+    cf1 =
+      _f1 *
+      ((alpha(_c_h1) +
+        gamma(_l_b1) +
+        epsilon(_a_s1) +
+        omega(_p_d1) +
+        omega(_e_d1) +
+        omega(_p_i1) +
+        zeta(_l_o1)) /
+        7)
+
+    cf2 =
+      _f2 *
+      ((alpha(_c_h2) +
+        gamma(_l_b2) +
+        epsilon(_a_s2) +
+        omega(_p_d2) +
+        omega(_e_d2) +
+        omega(_p_i2) +
+        zeta(_l_o2)) /
+        7)
+
+    //normalize
+    let tnr1 = cnr1 / (cnr1 + cnr2)
+    let tnr2 = cnr2 / (cnr1 + cnr2)
+    let twr1 = cwr1 / (cwr1 + cwr2)
+    let twr2 = cwr2 / (cwr1 + cwr2)
+
     return [
-      _s1,
-      _gd1,
-      _ds1,
-      _c1,
-      _p1,
-      _nr1,
-      _wr1,
-      _m1,
-      _i1,
-      _r1,
-      _f1,
-      _s2,
-      _gd2,
-      _ds2,
-      _c2,
-      _p2,
-      _nr2,
-      _wr2,
-      _m2,
-      _i2,
-      _r2,
-      _f2,
+      cs1,
+      cgd1,
+      cds1,
+      cc1,
+      chp1,
+      tnr1,
+      twr1,
+      cm1,
+      ci1,
+      cr1,
+      cf1,
+      cs2,
+      cgd2,
+      cds2,
+      cc2,
+      chp2,
+      tnr2,
+      twr2,
+      cm2,
+      ci2,
+      cr2,
+      cf2,
     ]
   }
 
@@ -1121,29 +1345,29 @@ export default function App() {
         Number(f2)
       )
 
-      setCS1(ts1)
-      setCGD1(tgd1)
-      setCDS1(tds1)
-      setCC1(tc1)
-      setCHP1(tp1)
-      setCNR1(tnr1)
-      setCWR1(twr1)
-      setCM1(tm1)
-      setCI1(ti1)
-      setCR1(tr1)
-      setCF1(tf1)
+      setCS1(Number(ts1))
+      setCGD1(Number(tgd1))
+      setCDS1(Number(tds1))
+      setCC1(Number(tc1))
+      setCHP1(Number(tp1))
+      setCNR1(Number(tnr1))
+      setCWR1(Number(twr1))
+      setCM1(Number(tm1))
+      setCI1(Number(ti1))
+      setCR1(Number(tr1))
+      setCF1(Number(tf1))
 
-      setCS2(ts2)
-      setCGD2(tgd2)
-      setCDS2(tds2)
-      setCC2(tc2)
-      setCHP2(tp2)
-      setCNR2(tnr2)
-      setCWR2(twr2)
-      setCM2(tm2)
-      setCI2(ti2)
-      setCR2(tr2)
-      setCF2(tf2)
+      setCS2(Number(ts2))
+      setCGD2(Number(tgd2))
+      setCDS2(Number(tds2))
+      setCC2(Number(tc2))
+      setCHP2(Number(tp2))
+      setCNR2(Number(tnr2))
+      setCWR2(Number(twr2))
+      setCM2(Number(tm2))
+      setCI2(Number(ti2))
+      setCR2(Number(tr2))
+      setCF2(Number(tf2))
     } else {
       setCS1(Number(s1))
       setCGD1(Number(gd1))
