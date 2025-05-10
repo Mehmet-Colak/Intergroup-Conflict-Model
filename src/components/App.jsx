@@ -705,247 +705,313 @@ export default function App() {
       cr2,
       cf2
 
-    cs1 =
+    cs1 = clamp(
       _s1 *
-      ((omega(_c_h1) +
-        epsilon(_l_b1) +
-        gamma(_a_s1) +
-        alpha(_p_d1) +
-        delta(_e_d1) +
-        zeta(_p_i1) +
-        beta(_l_o1)) /
-        7)
+        ((omega(_c_h1) +
+          epsilon(_l_b1) +
+          gamma(_a_s1) +
+          alpha(_p_d1) +
+          delta(_e_d1) +
+          zeta(_p_i1) +
+          beta(_l_o1)) /
+          7),
+      "0-s",
+      "1"
+    )
 
-    cs2 =
+    cs2 = clamp(
       _s2 *
-      ((omega(_c_h2) +
-        epsilon(_l_b2) +
-        gamma(_a_s2) +
-        alpha(_p_d2) +
-        delta(_e_d2) +
-        zeta(_p_i2) +
-        beta(_l_o2)) /
-        7)
+        ((omega(_c_h2) +
+          epsilon(_l_b2) +
+          gamma(_a_s2) +
+          alpha(_p_d2) +
+          delta(_e_d2) +
+          zeta(_p_i2) +
+          beta(_l_o2)) /
+          7),
+      "0-s",
+      "2"
+    )
 
-    cgd1 =
+    cgd1 = clamp(
       _gd1 *
-      ((omega(_c_h1) +
-        zeta(_l_b1) +
-        beta(_a_s1) +
-        omega(_p_d1) +
-        zeta(_e_d1) +
-        delta(_p_i1) +
-        gamma(_l_o1)) /
-        7)
+        ((omega(_c_h1) +
+          zeta(_l_b1) +
+          beta(_a_s1) +
+          omega(_p_d1) +
+          zeta(_e_d1) +
+          delta(_p_i1) +
+          gamma(_l_o1)) /
+          7),
+      "0-gd",
+      "1"
+    )
 
-    cgd2 =
+    cgd2 = clamp(
       _gd2 *
-      ((omega(_c_h2) +
-        zeta(_l_b2) +
-        beta(_a_s2) +
-        omega(_p_d2) +
-        zeta(_e_d2) +
-        delta(_p_i2) +
-        gamma(_l_o2)) /
-        7)
+        ((omega(_c_h2) +
+          zeta(_l_b2) +
+          beta(_a_s2) +
+          omega(_p_d2) +
+          zeta(_e_d2) +
+          delta(_p_i2) +
+          gamma(_l_o2)) /
+          7),
+      "0-gd",
+      "2"
+    )
 
-    cds1 =
+    cds1 = clamp(
       _ds1 *
-      ((omega(_c_h1) +
-        zeta(_l_b1) +
-        delta(_a_s1) +
-        omega(_p_d1) +
-        beta(_e_d1) +
-        delta(_p_i1) +
-        alpha(_l_o1)) /
-        7)
+        ((omega(_c_h1) +
+          zeta(_l_b1) +
+          delta(_a_s1) +
+          omega(_p_d1) +
+          beta(_e_d1) +
+          delta(_p_i1) +
+          alpha(_l_o1)) /
+          7),
+      "0-ds",
+      "1"
+    )
 
-    cds2 =
+    cds2 = clamp(
       _ds2 *
-      ((omega(_c_h2) +
-        zeta(_l_b2) +
-        delta(_a_s2) +
-        omega(_p_d2) +
-        beta(_e_d2) +
-        delta(_p_i2) +
-        alpha(_l_o2)) /
-        7)
+        ((omega(_c_h2) +
+          zeta(_l_b2) +
+          delta(_a_s2) +
+          omega(_p_d2) +
+          beta(_e_d2) +
+          delta(_p_i2) +
+          alpha(_l_o2)) /
+          7),
+      "0-ds",
+      "2"
+    )
 
-    cc1 =
+    cc1 = clamp(
       _c1 *
-      ((zeta(_c_h1) +
-        gamma(_l_b1) +
-        epsilon(_a_s1) +
-        alpha(_p_d1) +
-        omega(_e_d1) +
-        omega(_p_i1) +
-        zeta(_l_o1)) /
-        7)
+        ((zeta(_c_h1) +
+          gamma(_l_b1) +
+          epsilon(_a_s1) +
+          alpha(_p_d1) +
+          omega(_e_d1) +
+          omega(_p_i1) +
+          zeta(_l_o1)) /
+          7),
+      "0-c",
+      "1"
+    )
 
-    cc2 =
+    cc2 = clamp(
       _c2 *
-      ((zeta(_c_h2) +
-        gamma(_l_b2) +
-        epsilon(_a_s2) +
-        alpha(_p_d2) +
-        omega(_e_d2) +
-        omega(_p_i2) +
-        zeta(_l_o2)) /
-        7)
+        ((zeta(_c_h2) +
+          gamma(_l_b2) +
+          epsilon(_a_s2) +
+          alpha(_p_d2) +
+          omega(_e_d2) +
+          omega(_p_i2) +
+          zeta(_l_o2)) /
+          7),
+      "0-c",
+      "2"
+    )
 
-    chp1 =
+    chp1 = clamp(
       _p1 *
-      ((omega(_c_h1) +
-        gamma(_l_b1) +
-        alpha(_a_s1) +
-        epsilon(_p_d1) +
-        delta(_e_d1) +
-        zeta(_p_i1) +
-        beta(_l_o1)) /
-        7)
+        ((omega(_c_h1) +
+          gamma(_l_b1) +
+          alpha(_a_s1) +
+          epsilon(_p_d1) +
+          delta(_e_d1) +
+          zeta(_p_i1) +
+          beta(_l_o1)) /
+          7),
+      "0-p",
+      "1"
+    )
 
-    chp2 =
+    chp2 = clamp(
       _p2 *
-      ((omega(_c_h2) +
-        gamma(_l_b2) +
-        alpha(_a_s2) +
-        epsilon(_p_d2) +
-        delta(_e_d2) +
-        zeta(_p_i2) +
-        beta(_l_o2)) /
-        7)
+        ((omega(_c_h2) +
+          gamma(_l_b2) +
+          alpha(_a_s2) +
+          epsilon(_p_d2) +
+          delta(_e_d2) +
+          zeta(_p_i2) +
+          beta(_l_o2)) /
+          7),
+      "0-p",
+      "2"
+    )
 
-    ci1 =
+    ci1 = clamp(
       _i1 *
-      ((gamma(_c_h1) +
-        delta(_l_b1) +
-        beta(_a_s1) +
-        zeta(_p_d1) +
-        omega(_e_d1) +
-        omega(_p_i1) +
-        alpha(_l_o1)) /
-        7)
+        ((gamma(_c_h1) +
+          delta(_l_b1) +
+          beta(_a_s1) +
+          zeta(_p_d1) +
+          omega(_e_d1) +
+          omega(_p_i1) +
+          alpha(_l_o1)) /
+          7),
+      "0-i",
+      "1"
+    )
 
-    ci2 =
+    ci2 = clamp(
       _i2 *
-      ((gamma(_c_h2) +
-        delta(_l_b2) +
-        beta(_a_s2) +
-        zeta(_p_d2) +
-        omega(_e_d2) +
-        omega(_p_i2) +
-        alpha(_l_o2)) /
-        7)
+        ((gamma(_c_h2) +
+          delta(_l_b2) +
+          beta(_a_s2) +
+          zeta(_p_d2) +
+          omega(_e_d2) +
+          omega(_p_i2) +
+          alpha(_l_o2)) /
+          7),
+      "0-i",
+      "2"
+    )
 
-    cnr1 =
+    cnr1 = clamp(
       _nr1 *
-      ((epsilon(_c_h1) +
-        omega(_l_b1) +
-        omega(_a_s1) +
-        beta(_p_d1) +
-        epsilon(_e_d1) +
-        gamma(_p_i1) +
-        omega(_l_o1)) /
-        7)
+        ((epsilon(_c_h1) +
+          omega(_l_b1) +
+          omega(_a_s1) +
+          beta(_p_d1) +
+          epsilon(_e_d1) +
+          gamma(_p_i1) +
+          omega(_l_o1)) /
+          7),
+      "0-nr",
+      "1"
+    )
 
-    cnr2 =
+    cnr2 = clamp(
       _nr2 *
-      ((epsilon(_c_h2) +
-        omega(_l_b2) +
-        omega(_a_s2) +
-        beta(_p_d2) +
-        epsilon(_e_d2) +
-        gamma(_p_i2) +
-        omega(_l_o2)) /
-        7)
+        ((epsilon(_c_h2) +
+          omega(_l_b2) +
+          omega(_a_s2) +
+          beta(_p_d2) +
+          epsilon(_e_d2) +
+          gamma(_p_i2) +
+          omega(_l_o2)) /
+          7),
+      "0-nr",
+      "2"
+    )
 
-    cwr1 =
+    cwr1 = clamp(
       _wr1 *
-      ((epsilon(_c_h1) +
-        omega(_l_b1) +
-        omega(_a_s1) +
-        delta(_p_d1) +
-        gamma(_e_d1) +
-        epsilon(_p_i1) +
-        omega(_l_o1)) /
-        7)
+        ((epsilon(_c_h1) +
+          omega(_l_b1) +
+          omega(_a_s1) +
+          delta(_p_d1) +
+          gamma(_e_d1) +
+          epsilon(_p_i1) +
+          omega(_l_o1)) /
+          7),
+      "0-wr",
+      "1"
+    )
 
-    cwr2 =
+    cwr2 = clamp(
       _wr2 *
-      ((epsilon(_c_h2) +
-        omega(_l_b2) +
-        omega(_a_s2) +
-        delta(_p_d2) +
-        gamma(_e_d2) +
-        epsilon(_p_i2) +
-        omega(_l_o2)) /
-        7)
+        ((epsilon(_c_h2) +
+          omega(_l_b2) +
+          omega(_a_s2) +
+          delta(_p_d2) +
+          gamma(_e_d2) +
+          epsilon(_p_i2) +
+          omega(_l_o2)) /
+          7),
+      "0-wr",
+      "2"
+    )
 
-    cm1 =
+    cm1 = clamp(
       _m1 *
-      ((gamma(_c_h1) +
-        omega(_l_b1) +
-        omega(_a_s1) +
-        zeta(_p_d1) +
-        alpha(_e_d1) +
-        gamma(_p_i1) +
-        omega(_l_o1)) /
-        7)
+        ((gamma(_c_h1) +
+          omega(_l_b1) +
+          omega(_a_s1) +
+          zeta(_p_d1) +
+          alpha(_e_d1) +
+          gamma(_p_i1) +
+          omega(_l_o1)) /
+          7),
+      "0-m",
+      "1"
+    )
 
-    cm2 =
+    cm2 = clamp(
       _m2 *
-      ((gamma(_c_h2) +
-        omega(_l_b2) +
-        omega(_a_s2) +
-        zeta(_p_d2) +
-        alpha(_e_d2) +
-        gamma(_p_i2) +
-        omega(_l_o2)) /
-        7)
+        ((gamma(_c_h2) +
+          omega(_l_b2) +
+          omega(_a_s2) +
+          zeta(_p_d2) +
+          alpha(_e_d2) +
+          gamma(_p_i2) +
+          omega(_l_o2)) /
+          7),
+      "0-m",
+      "2"
+    )
 
-    cr1 =
+    cr1 = clamp(
       _r1 *
-      ((beta(_c_h1) +
-        delta(_l_b1) +
-        zeta(_a_s1) +
-        omega(_p_d1) +
-        omega(_e_d1) +
-        omega(_p_i1) +
-        epsilon(_l_o1)) /
-        7)
+        ((beta(_c_h1) +
+          delta(_l_b1) +
+          zeta(_a_s1) +
+          omega(_p_d1) +
+          omega(_e_d1) +
+          omega(_p_i1) +
+          epsilon(_l_o1)) /
+          7),
+      "0-r",
+      "1"
+    )
 
-    cr2 =
+    cr2 = clamp(
       _r2 *
-      ((beta(_c_h2) +
-        delta(_l_b2) +
-        zeta(_a_s2) +
-        omega(_p_d2) +
-        omega(_e_d2) +
-        omega(_p_i2) +
-        epsilon(_l_o2)) /
-        7)
+        ((beta(_c_h2) +
+          delta(_l_b2) +
+          zeta(_a_s2) +
+          omega(_p_d2) +
+          omega(_e_d2) +
+          omega(_p_i2) +
+          epsilon(_l_o2)) /
+          7),
+      "0-r",
+      "2"
+    )
 
-    cf1 =
+    cf1 = clamp(
       _f1 *
-      ((alpha(_c_h1) +
-        gamma(_l_b1) +
-        epsilon(_a_s1) +
-        omega(_p_d1) +
-        omega(_e_d1) +
-        omega(_p_i1) +
-        zeta(_l_o1)) /
-        7)
+        ((alpha(_c_h1) +
+          gamma(_l_b1) +
+          epsilon(_a_s1) +
+          omega(_p_d1) +
+          omega(_e_d1) +
+          omega(_p_i1) +
+          zeta(_l_o1)) /
+          7),
+      "0-f",
+      "1"
+    )
 
-    cf2 =
+    cf2 = clamp(
       _f2 *
-      ((alpha(_c_h2) +
-        gamma(_l_b2) +
-        epsilon(_a_s2) +
-        omega(_p_d2) +
-        omega(_e_d2) +
-        omega(_p_i2) +
-        zeta(_l_o2)) /
-        7)
+        ((alpha(_c_h2) +
+          gamma(_l_b2) +
+          epsilon(_a_s2) +
+          omega(_p_d2) +
+          omega(_e_d2) +
+          omega(_p_i2) +
+          zeta(_l_o2)) /
+          7),
+      "0-f",
+      "2"
+    )
 
     //normalize
     let tnr1 = cnr1 / (cnr1 + cnr2)
@@ -1899,21 +1965,20 @@ export default function App() {
               </div>
             </div>
           )}
-          {/* add the modified values */}
           {addMorals && (
             <div>
-              <div>updated inputs</div>
-              <div>{twoDP(cs1)}</div>
-              <div>{twoDP(cgd1)}</div>
-              <div>{twoDP(cds1)}</div>
-              <div>{twoDP(cc1)}</div>
-              <div>{twoDP(chp1)}</div>
-              <div>{twoDP(cnr1)}</div>
-              <div>{twoDP(cwr1)}</div>
-              <div>{twoDP(cm1)}</div>
-              <div>{twoDP(ci1)}</div>
-              <div>{twoDP(cr1)}</div>
-              <div>{twoDP(cf1)}</div>
+              <div>Updated Inputs</div>
+              <div>s1: {twoDP(cs1)}</div>
+              <div>gd1: {twoDP(cgd1)}</div>
+              <div>ds1: {twoDP(cds1)}</div>
+              <div>c1: {twoDP(cc1)}</div>
+              <div>p1: {twoDP(chp1)}</div>
+              <div>nr1: {twoDP(cnr1)}</div>
+              <div>wr1: {twoDP(cwr1)}</div>
+              <div>m1: {twoDP(cm1)}</div>
+              <div>i1: {twoDP(ci1)}</div>
+              <div>r1: {twoDP(cr1)}</div>
+              <div>f1: {twoDP(cf1)}</div>
             </div>
           )}
 
@@ -2238,21 +2303,20 @@ export default function App() {
               </div>
             </div>
           )}
-          {/* add the modified values */}
           {addMorals && (
             <div>
-              <div>updated inputs</div>
-              <div>{twoDP(cs2)}</div>
-              <div>{twoDP(cgd2)}</div>
-              <div>{twoDP(cds2)}</div>
-              <div>{twoDP(cc2)}</div>
-              <div>{twoDP(chp2)}</div>
-              <div>{twoDP(cnr2)}</div>
-              <div>{twoDP(cwr2)}</div>
-              <div>{twoDP(cm2)}</div>
-              <div>{twoDP(ci2)}</div>
-              <div>{twoDP(cr2)}</div>
-              <div>{twoDP(cf2)}</div>
+              <div>Updated Inputs</div>
+              <div>s2: {twoDP(cs2)}</div>
+              <div>gd2: {twoDP(cgd2)}</div>
+              <div>cd2: {twoDP(cds2)}</div>
+              <div>c2: {twoDP(cc2)}</div>
+              <div>p2: {twoDP(chp2)}</div>
+              <div>nr2: {twoDP(cnr2)}</div>
+              <div>wr2: {twoDP(cwr2)}</div>
+              <div>m2: {twoDP(cm2)}</div>
+              <div>i2: {twoDP(ci2)}</div>
+              <div>r2: {twoDP(cr2)}</div>
+              <div>f2: {twoDP(cf2)}</div>
             </div>
           )}
         </div>
