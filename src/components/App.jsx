@@ -414,6 +414,7 @@ export default function App() {
       e_d1: Number(e_d1),
       p_i1: Number(p_i1),
       l_o1: Number(l_o1),
+      random1: Number(random1),
       n2: Number(n2),
       s2: Number(s2),
       gd2: Number(gd2),
@@ -433,6 +434,7 @@ export default function App() {
       e_d2: Number(e_d2),
       p_i2: Number(p_i2),
       l_o2: Number(l_o2),
+      random2: Number(random2),
     }).then((snapshot) => {
       setSnapshot(snapshot)
       setSnapshots([snapshot, ...snapshots])
@@ -473,6 +475,7 @@ export default function App() {
       sete_d1(snapshot.e_d1)
       setp_i1(snapshot.p_i1)
       setl_o1(snapshot.l_o1)
+      setRandom1(snapshot.random1)
       setN2(snapshot.n2)
       setS2(snapshot.s2)
       setGD2(snapshot.gd2)
@@ -492,6 +495,7 @@ export default function App() {
       sete_d2(snapshot.e_d2)
       setp_i2(snapshot.p_i2)
       setl_o2(snapshot.l_o2)
+      setRandom2(snapshot.random2)
     }
   }, [snapshot, snapshots])
 
@@ -1353,7 +1357,6 @@ export default function App() {
     } else {
       setRandom2(0)
     }
-
     return [cd1, cd2, lc1, lc2]
   }
 
