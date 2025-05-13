@@ -52,6 +52,7 @@ export async function createSnapshot({
   p_i2,
   l_o2,
   random2,
+  addRandom,
 }) {
   const data = {
     title,
@@ -95,6 +96,7 @@ export async function createSnapshot({
     p_i2,
     l_o2,
     random2,
+    addRandom,
   }
   console.log(data)
   const docRef = await addDoc(collection(db, "snapshots"), data)

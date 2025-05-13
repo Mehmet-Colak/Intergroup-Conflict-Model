@@ -435,6 +435,7 @@ export default function App() {
       p_i2: Number(p_i2),
       l_o2: Number(l_o2),
       random2: Number(random2),
+      addRandom: Boolean(addRandom),
     }).then((snapshot) => {
       setSnapshot(snapshot)
       setSnapshots([snapshot, ...snapshots])
@@ -496,6 +497,7 @@ export default function App() {
       setp_i2(snapshot.p_i2)
       setl_o2(snapshot.l_o2)
       setRandom2(snapshot.random2)
+      setAddRandom(snapshot.addRandom)
     }
   }, [snapshot, snapshots])
 
