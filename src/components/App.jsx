@@ -1153,9 +1153,9 @@ export default function App() {
 
     //don't know how well this NaN clamper works
     let nd1 = greaterclamp(_nr1 / (nn1 + nn2 * _p1) - 1, "3b-a", "1")
-    let ind1 = clamp((1 - _m1) * nd1, "3b-b", "1")
+    let ind1 = greaterclamp((1 - _m1) * nd1, "3b-b", "1")
     let wd1 = greaterclamp(_wr1 / (nn1 + nn2 * _s1) - 1, "3c-a", "1")
-    let iwd1 = clamp(_m1 * wd1, "3c-b", "1")
+    let iwd1 = greaterclamp(_m1 * wd1, "3c-b", "1")
     let pd1 = greaterclamp(2 * (nn1 - 0.5 * (1 + (_s1 + _p1) / 2)), "3d", "1")
     let normCoeff1 = 1 / (0.79 - 0.42 * _m1)
     let rd1 = greaterclamp(
@@ -1184,9 +1184,9 @@ export default function App() {
     }
 
     let nd2 = greaterclamp(_nr2 / (nn2 + nn1 * _p2) - 1, "3b-a", "2")
-    let ind2 = clamp((1 - _m2) * nd2, "3b-b", "2")
+    let ind2 = greaterclamp((1 - _m2) * nd2, "3b-b", "2")
     let wd2 = greaterclamp(_wr2 / (nn2 + nn1 * _s2) - 1, "3c-a", "2")
-    let iwd2 = clamp(_m2 * wd2, "3c-b", "2")
+    let iwd2 = greaterclamp(_m2 * wd2, "3c-b", "2")
     let pd2 = greaterclamp(2 * (nn2 - 0.5 * (1 + (_s2 + _p2) / 2)), "3d", "2")
     let normCoeff2 = 1 / (0.79 - 0.42 * _m2)
     let rd2 = greaterclamp(
