@@ -963,7 +963,7 @@ export default function App() {
       "2"
     )
 
-    cr1 = clamp(
+    cr1 = greaterclamp(
       _r1 *
         ((beta(_c_h1) +
           delta(_l_b1) +
@@ -977,7 +977,7 @@ export default function App() {
       "1"
     )
 
-    cr2 = clamp(
+    cr2 = greaterclamp(
       _r2 *
         ((beta(_c_h2) +
           delta(_l_b2) +
@@ -1340,6 +1340,7 @@ export default function App() {
 
   function step5(_vd1, _vd2, _cu1, _cu2, _cp1, _cp2, _s1, _s2) {
     //final calculations
+    //there's an error here where you have temper the random variable in and out of random to change between two values
     let cd1 = clamp(0.4 * _cu1 ** 1.3 + 0.6 * _cp1 ** 1.7, "5a", "1")
     let lc1 = clamp(cd1 * ((1 - _s1) * _vd1 ** 2 + _s1), "5b-a", "1")
     let tempr1
