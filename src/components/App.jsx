@@ -1342,24 +1342,30 @@ export default function App() {
     //final calculations
     let cd1 = clamp(0.4 * _cu1 ** 1.3 + 0.6 * _cp1 ** 1.7, "5a", "1")
     let lc1 = clamp(cd1 * ((1 - _s1) * _vd1 ** 2 + _s1), "5b-a", "1")
-    let tempr1 = Math.random() * 2 - 1
+    let tempr1
+    if (random1 === 0) {
+      tempr1 = Math.random() * 2 - 1
+    } else {
+      tempr1 = random1
+    }
     if (addRandom) {
-      if (random1 === 0) {
-        setRandom1(tempr1)
-        lc1 = clamp(lc1 * (1 + 0.05 * tempr1), "5b-b", "1")
-      }
+      setRandom1(tempr1)
+      lc1 = clamp(lc1 * (1 + 0.05 * tempr1), "5b-b", "1")
     } else {
       setRandom1(0)
     }
 
     let cd2 = clamp(0.4 * _cu2 ** 1.3 + 0.6 * _cp2 ** 1.7, "5a", "2")
     let lc2 = clamp(cd2 * ((1 - _s2) * _vd2 ** 2 + _s2), "5b-a", "2")
-    let tempr2 = Math.random() * 2 - 1
+    let tempr2
+    if (random2 === 0) {
+      tempr2 = Math.random() * 2 - 1
+    } else {
+      tempr2 = random2
+    }
     if (addRandom) {
-      if (random2 === 0) {
-        setRandom2(tempr2)
-        lc2 = clamp(lc2 * (1 + 0.05 * tempr2), "5b-b", "2")
-      }
+      setRandom2(tempr2)
+      lc2 = clamp(lc2 * (1 + 0.05 * tempr2), "5b-b", "2")
     } else {
       setRandom2(0)
     }
