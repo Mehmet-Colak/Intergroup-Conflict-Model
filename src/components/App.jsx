@@ -1280,6 +1280,7 @@ export default function App() {
         } else {
           cu1 = clamp(_du1 * (1 + 0.4 * co1), "4b-c", "1")
           cp1 = clamp(_dp1 * (1 + 0.8 * co1), "4b-d", "1")
+          co1 = -co1
         }
       } else {
         co1 = greaterclamp(
@@ -1293,6 +1294,7 @@ export default function App() {
         } else {
           cu1 = clamp(_du1 * (1 + 0.4 * co1), "4b-c", "1")
           cp1 = clamp(_dp1 * (1 + 0.5 * co1), "4b-d", "1")
+          co1 = -co1
         }
       }
     }
@@ -1318,6 +1320,7 @@ export default function App() {
         } else {
           cu2 = clamp(_du2 * (1 + 0.4 * co2), "4b-c", "2")
           cp2 = clamp(_dp2 * (1 + 0.8 * co2), "4b-d", "2")
+          co2 = -co2
         }
       } else {
         co2 = greaterclamp(
@@ -1331,6 +1334,7 @@ export default function App() {
         } else {
           cu2 = clamp(_du2 * (1 + 0.4 * co2), "4b-c", "2")
           cp2 = clamp(_dp2 * (1 + 0.5 * co2), "4b-d", "2")
+          co2 = -co2
         }
       }
     }
